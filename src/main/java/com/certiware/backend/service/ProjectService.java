@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.certiware.backend.mapper.ProjectMapper;
-import com.certiware.backend.model.common.OutsourcingModel;
-import com.certiware.backend.model.common.PartnerCodeModel;
 import com.certiware.backend.model.common.ProjectModel;
+import com.certiware.backend.model.project.SelectCodeModel;
+import com.certiware.backend.model.project.SelectDetailModel;
+import com.certiware.backend.model.project.SelectListModel;
 
 @Service
 public class ProjectService {
@@ -18,16 +19,79 @@ public class ProjectService {
 	@Autowired
 	ProjectMapper projectMapper;
 	
-	public List<PartnerCodeModel> SelectPartnerCode() throws Exception{
-		 return commonService.SelectPartnerCode();
+	/**
+	 * 
+	 * @param selectCodeModel
+	 * @return
+	 * @throws Exception
+	 */
+	public SelectCodeModel selectCode(SelectCodeModel selectCodeModel) throws Exception{
+		
+		selectCodeModel.setDeptCodeModels(commonService.SelectDeptCode());
+		selectCodeModel.setPartnerCodeModels(commonService.SelectPartnerCode());
+		selectCodeModel.setBusinessCodeModels(commonService.SelectBusinessCode());
+		selectCodeModel.setRatingCodeModels(commonService.SelectRatingCode());		
+		
+		return selectCodeModel;
 		  
 	}
 	
-	public ProjectModel insertProject(ProjectModel projectModel) throws Exception{
-		return projectMapper.insertProject(projectModel);
+	/**
+	 * 
+	 * @param selectListModel
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SelectListModel> selectList() throws Exception{
+		
+		return projectMapper.selectList();
 	}
 	
-	public void insertOutsourcing(List<OutsourcingModel> outsourcingModels) throws Exception{
-		projectMapper.insertOutsourcing(outsourcingModels);
+	/**
+	 * 
+	 * @param selectDetailModel
+	 * @param projectId
+	 * @return
+	 * @throws Exception
+	 */
+	public SelectDetailModel selectDetail(SelectDetailModel selectDetailModel, int projectId) throws Exception{
+		
+		selectDetailModel.setProjectModel(projectMapper.selectProjectByProjectId(projectId));
+		
+		selectDetailModel.setOutsourcingModels(projectMapper.selectOutsourcingByProjectId(projectId));
+		
+		return selectDetailModel;
 	}
+	
+	/**
+	 * 
+	 * @param projectModel
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertProject(ProjectModel projectModel) throws Exception{
+		return projectMapper.insertProject(projectModel).getPartnerId();
+	}
+	
+	/**
+	 * 
+	 * @param projectModel
+	 * @throws Exception
+	 */
+	public int updateProject(ProjectModel projectModel) throws Exception{
+		return projectMapper.updateProjectByProjectId(projectModel);
+	}
+	
+	/**
+	 * 
+	 * @param projectId
+	 * @throws Exception
+	 */
+	public int deleteProject(int projectId) throws Exception{
+		return projectMapper.deleteProjectByProjectId(projectId);
+	}
+	
+	
+	
+
 }

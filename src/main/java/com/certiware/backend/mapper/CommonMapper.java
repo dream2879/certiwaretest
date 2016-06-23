@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
 
-import com.certiware.backend.model.common.BusinessCode;
-import com.certiware.backend.model.common.DeptCode;
-import com.certiware.backend.model.common.OutsourcingCode;
+import com.certiware.backend.model.common.BusinessCodeModel;
+import com.certiware.backend.model.common.DeptCodeModel;
+import com.certiware.backend.model.common.OutsourcingCodeModel;
 import com.certiware.backend.model.common.PartnerCodeModel;
-import com.certiware.backend.model.common.RankCode;
-import com.certiware.backend.model.common.RatingCode;
-import com.certiware.backend.model.common.RoleCode;
+import com.certiware.backend.model.common.RankCodeModel;
+import com.certiware.backend.model.common.RatingCodeModel;
+import com.certiware.backend.model.common.RoleCodeModel;
 
 public interface CommonMapper {
 	
@@ -20,7 +20,7 @@ public interface CommonMapper {
 	 * @throws Exception
 	 */
 	@Select("SELECT * FROM TB_BUSINESS_CODE ORDER BY PRIORITY")
-	public List<BusinessCode> SelectBusinessCode() throws Exception;
+	public List<BusinessCodeModel> SelectBusinessCode() throws Exception;
 	
 	/**
 	 * TB_DEPT_CODE 테이블을 조회한다.
@@ -28,7 +28,7 @@ public interface CommonMapper {
 	 * @throws Exception
 	 */
 	@Select("SELECT * FROM TB_DEPT_CODE ORDER BY PRIORITY")
-	public List<DeptCode> SelectDeptCode() throws Exception;
+	public List<DeptCodeModel> SelectDeptCode() throws Exception;
 	
 	/**
 	 * TB_OUTSOURCING_CODE 테이블을 조회한다.
@@ -36,7 +36,7 @@ public interface CommonMapper {
 	 * @throws Exception
 	 */
 	@Select("SELECT * FROM TB_OUTSOURCING_CODE ORDER BY PRIORITY")
-	public List<OutsourcingCode> SelectOutsourcingCode() throws Exception;
+	public List<OutsourcingCodeModel> SelectOutsourcingCode() throws Exception;
 	
 	/**
 	 * TB_PARTNER_CODE 테이블을 조회한다.
@@ -52,7 +52,7 @@ public interface CommonMapper {
 	 * @throws Exception
 	 */
 	@Select("SELECT * FROM TB_RANK_CODE ORDER BY PRIORITY")
-	public List<RankCode> SelectRankCode() throws Exception;
+	public List<RankCodeModel> SelectRankCode() throws Exception;
 	
 	/**
 	 * TB_RATING_CODE 테이블을 조회한다.
@@ -60,7 +60,7 @@ public interface CommonMapper {
 	 * @throws Exception
 	 */
 	@Select("SELECT * FROM TB_RATING_CODE ORDER BY PRIORITY")
-	public List<RatingCode> SelectRatingCode() throws Exception;
+	public List<RatingCodeModel> SelectRatingCode() throws Exception;
 	
 	/**
 	 * TB_ROLE_CODE 테이블을 조회한다.
@@ -68,6 +68,6 @@ public interface CommonMapper {
 	 * @throws Exception
 	 */
 	@Select("SELECT * FROM TB_ROLE_CODE ORDER BY PRIORITY")
-	public List<RoleCode> SelectRoleCode() throws Exception;
+	public List<RoleCodeModel> SelectRoleCode() throws Exception;
 
 }

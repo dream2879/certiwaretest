@@ -27,7 +27,7 @@ public class JwtFilter extends GenericFilterBean {
 		
 		System.out.println(request.getRequestURI());
 		
-		if(request.getRequestURI().equals("/user/login") || request.getRequestURI().equals("/test/excelDownload"))
+		if(request.getRequestURI().equals("/user/login") || request.getRequestURI().equals("/test/excelDownload"))		
 		{
 			System.out.println("if문 진입" + request.getRequestURI());
 			chain.doFilter(req, res);

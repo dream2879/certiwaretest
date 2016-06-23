@@ -2,8 +2,8 @@ package com.certiware.backend.mapper;
 
 import org.apache.ibatis.annotations.Select;
 
-import com.certiware.backend.model.common.User;
-import com.certiware.backend.model.user.UserLoginModel;
+import com.certiware.backend.model.common.UserModel;
+import com.certiware.backend.model.main.LoginModel;
 
 public interface UserMapper {
 	
@@ -18,7 +18,7 @@ public interface UserMapper {
 			+ 	" WHERE USERID = #{param1} "
 			+ 	" AND PASSWORD = #{param2} "
 			)
-	public UserLoginModel login(String userId, String passWord) throws Exception;
+	public LoginModel login(String userId, String passWord) throws Exception;
 	
 
 }
