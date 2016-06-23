@@ -20,8 +20,8 @@ public class CertiwareApplication {
 	public FilterRegistrationBean jwtFilter() {
 		final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
 		registrationBean.setFilter(new JwtFilter());
-		//registrationBean.addUrlPatterns("/rest/*");
-		registrationBean.addUrlPatterns("/*");
+		registrationBean.addUrlPatterns("/rest/*");
+		//registrationBean.addUrlPatterns("/*");
 		
 		return registrationBean;
 	}

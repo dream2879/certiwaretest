@@ -15,59 +15,59 @@ import com.certiware.backend.model.common.RoleCodeModel;
 public interface CommonMapper {
 	
 	/**
-	 * TB_BUSINESS_CODE 테이블을 조회한다.
+	 * TB_BUSINESSCODE 테이블을 조회한다.
 	 * @return com.certiware.backend.model.common.BusinessCode 
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_BUSINESS_CODE ORDER BY PRIORITY")
+	@Select("SELECT * FROM TB_BUSINESSCODE ORDER BY PRIORITY")
 	public List<BusinessCodeModel> SelectBusinessCode() throws Exception;
 	
 	/**
-	 * TB_DEPT_CODE 테이블을 조회한다.
+	 * TB_DEPTCODE 테이블을 조회한다.
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_DEPT_CODE ORDER BY PRIORITY")
+	@Select("SELECT * FROM TB_DEPTCODE ORDER BY PRIORITY")
 	public List<DeptCodeModel> SelectDeptCode() throws Exception;
 	
 	/**
-	 * TB_OUTSOURCING_CODE 테이블을 조회한다.
+	 * TB_OUTSOURCINGCODE 테이블을 조회한다.
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_OUTSOURCING_CODE ORDER BY PRIORITY")
+	@Select("SELECT * FROM TB_OUTSOURCINGCODE ORDER BY PRIORITY")
 	public List<OutsourcingCodeModel> SelectOutsourcingCode() throws Exception;
 	
 	/**
-	 * TB_PARTNER_CODE 테이블을 조회한다.
+	 * TB_PARTNERCODE 테이블을 조회한다.
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_PARTNER_CODE ORDER BY PRIORITY")
+	@Select("SELECT * FROM TB_PARTNERCODE ORDER BY PRIORITY")
 	public List<PartnerCodeModel> SelectPartnerCode() throws Exception;
 	
 	/**
-	 * TB_RANK_CODE 테이블을 조회한다.
+	 * TB_RANKCODE 테이블을 조회한다.
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_RANK_CODE ORDER BY PRIORITY")
+	@Select("SELECT * FROM TB_RANKCODE ORDER BY PRIORITY")
 	public List<RankCodeModel> SelectRankCode() throws Exception;
 	
 	/**
-	 * TB_RATING_CODE 테이블을 조회한다.
+	 * TB_RATINGCODE 테이블을 조회한다.
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_RATING_CODE ORDER BY PRIORITY")
+	@Select("SELECT * FROM TB_RATINGCODE ORDER BY PRIORITY")
 	public List<RatingCodeModel> SelectRatingCode() throws Exception;
 	
 	/**
-	 * TB_ROLE_CODE 테이블을 조회한다.
+	 * TB_ROLECODE 테이블을 조회한다.
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_ROLE_CODE ORDER BY PRIORITY")
+	@Select("SELECT * FROM TB_ROLECODE ORDER BY PRIORITY")
 	public List<RoleCodeModel> SelectRoleCode() throws Exception;
 
 }

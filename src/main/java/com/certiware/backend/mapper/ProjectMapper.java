@@ -63,14 +63,6 @@ public interface ProjectMapper {
 	
 	/**
 	 * 
-	 * @param outsourcingModels
-	 * @throws Exception
-	 */
-	@Insert("INSERT INTO TB_OUTSOURCING VALUES (#{projectId}, #{partnerId}, #{outsourcingCode}, #{outsourcingAmount}, #{rating}, #{product}, #{startDate}, #{endDate})")
-	public int insertOutsourcing(List<OutsourcingModel> outsourcingModels) throws Exception;
-	
-	/**
-	 * 
 	 * @param projectModel
 	 * @return 성공:1,실패:0
 	 * @throws Exception
@@ -91,5 +83,25 @@ public interface ProjectMapper {
 	 */
 	@Delete("DELETE FROM TB_PROJECT WHERE PROJECTID = #{param1}")
 	public int deleteProjectByProjectId(int projectId) throws Exception;
+	
+	
+	/**
+	 * 
+	 * @param outsourcingModels
+	 * @throws Exception
+	 */
+	@Insert(  " INSERT INTO TB_OUTSOURCING VALUES (#{projectId}, #{partnerId}, #{outsourcingCode}, #{outsourcingAmount}, #{rating}, #{product}, #{startDate}, #{endDate}) "
+			+ " ON DUPLICATE KEY UPDATE OUTSOURCINGAMOUNT=#{outsourcingAmount}, RATINGCODE=#{ratingCode},PRODUCT=#{product},STARTDATE=#{startDate},ENDDATE=#{endDate}     "
+			)
+	public int mergeOutsourcing(List<OutsourcingModel> outsourcingModels) throws Exception;
+	
+	/**
+	 * 
+	 * @param outsourcingModels
+	 * @return
+	 * @throws Exception
+	 */
+	@Delete("DELETE FROM TB_OUTSOURCING WHERE PROJECTID =#{projectId} AND PARTNERID = #{partnerId} AND OUTSOURCINGCODE = #{outsourcingCode}")
+	public int deleteOutsourcing(List<OutsourcingModel> outsourcingModels) throws Exception;
 
 }

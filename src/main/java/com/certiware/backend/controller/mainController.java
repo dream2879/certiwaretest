@@ -18,7 +18,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
-@RequestMapping("/common")
+@RequestMapping("/main")
 public class mainController {
 	
 	@Autowired
@@ -40,7 +40,7 @@ public class mainController {
 			password = json.get("password");
 			
 			//userLoginModel = userService.login(userName, password);
-			userLoginModel = userService.login("test11", "1111");
+			userLoginModel = userService.login(userName, password);
 			
 			if (userLoginModel == null) {
 				throw new ServletException ("User name not found.");

@@ -8,7 +8,7 @@ public class OutsourcingModel {
 	private int partner_Id;
 	private String outsourcingCode;
 	private int outsourcing_amount;
-	private String rating;
+	private String ratingCode;
 	private String product;
 	private Date startDate;
 	private String endDate;
@@ -36,11 +36,11 @@ public class OutsourcingModel {
 	public void setOutsourcing_amount(int outsourcing_amount) {
 		this.outsourcing_amount = outsourcing_amount;
 	}
-	public String getRating() {
-		return rating;
+	public String getRatingCode() {
+		return ratingCode;
 	}
-	public void setRating(String rating) {
-		this.rating = rating;
+	public void setRatingCode(String ratingCode) {
+		this.ratingCode = ratingCode;
 	}
 	public String getProduct() {
 		return product;
