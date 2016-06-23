@@ -19,12 +19,16 @@ public interface ProjectMapper {
 	 * @return
 	 * @throws Exception
 	 */	
-	@Select(  " SELECT A.PROJECTID, A.PROJECTNAME, B.PARTNERID, B.PARTNERNAME, A.CONTRACTAMOUNT, A.NETAMOUNT, A.STARTDATE, A.ENDDATE "
+	@Select(  " SELECT A.PROJECTID, A.PROJECTNAME, B.PARTNERID, B.PARTNERNAME, A.CONTRACTAMOUNT, A.OUTSOURCINGAMOUNT, A.NETAMOUNT, A.STARTDATE, A.ENDDATE "
 			+ " FROM TB_PROJECT A, TB_PARTNER B  "
 			+ " WHERE A.PARTNERID = B.PARTNERID "
 			)
 	public List<SelectListModel> selectList() throws Exception;
 	
+	/**
+	 * 
+	 * 
+	 */
 	/**
 	 * 
 	 * @param projectId

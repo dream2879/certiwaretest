@@ -9,10 +9,18 @@ public class SelectListModel {
 	private int partnerId;
 	private String partnerName;
 	private int contractAmount;
+	private int outsourcingAmount;
 	private int netAmountl;
 	private Date startDate;
 	private Date endDate;
 	
+	
+	public int getOutsourcingAmount() {
+		return outsourcingAmount;
+	}
+	public void setOutsourcingAmount(int outsourcingAmount) {
+		this.outsourcingAmount = outsourcingAmount;
+	}	
 	public int getProjectId() {
 		return projectId;
 	}
