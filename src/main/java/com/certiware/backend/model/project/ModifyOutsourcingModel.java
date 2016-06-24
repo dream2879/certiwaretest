@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.certiware.backend.model.common.OutsourcingModel;
 
-public class ModifiyOutsourcingModel {
+public class ModifyOutsourcingModel {
 	
 	private List<OutsourcingModel> mergeOutsourcingModels;
 	private List<OutsourcingModel> deleteOutsourcingModels;

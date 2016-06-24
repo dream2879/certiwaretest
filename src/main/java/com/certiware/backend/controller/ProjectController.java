@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.common.ProjectModel;
+import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectCodeModel;
 import com.certiware.backend.model.project.SelectDetailModel;
 import com.certiware.backend.model.project.SelectListModel;
@@ -186,5 +187,32 @@ public class ProjectController {
 		return result;
 		
 	}//end deleteProject()
+	
+	/**
+	 * 
+	 * @param modifyOutsourcingModel
+	 * @return
+	 * @throws ServletException
+	 */
+	@RequestMapping(value="/modifyOutsourcing")
+	public int modifyOutsourcing(@RequestBody ModifyOutsourcingModel modifyOutsourcingModel) throws ServletException{
+		System.out.println("modifyOutsourcing() start... ");		
+		int result=0;
+		
+		try{
+			
+			result=projectService.modifyOutsourcing(modifyOutsourcingModel);
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("error!! :" + e.toString());
+			throw new ServletException(e.toString());
+		}
+		
+		System.out.println("modifyOutsourcing() end... ");
+		return result;
+		
+	}//end modifyOutsourcing
 	
 }//end class

@@ -4,7 +4,7 @@ public class UserModel {
 	
 	private String userId;
 	private String password;
-	private String pserName;
+	private String userName;
 	private String deptCode;
 	private String rankCode;
 	private String roleCode;
@@ -21,11 +21,11 @@ public class UserModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getPserName() {
-		return pserName;
+	public String getUserName() {
+		return userName;
 	}
-	public void setPserName(String pserName) {
-		this.pserName = pserName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getDeptCode() {
 		return deptCode;

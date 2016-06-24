@@ -9,10 +9,19 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.certiware.backend.model.common.OutsourcingModel;
+import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.project.SelectListModel;
 
 public interface ProjectMapper {
+	
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@Select("SELECT * FROM TB_PARTNER WHERE BUSINESSCODE IN ('1','3')")
+	public List<PartnerModel> selectCustomerPatner() throws Exception;
 	
 	/**
 	 * 

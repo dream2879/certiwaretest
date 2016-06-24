@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.certiware.backend.mapper.ProjectMapper;
 import com.certiware.backend.model.common.ProjectModel;
-import com.certiware.backend.model.project.ModifiyOutsourcingModel;
+import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectCodeModel;
 import com.certiware.backend.model.project.SelectDetailModel;
 import com.certiware.backend.model.project.SelectListModel;
@@ -29,7 +29,7 @@ public class ProjectService {
 	public SelectCodeModel selectCode(SelectCodeModel selectCodeModel) throws Exception{
 		
 		selectCodeModel.setDeptCodeModels(commonService.SelectDeptCode());
-		selectCodeModel.setPartnerCodeModels(commonService.SelectPartnerCode());
+		selectCodeModel.setPartnerModels(projectMapper.selectCustomerPatner());
 		selectCodeModel.setBusinessCodeModels(commonService.SelectBusinessCode());
 		selectCodeModel.setRatingCodeModels(commonService.SelectRatingCode());		
 		
@@ -92,8 +92,17 @@ public class ProjectService {
 		return projectMapper.deleteProjectByProjectId(projectId);
 	}
 	
-	public int modifiyOutsourcing(ModifiyOutsourcingModel modifiyOutsourcingModel) throws Exception{
+	/**
+	 * 
+	 * @param modifyOutsourcingModel
+	 * @return
+	 * @throws Exception
+	 */
+	public int modifyOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception{
 		int result=0;
+		
+		result=+projectMapper.mergeOutsourcing(modifyOutsourcingModel.getMergeOutsourcingModels());
+		result=+projectMapper.deleteOutsourcing(modifyOutsourcingModel.getDeleteOutsourcingModels());
 		
 		return result;
 	}

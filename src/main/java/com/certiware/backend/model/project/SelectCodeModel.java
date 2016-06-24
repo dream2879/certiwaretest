@@ -5,22 +5,22 @@ import java.util.List;
 import com.certiware.backend.model.common.BusinessCodeModel;
 import com.certiware.backend.model.common.DeptCodeModel;
 import com.certiware.backend.model.common.PartnerCodeModel;
+import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.RatingCodeModel;
 
 public class SelectCodeModel {
 	
 	private List<DeptCodeModel> deptCodeModels; 
-	private List<PartnerCodeModel> partnerCodeModels;
+	private List<PartnerModel> partnerModels;
 	private List<BusinessCodeModel> businessCodeModels;
 	private List<RatingCodeModel> ratingCodeModels;
 	
-
-	public List<PartnerCodeModel> getPartnerCodeModels() {
-		return partnerCodeModels;
+	public List<PartnerModel> getPartnerModels() {
+		return partnerModels;
 	}
 
-	public void setPartnerCodeModels(List<PartnerCodeModel> partnerCodeModels) {
-		this.partnerCodeModels = partnerCodeModels;
+	public void setPartnerModels(List<PartnerModel> partnerModels) {
+		this.partnerModels = partnerModels;
 	}
 
 	public List<DeptCodeModel> getDeptCodeModels() {
