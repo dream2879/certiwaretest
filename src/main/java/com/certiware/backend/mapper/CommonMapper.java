@@ -11,6 +11,7 @@ import com.certiware.backend.model.common.PartnerCodeModel;
 import com.certiware.backend.model.common.RankCodeModel;
 import com.certiware.backend.model.common.RatingCodeModel;
 import com.certiware.backend.model.common.RoleCodeModel;
+import com.certiware.backend.model.common.UserModel;
 
 public interface CommonMapper {
 	
@@ -19,7 +20,9 @@ public interface CommonMapper {
 	 * @return com.certiware.backend.model.common.BusinessCode 
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_BUSINESSCODE ORDER BY PRIORITY")
+	@Select(  "SELECT * "
+			+ "FROM TB_BUSINESSCODE "
+			+ "ORDER BY PRIORITY")
 	public List<BusinessCodeModel> SelectBusinessCode() throws Exception;
 	
 	/**
@@ -27,7 +30,9 @@ public interface CommonMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_DEPTCODE ORDER BY PRIORITY")
+	@Select(  "SELECT * "
+			+ "FROM TB_DEPTCODE "
+			+ "ORDER BY PRIORITY")
 	public List<DeptCodeModel> SelectDeptCode() throws Exception;
 	
 	/**
@@ -35,7 +40,9 @@ public interface CommonMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_OUTSOURCINGCODE ORDER BY PRIORITY")
+	@Select(  "SELECT * "
+			+ "FROM TB_OUTSOURCINGCODE "
+			+ "ORDER BY PRIORITY")
 	public List<OutsourcingCodeModel> SelectOutsourcingCode() throws Exception;
 	
 	/**
@@ -43,7 +50,9 @@ public interface CommonMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_PARTNERCODE ORDER BY PRIORITY")
+	@Select(  "SELECT * "
+			+ "FROM TB_PARTNERCODE "
+			+ "ORDER BY PRIORITY")
 	public List<PartnerCodeModel> SelectPartnerCode() throws Exception;
 	
 	/**
@@ -51,7 +60,9 @@ public interface CommonMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_RANKCODE ORDER BY PRIORITY")
+	@Select(  "SELECT * "
+			+ "FROM TB_RANKCODE "
+			+ "ORDER BY PRIORITY")
 	public List<RankCodeModel> SelectRankCode() throws Exception;
 	
 	/**
@@ -59,7 +70,9 @@ public interface CommonMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_RATINGCODE ORDER BY PRIORITY")
+	@Select(  "SELECT * "
+			+ "FROM TB_RATINGCODE "
+			+ "ORDER BY PRIORITY")
 	public List<RatingCodeModel> SelectRatingCode() throws Exception;
 	
 	/**
@@ -67,7 +80,9 @@ public interface CommonMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_ROLECODE ORDER BY PRIORITY")
-	public List<RoleCodeModel> SelectRoleCode() throws Exception;
+	@Select(  "SELECT * "
+			+ "FROM TB_ROLECODE "
+			+ "ORDER BY PRIORITY")
+	public List<RoleCodeModel> SelectRoleCode() throws Exception;	
 
 }

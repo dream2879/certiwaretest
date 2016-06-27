@@ -11,49 +11,53 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.certiware.backend.model.common.UserModel;
 import com.certiware.backend.model.main.LoginModel;
-import com.certiware.backend.service.UserService;
+import com.certiware.backend.model.main.SelectLoginModel;
+import com.certiware.backend.service.MainService;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
 @RequestMapping("/main")
-public class mainController {
+public class MainController {
 	
 	@Autowired
-	private UserService userService;
+	private MainService mainService;
 	
+	/**
+	 * 로그인한다. 로그인이 성공하면 JWT Token을 생성한 후 Front-end로 전달한다. 
+	 * @param json
+	 * @return 
+	 * @throws ServletException
+	 */
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public LoginModel UserLogin(@RequestBody Map<String, String> json) throws ServletException {
-		LoginModel userLoginModel = new LoginModel();
-		String userName = null;
-		String password;
+	public String login(@RequestBody Map<String, String> json) throws ServletException {
+		UserModel userModel = new UserModel();
+		String userId = null;
+		String password = null;
 		try{
-			System.out.println("UserLoginModel() 호출!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-			/*
+			System.out.println("login() start...");
+			
 			if (json.get("username")==null || json.get("password") == null) {
 				throw new ServletException ("Please fill in username and password");
 			}
-			*/
-			userName =json.get("username");
-			password = json.get("password");
 			
-			//userLoginModel = userService.login(userName, password);
-			userLoginModel = userService.login(userName, password);
+			userId =json.get("userId");
+			password = json.get("password");		
+
+			userModel = mainService.login(userId);
 			
-			if (userLoginModel == null) {
+			if (userModel == null) {
 				throw new ServletException ("User name not found.");
 			}
-			/*
-			String pwd = userLoginModel.getPassword();
+			
+			String pwd = userModel.getPassword();
 			
 			if (!password.equals(pwd)) {
 				throw new ServletException("Invalid login. Please check your name and password.");
 			}
-			*/
-			
-			userLoginModel.setToken(Jwts.builder().setSubject(userName).claim("roles", "user").setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact());
 			
 		}catch(Exception e)
 		{
@@ -61,7 +65,37 @@ public class mainController {
 			throw new ServletException(e.toString());
 		}
 		
-		return userLoginModel;		
-	}
+		System.out.println("login() end...");		
+		return Jwts.builder().setSubject(userId).claim("roles", "user").setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact();		
+	}// end login
+	
+	/**
+	 * 로그인 완료 후 필요한 데이터를 조회한다.
+	 * 코등성데이터, 유저정보 등
+	 * @param userId
+	 * @return
+	 * @throws ServletException
+	 */
+	public SelectLoginModel selectLogin(@RequestBody String userId) throws ServletException{
+		
+		System.out.println("selectLogin() start...");
+		
+		SelectLoginModel selectLoginModel = new SelectLoginModel();
+		
+		try{
+			
+			selectLoginModel = mainService.selectLogin(selectLoginModel, userId);
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("error!!! :" + e.toString());
+			throw new ServletException(e.toString());
+		}
+	
+		System.out.println("selectLogin() end...");		
+		return selectLoginModel;
+		
+	}// end selectLogin
 
 }
