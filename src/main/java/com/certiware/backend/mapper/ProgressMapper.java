@@ -8,53 +8,50 @@ import org.apache.ibatis.annotations.Select;
 
 import com.certiware.backend.model.common.ManpowerMmModel;
 import com.certiware.backend.model.common.ManpowerModel;
-import com.certiware.backend.model.progress.ManpowerNameListModel;
-import com.certiware.backend.model.progress.ProjectListModel;
 import com.certiware.backend.model.progress.ProjectPartnerModel;
 
 public interface ProgressMapper {
+
 	
 	/**
-	 * 
-	 * @param deptCode
-	 * @return
-	 * @throws Exception
-	 */
-	@Select("SELECT PROJECTID, PROJECTNAME FROM TB_PROJECT WHERE DEPTCODE = #{param1}")
-	public List<ProjectListModel> selectProjectList(String deptCode) throws Exception;
-	
-	/**
-	 * 
-	 * @param projectId
+	 * TB_OUTSOURCING 테이블조회
+	 * 특정 프로젝트에 포함된 PARTNER 리스트를 조회한다.ㅣ
+	 * @param projectId:프로젝트아이디
 	 * @return
 	 * @throws Exception
 	 */
 	@Select(  " SELECT B.PARTNERID, CASE WHEN B.PARTNERCODE = '3' THEN '자사' ELSE PARTNERNAME END AS PARTNERNAME "
 			+ " FROM TB_OUTSOURCING A, TB_PARTNER B                                                               "
-			+ " WHERE A.PROJECTID = #{param1} AND A.PARTNERID = B.PARTNERID AND B.PARTNERCODE <= 3  	          "
-			+ " ORDER BY B.PARTNERID                                                                              "
+			+ " WHERE A.PROJECTID = #{param1} "
+			+ " AND A.PARTNERID = B.PARTNERID "
+			+ " AND B.PARTNERCODE <= 3  	          "
+			+ " ORDER BY B.PARTNERID "
 			)
-	public List<ProjectPartnerModel> selectProjectPartner(int projectId) throws Exception;
-	
+	public List<ProjectPartnerModel> selectOutsourcingByProjectId(int projectId) throws Exception;
+	/*
 	/**
-	 * 
+	 * TB_MANPOWER 테이블조회
+	 * 특정 프로젝트에 포함된 투입인력 목록을 조회한다.
 	 * @param projectId
 	 * @return
 	 * @throws Exception
-	 */
+	 
 	@Select(  " SELECT PROJECTID, MANPOWERNAME "
-			+ " FROM TB_PROJECTMANPOWER        "
+			+ " FROM TB_MANPOWER        "
 			+ " WHERE PROJECTID = #{param1}    "
 			+ " ORDER BY MANPOWERNAME          ")
 	public List<ManpowerNameListModel> selectManpowerNameList(int projectId)throws Exception;
+	*/
 	
 	/**
-	 * 
+	 * TB_MANPOWER 테이블조회
 	 * @param projectId
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_PROJECTMANPOWER WHERE PROJECTID = #{param1}")
+	@Select(  "SELECT * "
+			+ "FROM TB_MANPOWER "
+			+ "WHERE PROJECTID = #{param1}")
 	public List<ManpowerModel> selectManpowerList(int projectId) throws Exception;
 	
 	
@@ -64,7 +61,7 @@ public interface ProgressMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Insert(  " INSERT INTO TB_PROJECTMANPOWER VALUES (#{projectId}, #{manpowerName}, #{partnerId}, #{RatingCode}, #{sellingAmount}, #{outsourcingAmount}, #{startDate}, #{endDate}, #{remarks})                                              "   
+	@Insert(  " INSERT INTO TB_MANPOWER VALUES (#{projectId}, #{manpowerName}, #{partnerId}, #{RatingCode}, #{sellingAmount}, #{outsourcingAmount}, #{startDate}, #{endDate}, #{remarks})                                              "   
 			+ " ON DUPLICATE KEY UPDATE PARTNERID =#{partnerId},RATINGCODE=#{RatingCode},SELLINGAMOUNT=#{sellingAmount},OUTSOURCINGAMOUNT=#{outsourcingAmount},STARTDATE=#{startDate},ENDDATE=#{endDate},REMARKS=#{remarks} "
 			)
 	public void mergeManpower(List<ManpowerModel> manpowerModels) throws Exception;
@@ -76,7 +73,7 @@ public interface ProgressMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Delete("DELETE FROM TB_PROJECTMANPOWER WHERE PROJECTID = #{projectId} AND MANPOWERNAME = #{manpowerName} ")
+	@Delete("DELETE FROM TB_MANPOWER WHERE PROJECTID = #{projectId} AND MANPOWERNAME = #{manpowerName} ")
 	public int deleteManpower(List<ManpowerModel> manpowerModels) throws Exception;
 
 	

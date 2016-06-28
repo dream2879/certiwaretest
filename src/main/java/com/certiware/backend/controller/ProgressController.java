@@ -14,7 +14,6 @@ import com.certiware.backend.model.common.ManpowerMmModel;
 import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.progress.ModifyManpowerMmModel;
 import com.certiware.backend.model.progress.ModifyManpowerModel;
-import com.certiware.backend.model.progress.SelectCodeModel;
 import com.certiware.backend.service.ProgressService;
 
 @RestController
@@ -23,26 +22,6 @@ public class ProgressController {
 	
 	@Autowired
 	ProgressService progressService;
-	
-	@RequestMapping("/selectCodeModel")
-	public SelectCodeModel selectCodeModel(@RequestBody Map<String, String> json) throws ServletException{
-		System.out.println("selectCodeModel() start...");
-		SelectCodeModel selectCodeModel = new SelectCodeModel();
-				
-		try{
-			
-			selectCodeModel = progressService.selectCodeModel(selectCodeModel, Integer.parseInt(json.get("projectId")), json.get("deptCode"));			
-			
-		}catch(Exception e)
-		{
-			System.out.println("error : " + e.toString());
-			throw new ServletException(e.toString());
-		}
-		
-		System.out.println("selectCodeModel() end...");
-		
-		return selectCodeModel;
-	}
 	
 	/**
 	 * 

@@ -5,15 +5,15 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.certiware.backend.model.admin.AdminCodeModel;
 import com.certiware.backend.model.admin.ModifyDeptCodeModel;
+import com.certiware.backend.model.admin.SelectUserListModel;
 import com.certiware.backend.model.common.DeptCodeModel;
 import com.certiware.backend.model.common.UserModel;
-import com.certiware.backend.model.project.SelectListModel;
 import com.certiware.backend.service.AdminService;
 
 @RestController
@@ -22,47 +22,23 @@ public class AdminController {
 	
 	@Autowired
 	AdminService adminService;
-	
-	/**
-	 * 
-	 * @return
-	 * @throws ServletException
-	 */
-	@RequestMapping("/selectCode")
-	public AdminCodeModel selectCode() throws ServletException{
-		System.out.println("selectCode() start...");
-		
-		AdminCodeModel adminCodeModel = new AdminCodeModel();
-		
-		try{
+	//@Autowired
+	//BCryptPasswordEncoder bCryptPasswordEncoder;
 			
-			adminCodeModel = adminService.selectCode(adminCodeModel);
-			
-		}catch(Exception e)
-		{
-			System.out.println("error : " + e.toString());
-			throw new ServletException(e.toString());
-		}
-		
-		System.out.println("selectCode() end...");
-		
-		return adminCodeModel;
-	}//end selectCode
-	
 	/**
 	 * 
 	 * @return
 	 * @throws ServletException
 	 */
 	@RequestMapping("/selectUserList")
-	public List<UserModel> selectUserList() throws ServletException{
+	public List<SelectUserListModel> selectUserList(@RequestBody UserModel userModel) throws ServletException{
 		System.out.println("selectUserList() start...");
 		
-		List<UserModel> userModels = null;
+		List<SelectUserListModel> selectUserListModels = null;
 		
-		try{
+		try{			
 			
-			userModels = adminService.selectUserList();			
+			selectUserListModels = adminService.selectUserList(userModel);			
 			
 			
 		}catch(Exception e)
@@ -73,7 +49,7 @@ public class AdminController {
 		
 		System.out.println("selectUserList() end...");
 		
-		return userModels;
+		return selectUserListModels;
 	}// end selectUserList
 	
 	/**
@@ -83,14 +59,14 @@ public class AdminController {
 	 * @throws ServletException
 	 */
 	@RequestMapping("/selectUserDetail")
-	public UserModel selectUserDetail(@RequestBody String userId) throws ServletException{
+	public UserModel selectUserDetail(@RequestBody UserModel userModel) throws ServletException{
 		System.out.println("selectUserDetail() start...");
 		
-		UserModel userModel = new UserModel();
+		//UserModel userModelre = new UserModel();
 		
 		try{
 			
-			userModel = adminService.selectUserDetail(userId);			
+			userModel = adminService.selectUserDetail(userModel);			
 			
 			
 		}catch(Exception e)
@@ -113,9 +89,10 @@ public class AdminController {
 	 */
 	@RequestMapping("/insertUser")
 	public String insertUser(@RequestBody UserModel userModel) throws ServletException{
-		System.out.println("insertUser() start...");
-				
+		System.out.println("insertUser() start...");		
 		try{
+			// 넘어온 Password를 BCrypt알고리즘을 이용하여 변환한다.
+			//userModel.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
 			
 			adminService.insertUser(userModel);
 			

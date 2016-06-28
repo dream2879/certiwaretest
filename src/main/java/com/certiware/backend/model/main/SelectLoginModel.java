@@ -6,14 +6,10 @@ import com.certiware.backend.model.common.BusinessCodeModel;
 import com.certiware.backend.model.common.DeptCodeModel;
 import com.certiware.backend.model.common.OutsourcingCodeModel;
 import com.certiware.backend.model.common.PartnerCodeModel;
-import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.RankCodeModel;
 import com.certiware.backend.model.common.RatingCodeModel;
 import com.certiware.backend.model.common.RoleCodeModel;
 import com.certiware.backend.model.common.UserModel;
-import com.certiware.backend.model.progress.ManpowerNameListModel;
-import com.certiware.backend.model.progress.ProjectListModel;
-import com.certiware.backend.model.progress.ProjectPartnerModel;
 
 /**
  * Front-end에서 사용하는 모든 코드 데이터를 정리한다.
@@ -31,9 +27,9 @@ public class SelectLoginModel {
 	private List<OutsourcingCodeModel> outsourcingCodeModels;
 	private UserModel userModel;
 	private List<SelectMenuModel> selectMenuModels;
-	//private List<ProjectListModel> projectListModels;		
-	//private List<ProjectPartnerModel> projectPartnerModels;
-	//private List<ManpowerNameListModel> manpowerNameListModels;	 
+	//private List<ProjectListModel> projectListModels; 완료
+	//private List<ProjectPartnerModel> projectPartnerModels; 완료
+	//private List<ManpowerNameListModel> manpowerNameListModels; 완료(삭제)	 
 	//private List<PartnerModel> partnerModels;
 	public List<DeptCodeModel> getDeptCodeModels() {
 		return deptCodeModels;

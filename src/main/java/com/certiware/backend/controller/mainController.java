@@ -6,13 +6,13 @@ import java.util.Map;
 import javax.servlet.ServletException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.common.UserModel;
-import com.certiware.backend.model.main.LoginModel;
 import com.certiware.backend.model.main.SelectLoginModel;
 import com.certiware.backend.service.MainService;
 
@@ -25,6 +25,8 @@ public class MainController {
 	
 	@Autowired
 	private MainService mainService;
+	//@Autowired
+	//private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	/**
 	 * 로그인한다. 로그인이 성공하면 JWT Token을 생성한 후 Front-end로 전달한다. 
@@ -47,7 +49,7 @@ public class MainController {
 			userId =json.get("userId");
 			password = json.get("password");		
 
-			userModel = mainService.login(userId);
+			userModel = mainService.selectUserByPK(userId);
 			
 			if (userModel == null) {
 				throw new ServletException ("User name not found.");
@@ -56,6 +58,7 @@ public class MainController {
 			String pwd = userModel.getPassword();
 			
 			if (!password.equals(pwd)) {
+			//if (!bCryptPasswordEncoder.matches(password, pwd)) {
 				throw new ServletException("Invalid login. Please check your name and password.");
 			}
 			
@@ -70,8 +73,8 @@ public class MainController {
 	}// end login
 	
 	/**
-	 * 로그인 완료 후 필요한 데이터를 조회한다.
-	 * 코등성데이터, 유저정보 등
+	 * LOGIN 후 필요한 데이터 조회
+	 * 코드성 테이블, USER정보, 메뉴리스트 등
 	 * @param userId
 	 * @return
 	 * @throws ServletException

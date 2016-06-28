@@ -11,7 +11,6 @@ import com.certiware.backend.model.common.PartnerCodeModel;
 import com.certiware.backend.model.common.RankCodeModel;
 import com.certiware.backend.model.common.RatingCodeModel;
 import com.certiware.backend.model.common.RoleCodeModel;
-import com.certiware.backend.model.common.UserModel;
 
 public interface CommonMapper {
 	

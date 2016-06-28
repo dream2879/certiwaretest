@@ -33,7 +33,9 @@ public interface PartnerMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_PARTNER WHERE PARTNERID = #{param1}")
+	@Select(  "SELECT * "
+			+ "FROM TB_PARTNER "
+			+ "WHERE PARTNERID = #{param1}")
 	public SelectDetailModel selectPartnerByPartnerId(int partnerId) throws Exception;
 	
 	/**
@@ -43,7 +45,10 @@ public interface PartnerMapper {
 	 * @throws Exception
 	 */
 	@Insert(  "INSERT INTO TB_PARTNER (PARTNERNAME, PARTNERCODE, BUSINESSNUMBER, BUSINESSCODE)" 
-			+ "VALUES (#{partnerName}, #{partnerCode},  #{businessNumber}, #{businessCode}"
+			+ "VALUES (#{partnerName}, "
+			+ "#{partnerCode},  "
+			+ "#{businessNumber}, "
+			+ "#{businessCode}"
 			)
 	@Options(useGeneratedKeys = true, keyProperty="partnerId")
 	public PartnerModel insertPartner(PartnerModel partnerModel) throws Exception;
@@ -56,7 +61,10 @@ public interface PartnerMapper {
 	 * @throws Exception
 	 */
 	@Update(  " UPDATE TB_PARTNER "
-			+ " SET PARTNERNAME=#{partnerName}, PARTNERCODE=#{partnerCode}, BUSINESSNUMBER=#{businessNumber}, BUSINESSCODE=#{businessCode} "
+			+ " SET PARTNERNAME=#{partnerName}, "
+			+ " PARTNERCODE=#{partnerCode},"
+			+ " BUSINESSNUMBER=#{businessNumber},"
+			+ " BUSINESSCODE=#{businessCode} "
 			+ " WHERE PARTNERID = #{partnerId} ")
 	public int updatePartnerByPartnerId(PartnerModel partnerModel) throws Exception;
 	
@@ -66,7 +74,9 @@ public interface PartnerMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Delete("DELETE FROM TB_PARTNER WHERE PARTNERID = #{param1}")
+	@Delete(  " DELETE "
+			+ " FROM TB_PARTNER "
+			+ " WHERE PARTNERID = #{param1}")
 	public int deletePartnerByPartnerId(int partnerId) throws Exception;
 	
 	

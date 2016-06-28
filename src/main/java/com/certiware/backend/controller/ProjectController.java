@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
-import com.certiware.backend.model.project.SelectCodeModel;
 import com.certiware.backend.model.project.SelectDetailModel;
 import com.certiware.backend.model.project.SelectListModel;
+import com.certiware.backend.model.project.SelectProjectListModel;
 import com.certiware.backend.service.ProjectService;
 
 @RestController
@@ -25,30 +26,7 @@ public class ProjectController {
 	ProjectService projectService;
 	
 	/**
-	 * 
-	 * @return
-	 * @throws ServletException
-	 */
-	@RequestMapping(value="/selectCode")
-	public SelectCodeModel selectCode() throws ServletException{
-		
-		SelectCodeModel selectCodeModel = new SelectCodeModel();	
-		
-		try{
-			
-			selectCodeModel = projectService.selectCode(selectCodeModel);
-			
-		}catch(Exception e)
-		{
-			System.out.println("error!! :" + e.toString());
-			throw new ServletException(e.toString());
-		}
-		
-		return selectCodeModel;
-	}//end selectCode()
-	
-	/**
-	 * 
+	 * 프로젝트 리스트를 조회한다
 	 * @return
 	 * @throws ServletException
 	 */
@@ -75,7 +53,12 @@ public class ProjectController {
 		
 	}//end selectList()
 	
-	
+	/**
+	 * 
+	 * @param projectId
+	 * @return
+	 * @throws ServletException
+	 */
 	@RequestMapping(value="/selectDetail", method=RequestMethod.POST)
 	public SelectDetailModel selectDetail(@RequestBody int projectId) throws ServletException{
 		
@@ -214,5 +197,58 @@ public class ProjectController {
 		return result;
 		
 	}//end modifyOutsourcing
+	
+	/**
+	 * 본부에 속해있는 프로젝트 목록을 가져온다.
+	 * @param deptCode:본부코드
+	 * @return
+	 * @throws ServletException
+	 */
+	@RequestMapping("/selectProjectList")
+	public List<SelectProjectListModel> selectProjectList(@RequestBody String deptCode) throws ServletException{
+		System.out.println("selectProjectList() start... ");
+		List<SelectProjectListModel> selectProjectListModels = null; 
+		
+		try{
+			
+			selectProjectListModels=projectService.selectProjectList(deptCode);
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("error!! :" + e.toString());
+			throw new ServletException(e.toString());
+		}
+		
+		System.out.println("selectProjectList() end... ");
+		return selectProjectListModels;
+		
+	}// end selectProjectList
+	
+	/**
+	 * 매출처를 조회한다.
+	 * @param partnerName:매출처명
+	 * @return
+	 * @throws ServletException
+	 */
+	@RequestMapping("selectCustomerPatner")
+	public List<PartnerModel> selectCustomerPatner(@RequestBody String partnerName) throws ServletException{
+		System.out.println("selectCustomerPatner() start... ");
+		List<PartnerModel> partnerModels = null;
+		
+		try{
+			
+			partnerModels=projectService.selectCustomerPatner(partnerName);
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("error!! :" + e.toString());
+			throw new ServletException(e.toString());
+		}
+		
+		System.out.println("selectCustomerPatner() end... ");
+		return partnerModels;
+	}
 	
 }//end class

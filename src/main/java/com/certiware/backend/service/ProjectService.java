@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.certiware.backend.mapper.ProjectMapper;
+import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
-import com.certiware.backend.model.project.SelectCodeModel;
 import com.certiware.backend.model.project.SelectDetailModel;
 import com.certiware.backend.model.project.SelectListModel;
+import com.certiware.backend.model.project.SelectProjectListModel;
 
 @Service
 public class ProjectService {
@@ -19,23 +20,6 @@ public class ProjectService {
 	CommonService commonService;
 	@Autowired
 	ProjectMapper projectMapper;
-	
-	/**
-	 * 
-	 * @param selectCodeModel
-	 * @return
-	 * @throws Exception
-	 */
-	public SelectCodeModel selectCode(SelectCodeModel selectCodeModel) throws Exception{
-		
-		selectCodeModel.setDeptCodeModels(commonService.SelectDeptCode());
-		selectCodeModel.setPartnerModels(projectMapper.selectCustomerPatner());
-		selectCodeModel.setBusinessCodeModels(commonService.SelectBusinessCode());
-		selectCodeModel.setRatingCodeModels(commonService.SelectRatingCode());		
-		
-		return selectCodeModel;
-		  
-	}
 	
 	/**
 	 * 
@@ -57,7 +41,7 @@ public class ProjectService {
 	 */
 	public SelectDetailModel selectDetail(SelectDetailModel selectDetailModel, int projectId) throws Exception{
 		
-		selectDetailModel.setProjectModel(projectMapper.selectProjectByProjectId(projectId));
+		selectDetailModel.setProjectModel(projectMapper.selectProjectByPK(projectId));
 		
 		selectDetailModel.setOutsourcingModels(projectMapper.selectOutsourcingByProjectId(projectId));
 		
@@ -107,5 +91,25 @@ public class ProjectService {
 		return result;
 	}
 	
+	/**
+	 * 본부에 속해있는 프로젝트 목록을 가져온다.
+	 * @param deptCode:본부코드
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SelectProjectListModel> selectProjectList(String deptCode) throws Exception{
+		
+		return projectMapper.selectProjectByDeptCode(deptCode);	
+	}
+		
+	/**
+	 * 매출처를 조회한다.
+	 * @param partnerName:매출처명
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PartnerModel> selectCustomerPatner(String partnerName) throws Exception{
+		return projectMapper.selectCustomerPatner(partnerName);
+	}
 
 }

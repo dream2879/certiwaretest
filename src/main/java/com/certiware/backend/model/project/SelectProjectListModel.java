@@ -1,6 +1,6 @@
-package com.certiware.backend.model.progress;
+package com.certiware.backend.model.project;
 
-public class ProjectListModel {
+public class SelectProjectListModel {
 	
 	private int projectId;
 	private String projectName;

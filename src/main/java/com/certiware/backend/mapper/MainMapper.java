@@ -22,6 +22,13 @@ public interface MainMapper {
 	public UserModel selectUserByPK(String userId) throws Exception;
 	
 	
+	/**
+	 * TB_MENU 테이블조회
+	 * ROLECODE에 해당되는 코드만 조회
+	 * @param roleCode
+	 * @return
+	 * @throws Exception
+	 */
 	@Select(  " SELECT *                       "
 			+ " FROM TB_MENU                   "
 			+ " WHERE ROLECODE <= #{param1}    "

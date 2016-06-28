@@ -11,20 +11,39 @@ import org.apache.ibatis.annotations.Update;
 import com.certiware.backend.model.common.OutsourcingModel;
 import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.ProjectModel;
+import com.certiware.backend.model.project.SelectProjectListModel;
 import com.certiware.backend.model.project.SelectListModel;
 
 public interface ProjectMapper {
 	
 	/**
-	 * 
+	 * TB_PROJECT 테이블조회
+	 * 해당부서가 담당하고 있는 프로젝트 리스틀 조회한다.
+	 * @param deptCode
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_PARTNER WHERE BUSINESSCODE IN ('1','3')")
-	public List<PartnerModel> selectCustomerPatner() throws Exception;
+	@Select(  "SELECT PROJECTID, PROJECTNAME "
+			+ "FROM TB_PROJECT "
+			+ "WHERE DEPTCODE = #{param1}")
+	public List<SelectProjectListModel> selectProjectByDeptCode(String deptCode) throws Exception;
 	
 	/**
-	 * 
+	 * TB_PARTNER 테이블조회
+	 * PARTNERNAME 컬럼을 조건으로 매출처에 해당하는 값들만 조회.
+	 * @param partnerName:매출처명
+	 * @return
+	 * @throws Exception
+	 */
+	@Select(  " SELECT *                           "
+			+ " FROM TB_PARTNER                    "
+			+ " WHERE BUSINESSCODE IN ('1', '3')   "
+			+ " AND PARTNERNAME LIKE '%#{param1}%' ")
+	public List<PartnerModel> selectCustomerPatner(String partnerName) throws Exception;
+	
+	/**
+	 * TB_PROJECT 테이블조회
+	 * 프로젝트리스를 조회한다.
 	 * @return
 	 * @throws Exception
 	 */	
@@ -33,31 +52,32 @@ public interface ProjectMapper {
 			+ " WHERE A.PARTNERID = B.PARTNERID "
 			)
 	public List<SelectListModel> selectList() throws Exception;
-	
+
 	/**
-	 * 
-	 * 
-	 */
-	/**
-	 * 
+	 * TB_PROJECT 테이블조회.
 	 * @param projectId
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_PROJECT WHERE PROJECTID = #{param1}")
-	public ProjectModel selectProjectByProjectId(int projectId) throws Exception;
+	@Select(  "SELECT * "
+			+ "FROM TB_PROJECT "
+			+ "WHERE PROJECTID = #{param1}")
+	public ProjectModel selectProjectByPK(int projectId) throws Exception;
 	
 	/**
-	 * 
+	 * TB_OUTSOURCING 테이블 조회
+	 * 특정 프로젝트에 해당하는 리스트 조회.
 	 * @param projectId
 	 * @return
 	 * @throws Exception
 	 */
-	@Select("SELECT * FROM TB_OUTSOURCING WHERE PROJECTID = #{param1}")
+	@Select(" SELECT * "
+			+ "FROM TB_OUTSOURCING "
+			+ "WHERE PROJECTID = #{param1}")
 	public List<OutsourcingModel> selectOutsourcingByProjectId(int projectId) throws Exception;
 	
 	/**
-	 * 
+	 * TB_PROJECT 테이블 입력
 	 * @param projectModel
 	 * @return
 	 * @throws Exception
@@ -65,52 +85,88 @@ public interface ProjectMapper {
 	@Insert(  " INSERT INTO TB_PROJECT                                                                                                                 "
 			+ " (PROJECTNAME, DEPTCODE, PARTNERID, STARTDATE, ENDDATE, CONTRACTAMOUNT, SUPPLYAMOUNT, VTAAMOUNT, OUTSOURCINGAMOUNT, NETAMOUNT, REMARKS) "
 			+ " VALUES                                                                                                                                 "
-			+ " (#{projectName}, #{deptCode}, #{partnerID}, #{startDate}, #{endDate}, #{contractAmount}, #{supplyAmount}, #{vtaAmount}, #{outsourcingAmount}, #{netAmount}, #{remarks}) "
+			+ " (	#{projectName}, "
+			+ "		#{deptCode}, "
+			+ "		#{partnerID}, "
+			+ "		#{startDate}, "
+			+ "		#{endDate}, "
+			+ "		#{contractAmount}, "
+			+ "		#{supplyAmount}, "
+			+ "		#{vtaAmount}, "
+			+ "		#{outsourcingAmount}, "
+			+ "		#{netAmount}, "
+			+ "		#{remarks}) "
 		    )
 	@Options(useGeneratedKeys = true, keyProperty="projectId")
 	public ProjectModel insertProject(ProjectModel projectModel) throws Exception;	
 	
 	/**
-	 * 
+	 * TB_PROJECT 변경
 	 * @param projectModel
 	 * @return 성공:1,실패:0
 	 * @throws Exception
 	 */
 	@Update(  " UPDATE TB_PROJECT "
-			+ " SET PROJECTNAME = #{projectName},DEPTCODE =#{deptCode},PARTNERID=#{partnerId},STARTDATE=#{startDate},ENDDATE=#{endDate}, "
-			+ " 		CONTRACTAMOUNT=#{contractAmount},SUPPLYAMOUNT=#{supplyAumount},VTAAMOUNT=#{vtaAmount},OUTSOURCINGAMOUNT=#{outsourcing_aomut},NETAMOUNT=#{netAmount},REMARKS=#{remarks} "
+			+ " SET PROJECTNAME = #{projectName},"
+			+ "		DEPTCODE =#{deptCode},"
+			+ "		PARTNERID=#{partnerId},"
+			+ "		STARTDATE=#{startDate},"
+			+ "		ENDDATE=#{endDate}, "
+			+ " 	CONTRACTAMOUNT=#{contractAmount},"
+			+ "		SUPPLYAMOUNT=#{supplyAumount},"
+			+ "		VTAAMOUNT=#{vtaAmount},"
+			+ "		OUTSOURCINGAMOUNT=#{outsourcing_aomut},"
+			+ "		NETAMOUNT=#{netAmount},"
+			+ "		REMARKS=#{remarks} "
 			+ " WHERE PROJECTID = #{projectId} "
 
 			)
 	public int updateProjectByProjectId(ProjectModel projectModel) throws Exception;
 	
 	/**
-	 * 
+	 * TB_PROJECT 테이블삭제.
 	 * @param projectId
 	 * @return 삭제한 로우 수
 	 * @throws Exception
 	 */
-	@Delete("DELETE FROM TB_PROJECT WHERE PROJECTID = #{param1}")
+	@Delete(  "DELETE FROM TB_PROJECT "
+			+ "WHERE PROJECTID = #{param1}")
 	public int deleteProjectByProjectId(int projectId) throws Exception;
 	
 	
 	/**
-	 * 
+	 * TB_OUTSOURCING 테이블MERGE
 	 * @param outsourcingModels
 	 * @throws Exception
 	 */
-	@Insert(  " INSERT INTO TB_OUTSOURCING VALUES (#{projectId}, #{partnerId}, #{outsourcingCode}, #{outsourcingAmount}, #{rating}, #{product}, #{startDate}, #{endDate}) "
-			+ " ON DUPLICATE KEY UPDATE OUTSOURCINGAMOUNT=#{outsourcingAmount}, RATINGCODE=#{ratingCode},PRODUCT=#{product},STARTDATE=#{startDate},ENDDATE=#{endDate}     "
+	@Insert(  " INSERT INTO TB_OUTSOURCING VALUES " // INSERT
+			+ "(	#{projectId}, "
+			+ "		#{partnerId}, "
+			+ "		#{outsourcingCode}, "
+			+ "		#{outsourcingAmount}, "
+			+ "		#{rating}, "
+			+ "		#{product}, "
+			+ "		#{startDate}, "
+			+ "		#{endDate}) "
+			+ " ON DUPLICATE KEY UPDATE "	// UPDATE
+			+ "		OUTSOURCINGAMOUNT=#{outsourcingAmount}, "
+			+ "		RATINGCODE=#{ratingCode},"
+			+ "		PRODUCT=#{product},"
+			+ "		STARTDATE=#{startDate},"
+			+ "		ENDDATE=#{endDate}     "
 			)
 	public int mergeOutsourcing(List<OutsourcingModel> outsourcingModels) throws Exception;
 	
 	/**
-	 * 
+	 * TB_OUTSOURCING 테이블삭제
 	 * @param outsourcingModels
 	 * @return
 	 * @throws Exception
 	 */
-	@Delete("DELETE FROM TB_OUTSOURCING WHERE PROJECTID =#{projectId} AND PARTNERID = #{partnerId} AND OUTSOURCINGCODE = #{outsourcingCode}")
+	@Delete(  "DELETE FROM TB_OUTSOURCING "
+			+ "WHERE PROJECTID =#{projectId} "
+			+ "AND PARTNERID = #{partnerId} "
+			+ "AND OUTSOURCINGCODE = #{outsourcingCode}")
 	public int deleteOutsourcing(List<OutsourcingModel> outsourcingModels) throws Exception;
 
 }

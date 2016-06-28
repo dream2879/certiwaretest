@@ -10,7 +10,6 @@ import com.certiware.backend.model.common.ManpowerMmModel;
 import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.progress.ModifyManpowerMmModel;
 import com.certiware.backend.model.progress.ModifyManpowerModel;
-import com.certiware.backend.model.progress.SelectCodeModel;
 
 @Service
 public class ProgressService {
@@ -19,17 +18,6 @@ public class ProgressService {
 	ProgressMapper progressMapper;
 	@Autowired
 	CommonService commonService;
-	
-	public SelectCodeModel selectCodeModel(SelectCodeModel selectCodeModel, int projectId, String deptCode) throws Exception{
-		
-		selectCodeModel.setDeptCodeModels(commonService.SelectDeptCode());
-		selectCodeModel.setManpowerNameListModels(progressMapper.selectManpowerNameList(projectId));
-		selectCodeModel.setProjectListModels(progressMapper.selectProjectList(deptCode));
-		selectCodeModel.setProjectPartnerModels(progressMapper.selectProjectPartner(projectId));
-		selectCodeModel.setRatingCodeModels(commonService.SelectRatingCode());
-		
-		return selectCodeModel;	
-	}
 	
 	/**
 	 * 

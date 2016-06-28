@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.certiware.backend.mapper.AdminMapper;
-import com.certiware.backend.model.admin.AdminCodeModel;
 import com.certiware.backend.model.admin.ModifyDeptCodeModel;
+import com.certiware.backend.model.admin.SelectUserListModel;
 import com.certiware.backend.model.common.DeptCodeModel;
 import com.certiware.backend.model.common.UserModel;
 
@@ -17,24 +17,15 @@ public class AdminService {
 	@Autowired
 	AdminMapper adminMapper;
 	@Autowired
-	CommonService commonService;	
-	
-	public AdminCodeModel selectCode(AdminCodeModel adminCodeModel) throws Exception{
-		
-		adminCodeModel.setDeptCodeModels(commonService.SelectDeptCode());
-		adminCodeModel.setRankCodeModels(commonService.SelectRankCode());
-		adminCodeModel.setRoleCodeModels(commonService.SelectRoleCode());
-		
-		return adminCodeModel;
-	}
+	CommonService commonService;
 	
 	/**
 	 * 
 	 * @return
 	 * @throws Exception
 	 */
-	public List<UserModel> selectUserList() throws Exception{
-		return adminMapper.selectUserList();
+	public List<SelectUserListModel> selectUserList(UserModel userModel) throws Exception{
+		return adminMapper.selectUserList(userModel);
 	}
 	
 	/**
@@ -43,8 +34,8 @@ public class AdminService {
 	 * @return
 	 * @throws Exception
 	 */
-	public UserModel selectUserDetail(String userId) throws Exception{
-		return adminMapper.selectUserByUserId(userId);
+	public UserModel selectUserDetail(UserModel userModel) throws Exception{
+		return adminMapper.selectUserByPK(userModel);
 	}
 	
 	/**
@@ -97,7 +88,7 @@ public class AdminService {
 		int result=0;
 		
 		result=+adminMapper.mergeDeptCode(modifyDeptCodeModel.getMergeDeptCodeModels());
-		result=+adminMapper.deleteDeptCodeByDeptCode(modifyDeptCodeModel.getDeptDeptCodeModels());
+		result=+adminMapper.deleteDeptCodeByPK(modifyDeptCodeModel.getDeptDeptCodeModels());
 		
 		return result;
 	}
