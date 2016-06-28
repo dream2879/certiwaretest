@@ -13,8 +13,14 @@ public class SelectListModel {
 	private int netAmountl;
 	private Date startDate;
 	private Date endDate;
+	private String deptCode;	
 	
-	
+	public String getDeptCode() {
+		return deptCode;
+	}
+	public void setDeptCode(String deptCode) {
+		this.deptCode = deptCode;
+	}
 	public int getOutsourcingAmount() {
 		return outsourcingAmount;
 	}

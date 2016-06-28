@@ -27,13 +27,14 @@ public class ProjectService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<SelectListModel> selectList() throws Exception{
+	public List<SelectListModel> selectList(SelectListModel selectListModel) throws Exception{
 		
-		return projectMapper.selectList();
+		return projectMapper.selectList(selectListModel);
 	}
 	
 	/**
-	 * 
+	 * 프로젝트 디테일 정보
+	 * 프로젝트정보 + 외주정보
 	 * @param selectDetailModel
 	 * @param projectId
 	 * @return
@@ -41,15 +42,17 @@ public class ProjectService {
 	 */
 	public SelectDetailModel selectDetail(SelectDetailModel selectDetailModel, int projectId) throws Exception{
 		
+		// 프로젝트 정보 조회
 		selectDetailModel.setProjectModel(projectMapper.selectProjectByPK(projectId));
 		
+		// 외주 정보 조회
 		selectDetailModel.setOutsourcingModels(projectMapper.selectOutsourcingByProjectId(projectId));
 		
 		return selectDetailModel;
 	}
 	
 	/**
-	 * 
+	 * 프로젝트 정보 입력
 	 * @param projectModel
 	 * @return
 	 * @throws Exception
@@ -59,7 +62,7 @@ public class ProjectService {
 	}
 	
 	/**
-	 * 
+	 * 프로젝트 정보 변경
 	 * @param projectModel
 	 * @throws Exception
 	 */
@@ -68,7 +71,7 @@ public class ProjectService {
 	}
 	
 	/**
-	 * 
+	 * 프로젝트 정보 삭제
 	 * @param projectId
 	 * @throws Exception
 	 */
@@ -77,7 +80,7 @@ public class ProjectService {
 	}
 	
 	/**
-	 * 
+	 * 외주 정보 수정
 	 * @param modifyOutsourcingModel
 	 * @return
 	 * @throws Exception
@@ -85,7 +88,10 @@ public class ProjectService {
 	public int modifyOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception{
 		int result=0;
 		
+		//merge
 		result=+projectMapper.mergeOutsourcing(modifyOutsourcingModel.getMergeOutsourcingModels());
+		
+		//delete
 		result=+projectMapper.deleteOutsourcing(modifyOutsourcingModel.getDeleteOutsourcingModels());
 		
 		return result;

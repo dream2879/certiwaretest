@@ -19,7 +19,8 @@ import com.certiware.backend.service.AdminService;
 public class CertiwareApplicationTests {
 	
 	@Autowired
-	AdminService adminService;
+	AdminService adminService;	
+
 
 	//@RequestMapping("/selectUserList")
 	@Test

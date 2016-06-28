@@ -31,7 +31,7 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/selectList")
-	public List<SelectListModel> selectList() throws ServletException{
+	public List<SelectListModel> selectList(@RequestBody SelectListModel selectListModel) throws ServletException{
 		
 		System.out.println("selectList() start...");
 		
@@ -39,7 +39,7 @@ public class ProjectController {
 		
 		try{
 			
-			selectListModels  = projectService.selectList();
+			selectListModels  = projectService.selectList(selectListModel);
 			
 		}catch(Exception e)
 		{

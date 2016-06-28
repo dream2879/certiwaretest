@@ -47,11 +47,25 @@ public interface ProjectMapper {
 	 * @return
 	 * @throws Exception
 	 */	
-	@Select(  " SELECT A.PROJECTID, A.PROJECTNAME, B.PARTNERID, B.PARTNERNAME, A.CONTRACTAMOUNT, A.OUTSOURCINGAMOUNT, A.NETAMOUNT, A.STARTDATE, A.ENDDATE "
+	@Select(  "<script>"
+			+ " SELECT A.PROJECTID, A.PROJECTNAME, B.PARTNERID, B.PARTNERNAME, A.CONTRACTAMOUNT, A.OUTSOURCINGAMOUNT, A.NETAMOUNT, A.STARTDATE, A.ENDDATE "
 			+ " FROM TB_PROJECT A, TB_PARTNER B  "
 			+ " WHERE A.PARTNERID = B.PARTNERID "
+			// projectName
+			+ "<if test=\"projectName != null\"> "
+			+ " AND A.PROJECTNAME LIKE CONCAT('%',#{projectName}, '%') "
+			+ "</if>"
+			// partnerName
+			+ "<if test=\"partnerName != null\"> "
+			+ " AND B.PARTNERNAME LIKE CONCAT('%',#{partnerName}, '%') "
+			+ "</if>"
+			// deptCode
+			+ "<if test=\"deptCode != null\"> "
+			+ " AND A.DEPTCODE = #{deptCode}  "
+			+ "</if>"			
+			+ "</script>"
 			)
-	public List<SelectListModel> selectList() throws Exception;
+	public List<SelectListModel> selectList(SelectListModel selectListModel) throws Exception;
 
 	/**
 	 * TB_PROJECT 테이블조회.
