@@ -36,14 +36,19 @@ public class MainService {
 	 */
 	public SelectLoginModel selectLogin(SelectLoginModel selectLoginModel, String userId) throws Exception {
 		
+		// 코드데이터
 		selectLoginModel.setBusinessCodeModels(commonMapper.SelectBusinessCode());
 		selectLoginModel.setDeptCodeModels(commonMapper.SelectDeptCode());
 		selectLoginModel.setOutsourcingCodeModels(commonMapper.SelectOutsourcingCode());
 		selectLoginModel.setPartnerCodeModels(commonMapper.SelectPartnerCode());
 		selectLoginModel.setRankCodeModels(commonMapper.SelectRankCode());
 		selectLoginModel.setRatingCodeModels(commonMapper.SelectRatingCode());
-		selectLoginModel.setRoleCodeModels(commonMapper.SelectRoleCode());		
+		selectLoginModel.setRoleCodeModels(commonMapper.SelectRoleCode());
+		
+		// 유저정보
 		selectLoginModel.setUserModel(mainMapper.selectUserByPK(userId));
+		
+		// 메뉴목록
 		selectLoginModel.setSelectMenuModels(mainMapper.selectMenuByRoleCode(selectLoginModel.getUserModel().getRoleCode()));
 		
 		return selectLoginModel;		
