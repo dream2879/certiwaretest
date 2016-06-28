@@ -26,21 +26,8 @@ public interface ProjectMapper {
 	@Select(  "SELECT PROJECTID, PROJECTNAME "
 			+ "FROM TB_PROJECT "
 			+ "WHERE DEPTCODE = #{param1}")
-	public List<SelectProjectListModel> selectProjectByDeptCode(String deptCode) throws Exception;
-	
-	/**
-	 * TB_PARTNER 테이블조회
-	 * PARTNERNAME 컬럼을 조건으로 매출처에 해당하는 값들만 조회.
-	 * @param partnerName:매출처명
-	 * @return
-	 * @throws Exception
-	 */
-	@Select(  " SELECT *                           "
-			+ " FROM TB_PARTNER                    "
-			+ " WHERE BUSINESSCODE IN ('1', '3')   "
-			+ " AND PARTNERNAME LIKE '%#{param1}%' ")
-	public List<PartnerModel> selectCustomerPatner(String partnerName) throws Exception;
-	
+	public List<SelectProjectListModel> selectProjectByDeptCode(String deptCode) throws Exception;	
+
 	/**
 	 * TB_PROJECT 테이블조회
 	 * 프로젝트리스를 조회한다.
@@ -101,18 +88,18 @@ public interface ProjectMapper {
 			+ " VALUES                                                                                                                                 "
 			+ " (	#{projectName}, "
 			+ "		#{deptCode}, "
-			+ "		#{partnerID}, "
+			+ "		#{partnerId}, "
 			+ "		#{startDate}, "
 			+ "		#{endDate}, "
 			+ "		#{contractAmount}, "
-			+ "		#{supplyAmount}, "
+			+ "		#{supplyAmount}, "					  
 			+ "		#{vtaAmount}, "
 			+ "		#{outsourcingAmount}, "
 			+ "		#{netAmount}, "
 			+ "		#{remarks}) "
 		    )
 	@Options(useGeneratedKeys = true, keyProperty="projectId")
-	public ProjectModel insertProject(ProjectModel projectModel) throws Exception;	
+	public void insertProject(ProjectModel projectModel) throws Exception;	
 	
 	/**
 	 * TB_PROJECT 변경
@@ -127,9 +114,9 @@ public interface ProjectMapper {
 			+ "		STARTDATE=#{startDate},"
 			+ "		ENDDATE=#{endDate}, "
 			+ " 	CONTRACTAMOUNT=#{contractAmount},"
-			+ "		SUPPLYAMOUNT=#{supplyAumount},"
+			+ "		SUPPLYAMOUNT=#{supplyAmount},"
 			+ "		VTAAMOUNT=#{vtaAmount},"
-			+ "		OUTSOURCINGAMOUNT=#{outsourcing_aomut},"
+			+ "		OUTSOURCINGAMOUNT=#{outsourcingAmount},"
 			+ "		NETAMOUNT=#{netAmount},"
 			+ "		REMARKS=#{remarks} "
 			+ " WHERE PROJECTID = #{projectId} "

@@ -30,19 +30,19 @@ public interface AdminMapper {
 			+ " AND A.ROLECODE = D.ROLECODE                                                                            "
 			//userName
 			+ "<if test=\"userName != null\"> "
-			+ " AND A.USERNAME like CONCAT('%',#{userName}, '%') "
+			+ " AND A.USERNAME LIKE CONCAT('%',#{userName}, '%') "
 			+ "</if>"
-			//deptCode
-			+ "<if test=\"deptCode != null\"> "
-			+ " AND A.DEPTCODE = #{deptCode} "
+			//deptName
+			+ "<if test=\"deptName != null\"> "
+			+ " AND B.DEPTNAME LIKE CONCAT('%',#{deptName}, '%') "
 			+ "</if>"
-			//rankCode
-			+ "<if test=\"rankCode != null\"> "
-			+ " AND A.RANKCODE = #{rankCode} "
+			//rankName
+			+ "<if test=\"rankName != null\"> "
+			+ " AND C.RANKNAME LIKE CONCAT('%',#{rankName}, '%') "
 			+ "</if>"			
 			+ "</script>"		
 			)
-	public List<SelectUserListModel> selectUserList(UserModel userModel) throws Exception;
+	public List<SelectUserListModel> selectUserList(SelectUserListModel selectUserListModel) throws Exception;
 	
 	/**
 	 * TB_USER 테이블조회

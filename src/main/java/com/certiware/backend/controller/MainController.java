@@ -1,6 +1,7 @@
 package com.certiware.backend.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.UserModel;
 import com.certiware.backend.model.main.SelectLoginModel;
 import com.certiware.backend.service.MainService;
@@ -99,5 +101,33 @@ public class MainController {
 		return selectLoginModel;
 		
 	}// end selectLogin
+	
+	
+	/**
+	 * 매출처를 조회한다.
+	 * @param partnerName:매출처명
+	 * @return
+	 * @throws ServletException
+	 */
+	@RequestMapping("selectPartner")
+	public List<PartnerModel> selectCustomerPatner(@RequestBody PartnerModel partnerModel) throws ServletException{
+		System.out.println("selectCustomerPatner() start... ");
+		List<PartnerModel> partnerModels = null;
+		
+		try{
+			
+			partnerModels=mainService.selectCustomerPatner(partnerModel);
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("error!! :" + e.toString());
+			throw new ServletException(e.toString());
+		}
+		
+		System.out.println("selectCustomerPatner() end... ");
+		return partnerModels;
+	}
+	
 
 }

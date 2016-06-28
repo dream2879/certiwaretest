@@ -11,12 +11,11 @@ public class ProjectModel {
 	private Date startDate;
 	private Date endDate;
 	private int contractAmount;
-	private int supplyAumount;
+	private int supplyAmount;
 	private int vtaAmount;
-	private int outsourcing_aomut;
+	private int outsourcingAmount;
 	private int netAmount;
 	private String remarks;
-	
 	public int getProjectId() {
 		return projectId;
 	}
@@ -59,11 +58,13 @@ public class ProjectModel {
 	public void setContractAmount(int contractAmount) {
 		this.contractAmount = contractAmount;
 	}
-	public int getSupplyAumount() {
-		return supplyAumount;
+	
+
+	public int getSupplyAmount() {
+		return supplyAmount;
 	}
-	public void setSupplyAumount(int supplyAumount) {
-		this.supplyAumount = supplyAumount;
+	public void setSupplyAmount(int supplyAmount) {
+		this.supplyAmount = supplyAmount;
 	}
 	public int getVtaAmount() {
 		return vtaAmount;
@@ -71,11 +72,11 @@ public class ProjectModel {
 	public void setVtaAmount(int vtaAmount) {
 		this.vtaAmount = vtaAmount;
 	}
-	public int getOutsourcing_aomut() {
-		return outsourcing_aomut;
+	public int getOutsourcingAmount() {
+		return outsourcingAmount;
 	}
-	public void setOutsourcing_aomut(int outsourcing_aomut) {
-		this.outsourcing_aomut = outsourcing_aomut;
+	public void setOutsourcingAmount(int outsourcingAmount) {
+		this.outsourcingAmount = outsourcingAmount;
 	}
 	public int getNetAmount() {
 		return netAmount;

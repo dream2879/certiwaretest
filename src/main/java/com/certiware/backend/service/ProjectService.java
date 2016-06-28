@@ -58,7 +58,8 @@ public class ProjectService {
 	 * @throws Exception
 	 */
 	public int insertProject(ProjectModel projectModel) throws Exception{
-		return projectMapper.insertProject(projectModel).getPartnerId();
+		projectMapper.insertProject(projectModel);
+		return 0;
 	}
 	
 	/**
@@ -107,15 +108,4 @@ public class ProjectService {
 		
 		return projectMapper.selectProjectByDeptCode(deptCode);	
 	}
-		
-	/**
-	 * 매출처를 조회한다.
-	 * @param partnerName:매출처명
-	 * @return
-	 * @throws Exception
-	 */
-	public List<PartnerModel> selectCustomerPatner(String partnerName) throws Exception{
-		return projectMapper.selectCustomerPatner(partnerName);
-	}
-
 }

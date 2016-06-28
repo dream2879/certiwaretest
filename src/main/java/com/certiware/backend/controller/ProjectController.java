@@ -26,7 +26,8 @@ public class ProjectController {
 	ProjectService projectService;
 	
 	/**
-	 * 프로젝트 리스트를 조회한다
+	 * 프로젝트 리스트를 조회한다.
+	 * 프로젝트명, 매출처명, 본부코드에 따라서 조회조건이 달라진다.
 	 * @return
 	 * @throws ServletException
 	 */
@@ -54,7 +55,8 @@ public class ProjectController {
 	}//end selectList()
 	
 	/**
-	 * 
+	 * 프로젝트아이디를가지고 해당 프로젝트의 상세 정보 조회
+	 * 프로젝트정보 + 외주정보
 	 * @param projectId
 	 * @return
 	 * @throws ServletException
@@ -84,7 +86,7 @@ public class ProjectController {
 	}//end selectDetail
 	
 	/**
-	 * 
+	 * 프로젝트 정보를 입력한다.
 	 * @param projectDetailDataModel
 	 * @return
 	 * @throws ServletException
@@ -224,31 +226,6 @@ public class ProjectController {
 		return selectProjectListModels;
 		
 	}// end selectProjectList
-	
-	/**
-	 * 매출처를 조회한다.
-	 * @param partnerName:매출처명
-	 * @return
-	 * @throws ServletException
-	 */
-	@RequestMapping("selectCustomerPatner")
-	public List<PartnerModel> selectCustomerPatner(@RequestBody String partnerName) throws ServletException{
-		System.out.println("selectCustomerPatner() start... ");
-		List<PartnerModel> partnerModels = null;
-		
-		try{
-			
-			partnerModels=projectService.selectCustomerPatner(partnerName);
-			
-		}
-		catch(Exception e)
-		{
-			System.out.println("error!! :" + e.toString());
-			throw new ServletException(e.toString());
-		}
-		
-		System.out.println("selectCustomerPatner() end... ");
-		return partnerModels;
-	}
+
 	
 }//end class

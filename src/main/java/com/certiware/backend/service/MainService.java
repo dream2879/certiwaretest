@@ -1,10 +1,13 @@
 package com.certiware.backend.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.certiware.backend.mapper.CommonMapper;
 import com.certiware.backend.mapper.MainMapper;
+import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.UserModel;
 import com.certiware.backend.model.main.SelectLoginModel;
 
@@ -52,6 +55,16 @@ public class MainService {
 		selectLoginModel.setSelectMenuModels(mainMapper.selectMenuByRoleCode(selectLoginModel.getUserModel().getRoleCode()));
 		
 		return selectLoginModel;		
+	}
+	
+	/**
+	 * 매출처를 조회한다.
+	 * @param partnerName:매출처명
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PartnerModel> selectCustomerPatner(PartnerModel partnerModel) throws Exception{
+		return mainMapper.selectCustomerPatner(partnerModel);
 	}
 	
 	

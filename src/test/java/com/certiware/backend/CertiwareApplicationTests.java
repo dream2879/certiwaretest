@@ -32,7 +32,7 @@ public class CertiwareApplicationTests {
 		userModel.setUserName("철");
 		userModel.setRankCode("3");
 				
-		userModels=adminService.selectUserList(userModel);
+		//userModels=adminService.selectUserList(userModel);
 		
 		System.out.println(userModels.size());
 		

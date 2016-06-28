@@ -31,14 +31,14 @@ public class AdminController {
 	 * @throws ServletException
 	 */
 	@RequestMapping("/selectUserList")
-	public List<SelectUserListModel> selectUserList(@RequestBody UserModel userModel) throws ServletException{
+	public List<SelectUserListModel> selectUserList(@RequestBody SelectUserListModel selectUserListModel) throws ServletException{
 		System.out.println("selectUserList() start...");
 		
 		List<SelectUserListModel> selectUserListModels = null;
 		
 		try{			
 			
-			selectUserListModels = adminService.selectUserList(userModel);			
+			selectUserListModels = adminService.selectUserList(selectUserListModel);			
 			
 			
 		}catch(Exception e)

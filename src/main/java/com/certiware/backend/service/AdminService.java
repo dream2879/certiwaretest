@@ -24,8 +24,8 @@ public class AdminService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<SelectUserListModel> selectUserList(UserModel userModel) throws Exception{
-		return adminMapper.selectUserList(userModel);
+	public List<SelectUserListModel> selectUserList(SelectUserListModel selectUserListModel) throws Exception{
+		return adminMapper.selectUserList(selectUserListModel);
 	}
 	
 	/**
