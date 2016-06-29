@@ -120,7 +120,7 @@ public interface AdminMapper {
 			+ "		DEPTNAME=#{deptName}, "
 			+ "		PRIORITY=#{priority} "
 			)
-	public int mergeDeptCode(List<DeptCodeModel> deptCodeModels) throws Exception;
+	public int mergeDeptCode(DeptCodeModel deptCodeModel) throws Exception;
 	
 	/**
 	 * TB_DEPTCODE 테이블삭제 
@@ -130,7 +130,7 @@ public interface AdminMapper {
 	 */
 	@Delete(  "DELETE * FROM TB_DEPTCODE "
 			+ "WHERE DEPTCODE = #{deptCode}")
-	public int deleteDeptCodeByPK(List<DeptCodeModel> deptCodeModel) throws Exception;
+	public int deleteDeptCodeByPK(DeptCodeModel deptCodeModel) throws Exception;
 	
 	
 }

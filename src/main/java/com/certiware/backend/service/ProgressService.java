@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.certiware.backend.mapper.ProgressMapper;
 import com.certiware.backend.model.common.ManpowerMmModel;
@@ -20,8 +21,8 @@ public class ProgressService {
 	CommonService commonService;
 	
 	/**
-	 * 
-	 * @param projectId
+	 * TB_MANPOWER 테이블조회
+	 * @param projectId:프로젝트아이디
 	 * @return
 	 * @throws Exception
 	 */
@@ -30,25 +31,32 @@ public class ProgressService {
 	}
 	
 	/**
-	 * 
+	 * TB_MANPOWER 테이블 MERGE, DELETE 수행
 	 * @param modifyManpowerModel
 	 * @return
 	 * @throws Exception
 	 */
-	public int modifyManpower(ModifyManpowerModel modifyManpowerModel) throws Exception{
-		int result=0;
+	@Transactional
+	public boolean modifyManpower(ModifyManpowerModel modifyManpowerModel) throws Exception{		
 	
-		progressMapper.mergeManpower(modifyManpowerModel.getMergeManpowerModels());
+		// merge
+		for (ManpowerModel manpowerModel : modifyManpowerModel.getMergeManpowerModels()) {
+			progressMapper.mergeManpower(manpowerModel);
+		}
 		
-		result =+ progressMapper.deleteManpower(modifyManpowerModel.getDeleteManpowerModels());
 		
-		return result;
+		// delete
+		for (ManpowerModel manpowerModel : modifyManpowerModel.getDeleteManpowerModels()) {
+			progressMapper.deleteManpower(manpowerModel);
+		}
+		
+		return true;
 	}
 	
 	/**
-	 * 
-	 * @param projectId
-	 * @param manpowerName
+	 * TB_MANPOWERMM 테이블조회
+	 * @param projectId:프로젝트ID
+	 * @param manpowerName:투입인력이름
 	 * @return
 	 * @throws Exception
 	 */
@@ -57,19 +65,25 @@ public class ProgressService {
 	}
 	
 	/**
-	 * 
+	 * TB_MANPOWERMM 테이블 MERGE, DELETE
 	 * @param modifyManpowerMmModel
 	 * @return
 	 * @throws Exception
 	 */
-	public int modifyManpowerMm(ModifyManpowerMmModel modifyManpowerMmModel) throws Exception{
+	@Transactional
+	public boolean modifyManpowerMm(ModifyManpowerMmModel modifyManpowerMmModel) throws Exception{
 		
-		int result = 0;
+		// update
+		for (ManpowerMmModel manpowerMmModel : modifyManpowerMmModel.getMergeManpowerMmModels()) {
+			progressMapper.mergeManpowerMm(manpowerMmModel);
+		}
 		
-		progressMapper.mergeManpowerMm(modifyManpowerMmModel.getMergeManpowerMmModels());
-		result = progressMapper.deleteManpowerMm(modifyManpowerMmModel.getDeleteManpowerMmModels());	
+		// delete
+		for (ManpowerMmModel manpowerMmModel : modifyManpowerMmModel.getDeleteManpowerMmModels()) {
+			progressMapper.deleteManpowerMm(manpowerMmModel);
+		}	
 		
-		return result;
+		return true;
 	}
 	
 	

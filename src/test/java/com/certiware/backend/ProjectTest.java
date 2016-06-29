@@ -1,6 +1,10 @@
 package com.certiware.backend;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +13,9 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.certiware.backend.model.common.OutsourcingModel;
 import com.certiware.backend.model.common.ProjectModel;
+import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectDetailModel;
 import com.certiware.backend.model.project.SelectListModel;
 import com.certiware.backend.model.project.SelectProjectListModel;
@@ -87,8 +93,7 @@ public class ProjectTest {
 		
 		// 변수 선언
 		ProjectModel req = new ProjectModel();
-		int res = 0;
-		
+				
 		// 데이타 설정		
 		req.setProjectName("테스트 프로젝트1111");
 		req.setDeptCode("1");
@@ -102,7 +107,7 @@ public class ProjectTest {
 		req.setNetAmount(3500);		
 		
 		// 서비스 호출
-		res = projectService.insertProject(req);
+		projectService.insertProject(req);
 		
 		// 로그
 		/*
@@ -125,7 +130,7 @@ public class ProjectTest {
 		
 		// 변수 선언
 		ProjectModel req = new ProjectModel();
-		int res = 0;
+		boolean res = false;
 		
 		// 데이타 설정
 		req.setProjectId(4);
@@ -155,7 +160,7 @@ public class ProjectTest {
 		
 		// 변수 선언
 		int req;
-		int res = 0;
+		boolean res = false;
 		
 		// 데이타 설정		
 		req = 7;
@@ -169,26 +174,70 @@ public class ProjectTest {
 	}// end
 	
 	
-	/*
+	
 	// @RequestMapping(value="/modifyOutsourcing")
+	@SuppressWarnings("null")
 	@Test
-	public void modifyOutsourcing() throws Exception {	
-		
+	public void modifyOutsourcing() throws Exception {		
+	
 		// 변수 선언
 		ModifyOutsourcingModel req = new ModifyOutsourcingModel();
-		int res = 0;
+		OutsourcingModel modifyObj1 = new OutsourcingModel();
+		OutsourcingModel modifyObj2 = new OutsourcingModel();
+		OutsourcingModel deleteObj1 = new OutsourcingModel();
+		boolean res = false;
 		
-		// 데이타 설정		
-		req.setMergeOutsourcingModels(mergeOutsourcingModels);
+		// 데이타 설정
+		List<OutsourcingModel> modifyObjs = new ArrayList<>();
+	
+		modifyObj1.setProjectId(1);
+		modifyObj1.setPartnerId(2);
+		modifyObj1.setOutsourcingCode("1");
+		modifyObj1.setOutsourcingAmount(1000000);
+		modifyObj1.setRatingCode("4");
+		modifyObj1.setProduct("CW");
+		modifyObjs.add(modifyObj1);
+		
+		
+		modifyObj2.setProjectId(1);
+		modifyObj2.setPartnerId(2);
+		modifyObj2.setOutsourcingCode("2");
+		modifyObj2.setOutsourcingAmount(1000000);
+		modifyObj2.setRatingCode("4");
+		modifyObj2.setProduct("CWwwwwww");
+		modifyObjs.add(modifyObj2);
+		
+		req.setMergeOutsourcingModels(modifyObjs);		
+		/////////////////////////////////////////////////////////
+		
+		List<OutsourcingModel> deleteObjs = new ArrayList<>();	
+		
+		deleteObj1.setProjectId(1);
+		deleteObj1.setPartnerId(3);
+		deleteObj1.setOutsourcingCode("1");		
+		deleteObjs.add(deleteObj1);
+		
+		req.setDeleteOutsourcingModels(deleteObjs);
+		
+
 		
 		// 서비스 호출
 		res = projectService.modifyOutsourcing(req);
 		
 		// 로그
-		System.out.println("modifyOutsourcing() logging count : " + res );
-		
+				System.out.println("selectList() logging Start.." );
+				
+				for (int i = 0; i < req.getMergeOutsourcingModels().size(); i++) {		
+					
+					System.out.println("class index("+ i +")");
+					Log.setLog(req.getMergeOutsourcingModels().get(i), "    ");
+					
+				}
+				
+				System.out.println("selectList() logging end.." );
+
 	}// end
-	*/
+	
 	
 	
 	// @RequestMapping("/selectProjectList")

@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.certiware.backend.mapper.ProjectMapper;
-import com.certiware.backend.model.common.PartnerModel;
+import com.certiware.backend.model.common.OutsourcingModel;
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectDetailModel;
@@ -22,7 +23,8 @@ public class ProjectService {
 	ProjectMapper projectMapper;
 	
 	/**
-	 * 
+	 * TB_PROJECT 조회
+	 * 조건에 따라 수행되는 쿼리문이 다르다.
 	 * @param selectListModel
 	 * @return
 	 * @throws Exception
@@ -57,9 +59,9 @@ public class ProjectService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertProject(ProjectModel projectModel) throws Exception{
+	public boolean insertProject(ProjectModel projectModel) throws Exception{
 		projectMapper.insertProject(projectModel);
-		return 0;
+		return true;
 	}
 	
 	/**
@@ -67,8 +69,11 @@ public class ProjectService {
 	 * @param projectModel
 	 * @throws Exception
 	 */
-	public int updateProject(ProjectModel projectModel) throws Exception{
-		return projectMapper.updateProjectByProjectId(projectModel);
+	public boolean updateProject(ProjectModel projectModel) throws Exception{
+		
+		projectMapper.updateProjectByProjectId(projectModel);
+		
+		return true;
 	}
 	
 	/**
@@ -76,8 +81,11 @@ public class ProjectService {
 	 * @param projectId
 	 * @throws Exception
 	 */
-	public int deleteProject(int projectId) throws Exception{
-		return projectMapper.deleteProjectByProjectId(projectId);
+	public boolean deleteProject(int projectId) throws Exception{
+		
+		projectMapper.deleteProjectByProjectId(projectId);
+		
+		return true;
 	}
 	
 	/**
@@ -86,16 +94,19 @@ public class ProjectService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int modifyOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception{
-		int result=0;
-		
+	@Transactional
+	public boolean modifyOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception{
+			
 		//merge
-		result=+projectMapper.mergeOutsourcing(modifyOutsourcingModel.getMergeOutsourcingModels());
+		for (OutsourcingModel item : modifyOutsourcingModel.getMergeOutsourcingModels()) {			
+			projectMapper.mergeOutsourcing(item);			
+		}
 		
 		//delete
-		result=+projectMapper.deleteOutsourcing(modifyOutsourcingModel.getDeleteOutsourcingModels());
-		
-		return result;
+		for (OutsourcingModel item : modifyOutsourcingModel.getDeleteOutsourcingModels()) {
+			projectMapper.deleteOutsourcing(item);		
+		}				
+		return true;
 	}
 	
 	/**

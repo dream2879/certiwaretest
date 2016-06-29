@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.certiware.backend.mapper.AdminMapper;
 import com.certiware.backend.model.admin.ModifyDeptCodeModel;
@@ -20,7 +21,7 @@ public class AdminService {
 	CommonService commonService;
 	
 	/**
-	 * 
+	 * TB_USER 테이블(리스트 조회)
 	 * @return
 	 * @throws Exception
 	 */
@@ -29,7 +30,7 @@ public class AdminService {
 	}
 	
 	/**
-	 * 
+	 * TB_USER 테이블 조회(단건 조회)
 	 * @param userId
 	 * @return
 	 * @throws Exception
@@ -39,38 +40,42 @@ public class AdminService {
 	}
 	
 	/**
-	 * 
+	 * TB_USER 테이블 입력
 	 * @param userModel
 	 * @throws Exception
 	 */
-	public void insertUser(UserModel userModel) throws Exception{
+	public boolean insertUser(UserModel userModel) throws Exception{
 		adminMapper.insertUser(userModel);
+		return true;
 	}
 	
 	/**
-	 * 
+	 * TB_USER 테이블 변경
 	 * @param userModel
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateUser(UserModel userModel) throws Exception{
+	public boolean updateUser(UserModel userModel) throws Exception{
 		
-		return adminMapper.updateUser(userModel);
+		adminMapper.updateUser(userModel);
 		
+		return true;
 	}
 	
 	/**
-	 * 
+	 * TB_USER 테이블 삭제
 	 * @param userId
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteUser(String userId) throws Exception{
-		return adminMapper.deleteUserByUserId(userId);
+	public boolean deleteUser(String userId) throws Exception{
+		adminMapper.deleteUserByUserId(userId);
+		
+		return true;
 	}
 	
 	/**
-	 * 
+	 * TB_DEPTCODE 조회
 	 * @return
 	 * @throws Exception
 	 */
@@ -79,18 +84,25 @@ public class AdminService {
 	}
 	
 	/**
-	 * 
+	 * TB_DEPTCODE 테이블의 MERGE, DELETE 문수행
 	 * @param modifyDeptCodeModel
 	 * @return
 	 * @throws Exception
 	 */
-	public int modifyDeptCode(ModifyDeptCodeModel modifyDeptCodeModel) throws Exception{
-		int result=0;
+	@Transactional
+	public boolean modifyDeptCode(ModifyDeptCodeModel modifyDeptCodeModel) throws Exception{
 		
-		result=+adminMapper.mergeDeptCode(modifyDeptCodeModel.getMergeDeptCodeModels());
-		result=+adminMapper.deleteDeptCodeByPK(modifyDeptCodeModel.getDeptDeptCodeModels());
+		// merge
+		for (DeptCodeModel deptCodeModel : modifyDeptCodeModel.getMergeDeptCodeModels()) {
+			adminMapper.mergeDeptCode(deptCodeModel);
+		}
 		
-		return result;
+		// delete
+		for (DeptCodeModel deptCodeModel : modifyDeptCodeModel.getDeleteDeptCodeModels()) {
+			adminMapper.deleteDeptCodeByPK(deptCodeModel);
+		}	
+		
+		return true;
 	}
 	
 }

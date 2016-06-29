@@ -18,6 +18,7 @@ import com.certiware.backend.model.common.UserModel;
  */
 public class SelectLoginModel {
 	
+	// 코드
 	private List<DeptCodeModel> deptCodeModels;
 	private List<RankCodeModel> rankCodeModels;
 	private List<RoleCodeModel> roleCodeModels;
@@ -25,12 +26,14 @@ public class SelectLoginModel {
 	private List<BusinessCodeModel> businessCodeModels;
 	private List<RatingCodeModel> ratingCodeModels;
 	private List<OutsourcingCodeModel> outsourcingCodeModels;
+	
+	// 사용자정보
 	private UserModel userModel;
+	
+	// 메뉴목록
 	private List<SelectMenuModel> selectMenuModels;
-	//private List<ProjectListModel> projectListModels; 완료
-	//private List<ProjectPartnerModel> projectPartnerModels; 완료
-	//private List<ManpowerNameListModel> manpowerNameListModels; 완료(삭제)	 
-	//private List<PartnerModel> partnerModels;
+	
+
 	public List<DeptCodeModel> getDeptCodeModels() {
 		return deptCodeModels;
 	}

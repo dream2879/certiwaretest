@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.common.PartnerModel;
+import com.certiware.backend.model.common.ResultModel;
 import com.certiware.backend.model.partner.SelectCodeModel;
 import com.certiware.backend.model.partner.SelectDetailModel;
 import com.certiware.backend.model.partner.SelectListModel;
@@ -22,32 +23,15 @@ public class PartnerController {
 	@Autowired
 	PartnerService partnerService;
 	
-	@RequestMapping(value="/selectCode")
-	public SelectCodeModel selectCode() throws ServletException{		
-		
-		System.out.println("selectCode() start...");	
-		
-		SelectCodeModel selectCodeModel = new SelectCodeModel();
-		
-		
-		try{
-			
-			selectCodeModel = partnerService.selectCode(selectCodeModel);
-			
-		}catch(Exception e)
-		{
-			System.out.println("error : " + e.toString());
-			throw new ServletException(e.toString());
-		}		
-		
-		System.out.println("selectCode() end...");
-		
-		return selectCodeModel;
-		
-	}// end
-	
+	/**
+	 * 거래처 정보를 조회한다.(리스트)
+	 * 조건에 따라 사용되는 쿼리문이 다르다.
+	 * @param selectListModel
+	 * @return
+	 * @throws ServletException
+	 */
 	@RequestMapping(value="/selectList")
-	public List<SelectListModel> selectList() throws ServletException{
+	public List<SelectListModel> selectList(SelectListModel selectListModel) throws ServletException{
 		
 		System.out.println("selectList() start...");
 		
@@ -56,7 +40,7 @@ public class PartnerController {
 		
 		try{
 			
-			selectListModels = partnerService.selectList();
+			selectListModels = partnerService.selectList(selectListModel);
 			
 			
 		}catch(Exception e)
@@ -70,7 +54,12 @@ public class PartnerController {
 		
 	}// end
 
-	
+	/**
+	 * PK를 가지고 거래처 정보를 가져온다.
+	 * @param partnerId
+	 * @return
+	 * @throws ServletException
+	 */
 	@RequestMapping(value="/selectDetail")
 	public SelectDetailModel selectDetail(@RequestBody int partnerId) throws ServletException{
 		
@@ -94,70 +83,89 @@ public class PartnerController {
 		
 	}// end
 	
+	/**
+	 * 거래처 정보를 입력한다.
+	 * @param partnerModel
+	 * @return
+	 * @throws ServletException
+	 */
 	@RequestMapping(value="/insert")
-	public int insert(@RequestBody PartnerModel partnerModel) throws ServletException{
+	public ResultModel insert(@RequestBody PartnerModel partnerModel) throws ServletException{
 		
 		System.out.println("insert() start...");
-		int result=0;		
+		ResultModel resultModel = new ResultModel();		
 		
 		try{
 			
-			result = partnerService.insertPartner(partnerModel);		
+			resultModel.setResult(partnerService.insertPartner(partnerModel));	
 			
 		}catch(Exception e)
 		{
+			resultModel.setMessage(e.toString());
 			System.out.println("error : " + e.toString());
-			throw new ServletException(e.toString());
+			//throw new ServletException(e.toString());
 		}		
 		
 		System.out.println("insert() end...");
-		return result;
+		return resultModel;
 		
 	}// end
 	
+	/**
+	 * 거래처 정보를 변경한다.
+	 * @param partnerModel
+	 * @return
+	 * @throws ServletException
+	 */
 	@RequestMapping(value="/update")
-	public int update(@RequestBody PartnerModel partnerModel) throws ServletException{
+	public ResultModel update(@RequestBody PartnerModel partnerModel) throws ServletException{
 		
 		System.out.println("update() start...");	
-		int result=0;
+		ResultModel resultModel = new ResultModel();
 		
 		
 		try{
 			
-			result = partnerService.updatePartner(partnerModel);
+			resultModel.setResult(partnerService.updatePartner(partnerModel));
 			
 		}catch(Exception e)
 		{
+			resultModel.setMessage(e.toString());
 			System.out.println("error : " + e.toString());
-			throw new ServletException(e.toString());
+			//throw new ServletException(e.toString());
 		}		
 		
 		System.out.println("update() end...");
-		return result;
+		return resultModel;
 		
 	}// end
 	
+	
+	/**
+	 * 거래처 정보를 삭제한다.
+	 * @param partnerId
+	 * @return
+	 * @throws ServletException
+	 */
 	@RequestMapping(value="/delete")
-	public int delete(@RequestBody int partnerId) throws ServletException{
+	public ResultModel delete(@RequestBody int partnerId) throws ServletException{
 		
 		System.out.println("delete() start...");
-		int result=0;
-		
+		ResultModel resultModel = new ResultModel();		
 		
 		try{
 			
-			result = partnerService.deletePartner(partnerId);
-			
-			
+			resultModel.setResult(partnerService.deletePartner(partnerId));			
 			
 		}catch(Exception e)
 		{
+			resultModel.setMessage(e.toString());
 			System.out.println("error : " + e.toString());
-			throw new ServletException(e.toString());
+			//throw new ServletException(e.toString());
 		}		
 		
 		System.out.println("delete() end...");
-		return result;
+		return resultModel;
 		
 	}// end
 

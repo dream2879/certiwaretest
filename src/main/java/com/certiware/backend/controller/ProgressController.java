@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.common.ManpowerMmModel;
 import com.certiware.backend.model.common.ManpowerModel;
+import com.certiware.backend.model.common.ResultModel;
 import com.certiware.backend.model.progress.ModifyManpowerMmModel;
 import com.certiware.backend.model.progress.ModifyManpowerModel;
 import com.certiware.backend.service.ProgressService;
@@ -57,23 +58,25 @@ public class ProgressController {
 	 * @throws ServletException
 	 */
 	@RequestMapping("/modifyManpower")
-	public int modifyManpower(@RequestBody ModifyManpowerModel modifyManpowerModel) throws ServletException{
+	public ResultModel modifyManpower(@RequestBody ModifyManpowerModel modifyManpowerModel) throws ServletException{
 		System.out.println("modifyManpower() start...");
-		int result = 0;
+		ResultModel resultModel = new ResultModel();
 				
 		try{
-			result = progressService.modifyManpower(modifyManpowerModel);
+			resultModel.setResult(progressService.modifyManpower(modifyManpowerModel));
 			
 			
 		}catch(Exception e)
 		{
+			resultModel.setMessage(e.toString());
+			
 			System.out.println("error : " + e.toString());
-			throw new ServletException(e.toString());
+			//throw new ServletException(e.toString());
 		}
 		
 		System.out.println("modifyManpower() end...");
 		
-		return result;
+		return resultModel;
 	}// end modifyManpower
 	
 	
@@ -105,24 +108,25 @@ public class ProgressController {
 	 * @throws ServletException
 	 */
 	@RequestMapping("/modifyManpowerMm")
-	public int modifyManpowerMm(@RequestBody ModifyManpowerMmModel modifyManpowerMmModel) throws ServletException{
+	public ResultModel modifyManpowerMm(@RequestBody ModifyManpowerMmModel modifyManpowerMmModel) throws ServletException{
 		System.out.println("modifyManpowerMm() start...");
-		int result=0;
+		ResultModel resultModel = new ResultModel();
 		
 				
 		try{
 			
-			result=	progressService.modifyManpowerMm(modifyManpowerMmModel);
+			resultModel.setResult(progressService.modifyManpowerMm(modifyManpowerMmModel));
 			
 		}catch(Exception e)
 		{
+			resultModel.setMessage(e.toString());
 			System.out.println("error : " + e.toString());
-			throw new ServletException(e.toString());
+			//throw new ServletException(e.toString());
 		}
 		
 		System.out.println("modifyManpowerMm() end...");
 		
-		return result;
+		return resultModel;
 	}// end insertUser
 
 }

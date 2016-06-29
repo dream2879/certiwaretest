@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.ProjectModel;
+import com.certiware.backend.model.common.ResultModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectDetailModel;
 import com.certiware.backend.model.project.SelectListModel;
@@ -92,32 +93,26 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/insertProject", method=RequestMethod.POST)
-	public String insertProject(@RequestBody ProjectModel projectModel) throws ServletException{
+	public ResultModel insertProject(@RequestBody ProjectModel projectModel) throws ServletException{
 		
 		System.out.println("insertProject() start...");
 		
-		int projectId;
+		ResultModel resultModel = new ResultModel();		
 		
 		try{
 			
-			projectId = projectService.insertProject(projectModel);
-			
-			/*
-			for (OutsourcingModel outsourcingModel : projectDetailDataModel.getOutsourcings()) {				
-				outsourcingModel.setProjectId(projectId);				
-			}
-			
-			projectService.insertOutsourcing(projectDetailDataModel.getOutsourcings());
-			*/
+			resultModel.setResult(projectService.insertProject(projectModel));
 			
 		}catch(Exception e)
 		{
+			resultModel.setMessage(e.toString());
+			
 			System.out.println("error!! :" + e.toString());
-			throw new ServletException(e.toString());
+			//throw new ServletException(e.toString());
 		}
 		
-		System.out.println("insertProject() end... " + projectId);
-		return "projectDetailSave Success!";
+		System.out.println("insertProject() end... ");
+		return resultModel;
 	}//end insertProject()
 	
 	/**
@@ -127,22 +122,24 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/updateProject", method=RequestMethod.POST)
-	public int updateProject(@RequestBody ProjectModel projectModel) throws ServletException{
+	public ResultModel updateProject(@RequestBody ProjectModel projectModel) throws ServletException{
 		
 		System.out.println("updateProject() start... ");		
-		int result=0;
+		ResultModel resultModel= new ResultModel();
 		
 		try{
-			result = projectService.updateProject(projectModel);			
+			resultModel.setResult(projectService.updateProject(projectModel));			
 		
 		}catch(Exception e)
 		{
+			resultModel.setMessage(e.toString());
+			
 			System.out.println("error!! :" + e.toString());
-			throw new ServletException(e.toString());
+			//throw new ServletException(e.toString());
 		}
 		
 		System.out.println("updateProject() end... ");
-		return result;
+		return resultModel;
 		
 	}//end updateProject
 	
@@ -153,23 +150,24 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/deleteProject", method=RequestMethod.POST)
-	public int deleteProject(@RequestBody int projectId) throws ServletException {
+	public ResultModel deleteProject(@RequestBody int projectId) throws ServletException {
 		
 		System.out.println("deleteProject() start... ");		
-		int result=0;
+		ResultModel resultModel = new ResultModel();
 		
 		try {
 			
-			result=projectService.deleteProject(projectId);
+			resultModel.setResult(projectService.deleteProject(projectId));
 			
 		}catch(Exception e)
 		{
+			resultModel.setMessage(e.toString());
 			System.out.println("error!! :" + e.toString());
-			throw new ServletException(e.toString());
+			//throw new ServletException(e.toString());
 		}
 		
 		System.out.println("deleteProject() end... ");
-		return result;
+		return resultModel;
 		
 	}//end deleteProject()
 	
@@ -180,23 +178,24 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/modifyOutsourcing")
-	public int modifyOutsourcing(@RequestBody ModifyOutsourcingModel modifyOutsourcingModel) throws ServletException{
+	public ResultModel modifyOutsourcing(@RequestBody ModifyOutsourcingModel modifyOutsourcingModel) throws ServletException{
 		System.out.println("modifyOutsourcing() start... ");		
-		int result=0;
+		ResultModel resultModel = new ResultModel();
 		
 		try{
 			
-			result=projectService.modifyOutsourcing(modifyOutsourcingModel);
+			resultModel.setResult(projectService.modifyOutsourcing(modifyOutsourcingModel));
 			
 		}
 		catch(Exception e)
 		{
+			resultModel.setMessage(e.toString());
 			System.out.println("error!! :" + e.toString());
-			throw new ServletException(e.toString());
+			//throw new ServletException(e.toString());
 		}
 		
 		System.out.println("modifyOutsourcing() end... ");
-		return result;
+		return resultModel;
 		
 	}//end modifyOutsourcing
 	

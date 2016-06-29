@@ -6,7 +6,7 @@ import com.certiware.backend.model.common.DeptCodeModel;
 
 public class ModifyDeptCodeModel {
 	private List<DeptCodeModel> mergeDeptCodeModels;
-	private List<DeptCodeModel> deptDeptCodeModels;
+	private List<DeptCodeModel> deleteDeptCodeModels;
 	
 	public List<DeptCodeModel> getMergeDeptCodeModels() {
 		return mergeDeptCodeModels;
@@ -14,11 +14,11 @@ public class ModifyDeptCodeModel {
 	public void setMergeDeptCodeModels(List<DeptCodeModel> mergeDeptCodeModels) {
 		this.mergeDeptCodeModels = mergeDeptCodeModels;
 	}
-	public List<DeptCodeModel> getDeptDeptCodeModels() {
-		return deptDeptCodeModels;
+	public List<DeptCodeModel> getDeleteDeptCodeModels() {
+		return deleteDeptCodeModels;
 	}
-	public void setDeptDeptCodeModels(List<DeptCodeModel> deptDeptCodeModels) {
-		this.deptDeptCodeModels = deptDeptCodeModels;
+	public void setDeleteDeptCodeModels(List<DeptCodeModel> deleteDeptCodeModels) {
+		this.deleteDeptCodeModels = deleteDeptCodeModels;
 	}
 
 }

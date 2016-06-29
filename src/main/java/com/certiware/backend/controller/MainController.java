@@ -28,7 +28,7 @@ public class MainController {
 	private MainService mainService;
 	//@Autowired
 	//private BCryptPasswordEncoder bCryptPasswordEncoder;
-	//
+	
 	/**
 	 * 로그인한다. 로그인이 성공하면 JWT Token을 생성한 후 Front-end로 전달한다. 
 	 * @param json

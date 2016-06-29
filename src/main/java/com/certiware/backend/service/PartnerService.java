@@ -21,30 +21,17 @@ public class PartnerService {
 	CommonMapper commonMapper;
 	
 	/**
-	 * 
-	 * @param partnerCodeModel
+	 * TB_PARTNER 테이블 조회(리스트)
+	 * 조건에 따라 사용되는 쿼리문이 다르다.
 	 * @return
 	 * @throws Exception
 	 */
-	public SelectCodeModel selectCode(SelectCodeModel selectCodeModel) throws Exception{
-		
-		selectCodeModel.setBusinessCodeModels(commonMapper.SelectBusinessCode());
-		selectCodeModel.setPartnerCodeModels(commonMapper.SelectPartnerCode());
-		
-		return selectCodeModel;
+	public List<SelectListModel> selectList(SelectListModel selectListModel) throws Exception{
+		return partnerMapper.selectList(selectListModel);
 	}
 	
 	/**
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
-	public List<SelectListModel> selectList() throws Exception{
-		return partnerMapper.selectList();
-	}
-	
-	/**
-	 * 
+	 * TB_PARTNER 테이블 조회(단건)
 	 * @param partnerId
 	 * @return
 	 * @throws Exception
@@ -54,33 +41,42 @@ public class PartnerService {
 	}
 	
 	/**
-	 * 
+	 * TB_PARTNER 테이블 입력
 	 * @param partnerModel
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertPartner(PartnerModel partnerModel) throws Exception{
-		return partnerMapper.insertPartner(partnerModel).getPartnerId();
+	public boolean insertPartner(PartnerModel partnerModel) throws Exception{
+		
+		partnerMapper.insertPartner(partnerModel).getPartnerId();
+		
+		return true;
 	}
 	
 	/**
-	 * 
+	 * TB_PARTNER 테이블 변경
 	 * @param partnerModel
 	 * @return
 	 * @throws Exception
 	 */
-	public int updatePartner(PartnerModel partnerModel) throws Exception{
-		return partnerMapper.updatePartnerByPartnerId(partnerModel);
+	public boolean updatePartner(PartnerModel partnerModel) throws Exception{
+		
+		partnerMapper.updatePartnerByPartnerId(partnerModel);
+		
+		return true;
 	}
 	
 	/**
-	 * 
+	 * TB_PARTNER 테이블 삭제
 	 * @param partnerId
 	 * @return
 	 * @throws Exception
 	 */
-	public int deletePartner(int partnerId) throws Exception {
-		return partnerMapper.deletePartnerByPartnerId(partnerId);				
+	public boolean deletePartner(int partnerId) throws Exception {
+		
+		partnerMapper.deletePartnerByPartnerId(partnerId);
+		
+		return true;
 	}
 	
 }

@@ -5,9 +5,9 @@ import java.sql.Date;
 public class OutsourcingModel {
 	
 	private int projectId;
-	private int partner_Id;
+	private int partnerId;
 	private String outsourcingCode;
-	private int outsourcing_amount;
+	private int outsourcingAmount;
 	private String ratingCode;
 	private String product;
 	private Date startDate;
@@ -18,11 +18,11 @@ public class OutsourcingModel {
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
 	}
-	public int getPartner_Id() {
-		return partner_Id;
+	public int getPartnerId() {
+		return partnerId;
 	}
-	public void setPartner_Id(int partner_Id) {
-		this.partner_Id = partner_Id;
+	public void setPartnerId(int partnerId) {
+		this.partnerId = partnerId;
 	}
 	public String getOutsourcingCode() {
 		return outsourcingCode;
@@ -30,11 +30,11 @@ public class OutsourcingModel {
 	public void setOutsourcingCode(String outsourcingCode) {
 		this.outsourcingCode = outsourcingCode;
 	}
-	public int getOutsourcing_amount() {
-		return outsourcing_amount;
+	public int getOutsourcingAmount() {
+		return outsourcingAmount;
 	}
-	public void setOutsourcing_amount(int outsourcing_amount) {
-		this.outsourcing_amount = outsourcing_amount;
+	public void setOutsourcingAmount(int outsourcingAmount) {
+		this.outsourcingAmount = outsourcingAmount;
 	}
 	public String getRatingCode() {
 		return ratingCode;
@@ -60,6 +60,8 @@ public class OutsourcingModel {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+	
+	
 	
 		
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -133,30 +134,33 @@ public interface ProjectMapper {
 	@Delete(  "DELETE FROM TB_PROJECT "
 			+ "WHERE PROJECTID = #{param1}")
 	public int deleteProjectByProjectId(int projectId) throws Exception;
-	
-	
+		
 	/**
 	 * TB_OUTSOURCING 테이블MERGE
 	 * @param outsourcingModels
 	 * @throws Exception
 	 */
-	@Insert(  " INSERT INTO TB_OUTSOURCING VALUES " // INSERT
-			+ "(	#{projectId}, "
+	@Insert(  "<script>"			
+			+ "INSERT INTO TB_OUTSOURCING VALUES " // INSERT			 
+			+ "(	"
+			+ "		#{projectId}, "
 			+ "		#{partnerId}, "
 			+ "		#{outsourcingCode}, "
 			+ "		#{outsourcingAmount}, "
-			+ "		#{rating}, "
+			+ "		#{ratingCode}, "
 			+ "		#{product}, "
 			+ "		#{startDate}, "
-			+ "		#{endDate}) "
+			+ "		#{endDate}"
+			+ ")"			
 			+ " ON DUPLICATE KEY UPDATE "	// UPDATE
 			+ "		OUTSOURCINGAMOUNT=#{outsourcingAmount}, "
 			+ "		RATINGCODE=#{ratingCode},"
 			+ "		PRODUCT=#{product},"
 			+ "		STARTDATE=#{startDate},"
-			+ "		ENDDATE=#{endDate}     "
-			)
-	public int mergeOutsourcing(List<OutsourcingModel> outsourcingModels) throws Exception;
+			+ "		ENDDATE=#{endDate}     "						
+			+ "</script>"
+			)	
+	public int mergeOutsourcing(OutsourcingModel outsourcingModel) throws Exception;
 	
 	/**
 	 * TB_OUTSOURCING 테이블삭제
@@ -168,6 +172,6 @@ public interface ProjectMapper {
 			+ "WHERE PROJECTID =#{projectId} "
 			+ "AND PARTNERID = #{partnerId} "
 			+ "AND OUTSOURCINGCODE = #{outsourcingCode}")
-	public int deleteOutsourcing(List<OutsourcingModel> outsourcingModels) throws Exception;
+	public int deleteOutsourcing(OutsourcingModel outsourcingModel) throws Exception;
 
 }
