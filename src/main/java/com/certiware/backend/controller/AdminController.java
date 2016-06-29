@@ -181,9 +181,9 @@ public class AdminController {
 	 * @return
 	 * @throws ServletException
 	 */
-	//@RequestMapping("/selectDeptCodet")
-	public List<DeptCodeModel> selectDeptCodet() throws ServletException{
-		System.out.println("selectDeptCodet() start...");
+	//@RequestMapping("/selectDeptCode")
+	public List<DeptCodeModel> selectDeptCode() throws ServletException{
+		System.out.println("selectDeptCode() start...");
 		
 		List<DeptCodeModel> deptCodeModels = null;
 		
@@ -197,7 +197,7 @@ public class AdminController {
 			throw new ServletException(e.toString());
 		}
 		
-		System.out.println("selectDeptCodet() end...");
+		System.out.println("selectDeptCode() end...");
 		
 		return deptCodeModels;
 	}// end selectDeptCodet
