@@ -9,9 +9,9 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.certiware.backend.model.admin.SelectUserListModel;
+import com.certiware.backend.controller.MainController;
 import com.certiware.backend.model.common.PartnerModel;
-import com.certiware.backend.service.AdminService;
+import com.certiware.backend.model.main.SelectLoginModel;
 import com.certiware.backend.service.MainService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -21,6 +21,9 @@ public class MainTest {
 	
 	@Autowired
 	MainService mainService;
+	
+	@Autowired
+	MainController test;
 	
 	//@RequestMapping("/selectUserList")
 		@Test
@@ -51,5 +54,28 @@ public class MainTest {
 		System.out.println("selectPartner() logging end.." );
 				
 	}
+		//@RequestMapping(value="/selectLogin")	
+		@Test
+		public void selectLogin() throws Exception {
+			
+			SelectLoginModel res = new SelectLoginModel(); 
+			
+			res = test.selectLogin("test11");
+			
+			res.getSelectMenuModels();
+			
+			// 로그
+			System.out.println("selectPartner() logging Start..");
+						
+			for (int i = 0; i < res.getSelectMenuModels().size(); i++) {		
+							
+				System.out.println("class index("+ i +")");
+				Log.setLog(res.getSelectMenuModels().get(i), "    ");
+							
+			}
+						
+			System.out.println("selectPartner() logging end.." );
+			
+		}
 
 }
