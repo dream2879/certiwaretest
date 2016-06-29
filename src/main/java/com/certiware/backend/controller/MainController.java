@@ -43,7 +43,7 @@ public class MainController {
 		try{
 			System.out.println("login() start...");
 			
-			if (json.get("username")==null || json.get("password") == null) {
+			if (json.get("userId")==null || json.get("password") == null) {
 				throw new ServletException ("Please fill in username and password");
 			}
 			
