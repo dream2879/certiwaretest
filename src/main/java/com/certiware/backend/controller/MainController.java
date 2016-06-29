@@ -80,6 +80,7 @@ public class MainController {
 	 * @return
 	 * @throws ServletException
 	 */
+	@RequestMapping(value="/selectLogin")
 	public SelectLoginModel selectLogin(@RequestBody String userId) throws ServletException{
 		
 		System.out.println("selectLogin() start...");
