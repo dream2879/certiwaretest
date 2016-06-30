@@ -1,5 +1,6 @@
 package com.certiware.backend;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -9,10 +10,10 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.certiware.backend.config.JwtFilter;
 import com.certiware.backend.config.RoleFilter;
-import com.certiware.backend.model.main.SelectMenuModel;
-import com.certiware.backend.service.MainService;
+import com.certiware.backend.model.SelectProgress;
+import com.certiware.backend.model.common.UserModel;
+import com.certiware.backend.service.TestService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = CertiwareApplication.class)
@@ -21,41 +22,56 @@ public class CertiwareApplicationTests {
 	
 	@Autowired
 	RoleFilter filter;
+	@Autowired 
+	TestService testService;  
 	/*
-	@Autowired
-	MainService main;
-	@Autowired
-	JwtFilter jwtFilter;
-*/
-	//@RequestMapping("/selectUserList")
 	@Test
-	public void selectUserList() throws Exception {
+	public void test() throws Exception {
+		
+		// String req = "USER ";
+		UserModel req = new UserModel();
+		List<UserModel> res = new ArrayList<>();
+		
+		req.setUserName( "SELECT * FROM TB_USER ");
 		
 		
-		
-		boolean result = false;
-		
-		List<SelectMenuModel> selectMenuModels = null;
-		
-		//selectMenuModels = main.selectMenuList("4");
-		
-		//result = filter.checkRole("4", "/partner/delete");
-		result = filter.checkRole("0", "/main/login");
-		
-		System.out.println(result);
+		res = testService.selectTest(req);
 		
 		// 로그
-				System.out.println("selectMenuModels() logging Start.." );
+				System.out.println("selectUserList() logging Start.." );
 						
-				for (int i = 0; i < selectMenuModels.size(); i++) {		
+				for (int i = 0; i < res.size(); i++) {		
 							
 					System.out.println("class index("+ i +")");
-					Log.setLog(selectMenuModels.get(i), "    ");
+					Log.setLog(res.get(i), "    ");
 							
 				}
 						
-				System.out.println("selectMenuModels() logging end.." );
+				System.out.println("selectUserList() logging end.." );
+		
+		
+	}
+	*/
+	
+	
+	
+	@Test
+	public void test2() throws Exception {
+		
+		List<SelectProgress> selectProgresses = testService.testDate(); 
+		
+		// 로그
+		System.out.println("test2() logging Start.." );
 				
+		for (int i = 0; i < selectProgresses.size(); i++) {		
+					
+			System.out.println("class index("+ i +")");
+			Log.setLog(selectProgresses.get(i), "    ");
+					
+		}
+				
+		System.out.println("test2() logging end.." );
+		
 		
 		
 	}

@@ -81,13 +81,16 @@ public class MainController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/selectLogin")
-	public SelectLoginModel selectLogin(@RequestBody String userId) throws ServletException{
+	public SelectLoginModel selectLogin(@RequestBody Map<String, String> json) throws ServletException{
 		
 		System.out.println("selectLogin() start...");
 		
+		String userId = null;		
 		SelectLoginModel selectLoginModel = new SelectLoginModel();
 		
 		try{
+			
+			userId = json.get("userId");
 			
 			selectLoginModel = mainService.selectLogin(selectLoginModel, userId);
 			

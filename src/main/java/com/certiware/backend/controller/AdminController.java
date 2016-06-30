@@ -1,6 +1,7 @@
 package com.certiware.backend.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
@@ -154,12 +155,15 @@ public class AdminController {
 	 * @throws ServletException
 	 */
 	//@RequestMapping("/deleteUser")
-	public ResultModel deleteUser(@RequestBody String userId) throws ServletException{
+	public ResultModel deleteUser(@RequestBody Map<String, String> json) throws ServletException{
 		System.out.println("deleteUser() start...");
 		
+		String userId;
 		ResultModel resultModel = new ResultModel();
 		
 		try{
+			
+			userId = json.get("userId");
 			
 			resultModel.setResult(adminService.deleteUser(userId));			
 			

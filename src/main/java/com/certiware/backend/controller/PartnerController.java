@@ -1,6 +1,7 @@
 package com.certiware.backend.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
@@ -60,13 +61,16 @@ public class PartnerController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/selectDetail")
-	public SelectDetailModel selectDetail(@RequestBody int partnerId) throws ServletException{
+	public SelectDetailModel selectDetail(@RequestBody Map<String, String> json) throws ServletException{
 		
 		System.out.println("selectDetail() start...");	
 		
+		int partnerId;
 		SelectDetailModel selectDetailModel = new SelectDetailModel();
 		
 		try{
+			
+			partnerId = Integer.parseInt(json.get("partnerId"));
 			
 			selectDetailModel = partnerService.selectDetail(partnerId);
 			
@@ -147,12 +151,15 @@ public class PartnerController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/delete")
-	public ResultModel delete(@RequestBody int partnerId) throws ServletException{
+	public ResultModel delete(@RequestBody Map<String, String> json) throws ServletException{
 		
 		System.out.println("delete() start...");
+		int partnerId;
 		ResultModel resultModel = new ResultModel();		
 		
 		try{
+			
+			partnerId = Integer.parseInt(json.get("partnerId"));
 			
 			resultModel.setResult(partnerService.deletePartner(partnerId));			
 			

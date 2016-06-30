@@ -1,6 +1,7 @@
 package com.certiware.backend.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
@@ -62,13 +63,16 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/selectDetail", method=RequestMethod.POST)
-	public SelectDetailModel selectDetail(@RequestBody int projectId) throws ServletException{
+	public SelectDetailModel selectDetail(@RequestBody Map<String, String> json) throws ServletException{
 		
-		System.out.println("selectDetail() start...");
+		System.out.println("selectDetail() start...");		
 		
+		int projectId;
 		SelectDetailModel selectDetailModel = new SelectDetailModel();
 		
 		try{
+			
+			projectId = Integer.parseInt(json.get("projectId"));
 			
 			selectDetailModel = projectService.selectDetail(selectDetailModel, projectId);
 			
@@ -149,12 +153,15 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/deleteProject", method=RequestMethod.POST)
-	public ResultModel deleteProject(@RequestBody int projectId) throws ServletException {
+	public ResultModel deleteProject(@RequestBody Map<String, String> json) throws ServletException {
 		
-		System.out.println("deleteProject() start... ");		
+		System.out.println("deleteProject() start... ");	
+		int projectId;
 		ResultModel resultModel = new ResultModel();
 		
 		try {
+			
+			projectId = Integer.parseInt(json.get("projectId"));
 			
 			resultModel.setResult(projectService.deleteProject(projectId));
 			
@@ -205,11 +212,13 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping("/selectProjectList")
-	public List<SelectProjectListModel> selectProjectList(@RequestBody String deptCode) throws ServletException{
+	public List<SelectProjectListModel> selectProjectList(@RequestBody Map<String, String> json) throws ServletException{
 		System.out.println("selectProjectList() start... ");
 		List<SelectProjectListModel> selectProjectListModels = null; 
-		
+		String deptCode;
 		try{
+			
+			deptCode = json.get("deptCode");
 			
 			selectProjectListModels=projectService.selectProjectList(deptCode);
 			

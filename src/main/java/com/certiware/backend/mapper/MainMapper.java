@@ -47,7 +47,7 @@ public interface MainMapper {
 	@Select(  " SELECT *                           "
 			+ " FROM TB_PARTNER                    "			
 			+ " WHERE PARTNERNAME LIKE CONCAT('%', #{partnerName},'%') "
-			+ " AND BUSINESSCODE IN ('${businessCode}', '3')   "
+			+ " AND BUSINESSCODE IN (#{businessCode}, '3')   "
 			)
 	public List<PartnerModel> selectCustomerPatner(PartnerModel partnerModel) throws Exception;
 	

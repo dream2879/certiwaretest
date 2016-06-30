@@ -31,11 +31,13 @@ public class ProgressController {
 	 * @throws ServletException
 	 */
 	@RequestMapping("/selectManpowerList")
-	public List<ManpowerModel> selectManpowerList(@RequestBody int projectId) throws ServletException{
+	public List<ManpowerModel> selectManpowerList(@RequestBody Map<String, String> json) throws ServletException{
 		System.out.println("selectManpowerList() start...");
+		int projectId;
 		List<ManpowerModel> manpowerModels = null;
 				
 		try{
+			projectId = Integer.parseInt(json.get("projectId"));
 			
 			manpowerModels = progressService.selectManpowerList(projectId);			
 			
@@ -88,11 +90,17 @@ public class ProgressController {
 	@RequestMapping("/selectManpowerMmList")
 	public List<ManpowerMmModel> selectManpowerMmList(@RequestBody Map<String, String> json) throws ServletException{
 		System.out.println("selectManpowerMmList() start...");
+		
+		int projectId;
+		String manpowerMm;
 		List<ManpowerMmModel> manpowerMmModels = null;
 				
 		try{
 			
-			manpowerMmModels = progressService.selectManpowerMmList(Integer.parseInt(json.get("projectId")), json.get("manpowerName"));	
+			projectId = Integer.parseInt(json.get("projectId"));
+			manpowerMm = json.get("manpowerMm");
+			
+			manpowerMmModels = progressService.selectManpowerMmList(projectId, manpowerMm);	
 			
 		}catch(Exception e)
 		{
