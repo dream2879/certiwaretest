@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.ResultModel;
-import com.certiware.backend.model.partner.SelectCodeModel;
 import com.certiware.backend.model.partner.SelectDetailModel;
 import com.certiware.backend.model.partner.SelectListModel;
 import com.certiware.backend.service.PartnerService;

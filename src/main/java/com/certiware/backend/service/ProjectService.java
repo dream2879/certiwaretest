@@ -117,6 +117,8 @@ public class ProjectService {
 	 */
 	public List<SelectProjectListModel> selectProjectList(String deptCode) throws Exception{
 		
+		System.out.println("호출");
+		
 		return projectMapper.selectProjectByDeptCode(deptCode);	
 	}
 }

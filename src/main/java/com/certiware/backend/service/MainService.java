@@ -10,6 +10,7 @@ import com.certiware.backend.mapper.MainMapper;
 import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.UserModel;
 import com.certiware.backend.model.main.SelectLoginModel;
+import com.certiware.backend.model.main.SelectMenuModel;
 
 @Service
 public class MainService {
@@ -65,6 +66,18 @@ public class MainService {
 	 */
 	public List<PartnerModel> selectCustomerPatner(PartnerModel partnerModel) throws Exception{
 		return mainMapper.selectCustomerPatner(partnerModel);
+	}
+	
+	/**
+	 * 롤코드 저장을 위해 임시 생성
+	 * @param roleCode
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SelectMenuModel> selectMenuList(String roleCode) throws Exception  {		
+			
+		return mainMapper.selectMenuByRoleCode(roleCode);
+		
 	}
 	
 	

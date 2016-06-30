@@ -25,7 +25,7 @@ public class ProgressController {
 	ProgressService progressService;
 	
 	/**
-	 * 
+	 * 프로젝트 투입인력의 목록을 조회한다.
 	 * @param projectId
 	 * @return
 	 * @throws ServletException
@@ -52,7 +52,7 @@ public class ProgressController {
 	
 	
 	/**
-	 * 
+	 * 프로젝트 투입인력 정보를 수정한다.
 	 * @param modifyManpowerModel
 	 * @return
 	 * @throws ServletException
@@ -79,7 +79,12 @@ public class ProgressController {
 		return resultModel;
 	}// end modifyManpower
 	
-	
+	/**
+	 * 프로젝트 투입인력의 M/M 정보를 가져온다.
+	 * @param json
+	 * @return
+	 * @throws ServletException
+	 */
 	@RequestMapping("/selectManpowerMmList")
 	public List<ManpowerMmModel> selectManpowerMmList(@RequestBody Map<String, String> json) throws ServletException{
 		System.out.println("selectManpowerMmList() start...");
@@ -102,7 +107,7 @@ public class ProgressController {
 	
 	
 	/**
-	 * 
+	 * 프로젝트 투입인력의 M/M 정보를 수정한다.
 	 * @param modifyManpowerMmModel
 	 * @return
 	 * @throws ServletException
@@ -110,8 +115,7 @@ public class ProgressController {
 	@RequestMapping("/modifyManpowerMm")
 	public ResultModel modifyManpowerMm(@RequestBody ModifyManpowerMmModel modifyManpowerMmModel) throws ServletException{
 		System.out.println("modifyManpowerMm() start...");
-		ResultModel resultModel = new ResultModel();
-		
+		ResultModel resultModel = new ResultModel();		
 				
 		try{
 			

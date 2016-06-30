@@ -9,9 +9,10 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.certiware.backend.model.admin.SelectUserListModel;
-import com.certiware.backend.model.common.UserModel;
-import com.certiware.backend.service.AdminService;
+import com.certiware.backend.config.JwtFilter;
+import com.certiware.backend.config.RoleFilter;
+import com.certiware.backend.model.main.SelectMenuModel;
+import com.certiware.backend.service.MainService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = CertiwareApplication.class)
@@ -19,22 +20,43 @@ import com.certiware.backend.service.AdminService;
 public class CertiwareApplicationTests {
 	
 	@Autowired
-	AdminService adminService;	
-
-
+	RoleFilter filter;
+	/*
+	@Autowired
+	MainService main;
+	@Autowired
+	JwtFilter jwtFilter;
+*/
 	//@RequestMapping("/selectUserList")
 	@Test
 	public void selectUserList() throws Exception {
-		List<SelectUserListModel> userModels = null;
-		UserModel userModel = new UserModel();
 		
-		userModel.setDeptCode("1");
-		userModel.setUserName("철");
-		userModel.setRankCode("3");
+		
+		
+		boolean result = false;
+		
+		List<SelectMenuModel> selectMenuModels = null;
+		
+		//selectMenuModels = main.selectMenuList("4");
+		
+		//result = filter.checkRole("4", "/partner/delete");
+		result = filter.checkRole("0", "/main/login");
+		
+		System.out.println(result);
+		
+		// 로그
+				System.out.println("selectMenuModels() logging Start.." );
+						
+				for (int i = 0; i < selectMenuModels.size(); i++) {		
+							
+					System.out.println("class index("+ i +")");
+					Log.setLog(selectMenuModels.get(i), "    ");
+							
+				}
+						
+				System.out.println("selectMenuModels() logging end.." );
 				
-		//userModels=adminService.selectUserList(userModel);
 		
-		System.out.println(userModels.size());
 		
 	}
 	

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.common.ResultModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
