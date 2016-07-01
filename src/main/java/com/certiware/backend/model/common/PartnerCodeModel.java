@@ -3,7 +3,7 @@ package com.certiware.backend.model.common;
 public class PartnerCodeModel {
 	
 	private String partnerCode;
-	private String pescription;
+	private String description;
 	private int priority;
 	
 	public String getPartnerCode() {
@@ -12,11 +12,11 @@ public class PartnerCodeModel {
 	public void setPartnerCode(String partnerCode) {
 		this.partnerCode = partnerCode;
 	}
-	public String getPescription() {
-		return pescription;
+	public String getDescription() {
+		return description;
 	}
-	public void setPescription(String pescription) {
-		this.pescription = pescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public int getPriority() {
 		return priority;
@@ -24,6 +24,8 @@ public class PartnerCodeModel {
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
+	
+
 	
 	
 
