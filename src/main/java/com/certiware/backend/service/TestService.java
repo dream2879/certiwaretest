@@ -49,7 +49,7 @@ public class TestService {
 		
 		Date startDate = df.parse("2016-01-01");
 		
-		Date endDate = df.parse("2017-01-01");
+		Date endDate = df.parse("2017-07-01");
 		List<String> strings = new ArrayList<String>();
 		
 		 Calendar cal = Calendar.getInstance();

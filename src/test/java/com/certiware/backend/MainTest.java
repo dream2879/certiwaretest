@@ -54,6 +54,7 @@ public class MainTest {
 		System.out.println("selectPartner() logging end.." );
 				
 	}
+		/*
 		//@RequestMapping(value="/selectLogin")	
 		@Test
 		public void selectLogin() throws Exception {
@@ -77,5 +78,6 @@ public class MainTest {
 			System.out.println("selectPartner() logging end.." );
 			
 		}
+		*/
 
 }

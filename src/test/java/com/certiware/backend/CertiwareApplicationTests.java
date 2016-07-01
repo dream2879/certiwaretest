@@ -58,6 +58,8 @@ public class CertiwareApplicationTests {
 	@Test
 	public void test2() throws Exception {
 		
+		System.out.println("test2() logging Start.." );
+		
 		List<SelectProgress> selectProgresses = testService.testDate(); 
 		
 		// 로그
