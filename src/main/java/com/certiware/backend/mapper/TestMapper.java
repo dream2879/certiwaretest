@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import com.certiware.backend.model.SelectProgress;
 import com.certiware.backend.model.TestExcelModel;
 import com.certiware.backend.model.common.UserModel;
+import com.certiware.backend.model.progress.SelectProgressListResModel;
 
 public interface TestMapper {
 	
@@ -15,5 +16,5 @@ public interface TestMapper {
 	
 	@Select(" ${userName} ")
 	//public List<UserModel> selectTest(UserModel query) throws Exception;
-	public List<SelectProgress> selectTest(UserModel query) throws Exception;
+	public List<SelectProgressListResModel> selectTest(UserModel query) throws Exception;
 }

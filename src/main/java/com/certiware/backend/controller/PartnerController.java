@@ -61,18 +61,18 @@ public class PartnerController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/selectDetail")
-	public SelectDetailModel selectDetail(@RequestBody Map<String, String> json) throws ServletException{
+	public PartnerModel selectDetail(@RequestBody Map<String, String> json) throws ServletException{
 		
 		System.out.println("selectDetail() start...");	
 		
 		int partnerId;
-		SelectDetailModel selectDetailModel = new SelectDetailModel();
+		PartnerModel partnerModel = new PartnerModel();
 		
 		try{
 			
 			partnerId = Integer.parseInt(json.get("partnerId"));
 			
-			selectDetailModel = partnerService.selectDetail(partnerId);
+			partnerModel = partnerService.selectDetail(partnerId);
 			
 			
 		}catch(Exception e)
@@ -82,7 +82,7 @@ public class PartnerController {
 		}		
 		
 		System.out.println("selectDetail() end...");
-		return selectDetailModel;
+		return partnerModel;
 		
 	}// end
 	

@@ -1,6 +1,9 @@
 package com.certiware.backend;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -13,6 +16,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.certiware.backend.config.RoleFilter;
 import com.certiware.backend.model.SelectProgress;
 import com.certiware.backend.model.common.UserModel;
+import com.certiware.backend.model.progress.SelectProgressListReqModel;
+import com.certiware.backend.model.progress.SelectProgressListResModel;
 import com.certiware.backend.service.TestService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -60,9 +65,19 @@ public class CertiwareApplicationTests {
 		
 		System.out.println("test2() logging Start.." );
 		
-		List<SelectProgress> selectProgresses = testService.testDate(); 
+		SelectProgressListReqModel selectProgressListReqModel = new SelectProgressListReqModel();
+		
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date startDate = df.parse("2016-01-01");
+		Date endDate = df.parse("2018-02-01");
+		
+		selectProgressListReqModel.setStartDate(startDate);
+		selectProgressListReqModel.setEndDate(endDate);
+		List<SelectProgressListResModel> selectProgresses = testService.test(selectProgressListReqModel); 
 		
 		// 로그
+		/*
 		System.out.println("test2() logging Start.." );
 				
 		for (int i = 0; i < selectProgresses.size(); i++) {		
@@ -72,7 +87,8 @@ public class CertiwareApplicationTests {
 					
 		}
 				
-		System.out.println("test2() logging end.." );
+		System.out.println("test2() logging end.." + selectProgresses.size());
+		*/
 		
 		
 		

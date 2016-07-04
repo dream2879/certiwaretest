@@ -36,7 +36,7 @@ public class PartnerService {
 	 * @return
 	 * @throws Exception
 	 */
-	public SelectDetailModel selectDetail(int partnerId) throws Exception{
+	public PartnerModel selectDetail(int partnerId) throws Exception{
 		return partnerMapper.selectPartnerByPartnerId(partnerId);
 	}
 	

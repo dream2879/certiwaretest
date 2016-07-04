@@ -4,29 +4,17 @@ import java.sql.Date;
 
 public class SelectListModel {
 	
-	private int projectId;
-	private String projectName;
-	private int partnerId;
-	private String partnerName;
-	private int contractAmount;
-	private int outsourcingAmount;
-	private int netAmountl;
-	private Date startDate;
-	private Date endDate;
-	private String deptCode;	
+	private int projectId; 
+	private String projectName; 
+	private int partnerId; 
+	private String partnerName; 
+	private int contractAmount; 
+	private int outsourcingAmount; 
+	private int netAmountl; 
+	private Date startDate; 
+	private Date endDate; 
+	private String deptCode;
 	
-	public String getDeptCode() {
-		return deptCode;
-	}
-	public void setDeptCode(String deptCode) {
-		this.deptCode = deptCode;
-	}
-	public int getOutsourcingAmount() {
-		return outsourcingAmount;
-	}
-	public void setOutsourcingAmount(int outsourcingAmount) {
-		this.outsourcingAmount = outsourcingAmount;
-	}	
 	public int getProjectId() {
 		return projectId;
 	}
@@ -57,6 +45,12 @@ public class SelectListModel {
 	public void setContractAmount(int contractAmount) {
 		this.contractAmount = contractAmount;
 	}
+	public int getOutsourcingAmount() {
+		return outsourcingAmount;
+	}
+	public void setOutsourcingAmount(int outsourcingAmount) {
+		this.outsourcingAmount = outsourcingAmount;
+	}
 	public int getNetAmountl() {
 		return netAmountl;
 	}
@@ -75,7 +69,13 @@ public class SelectListModel {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	public String getDeptCode() {
+		return deptCode;
+	}
+	public void setDeptCode(String deptCode) {
+		this.deptCode = deptCode;
+	} 
 	
 	
-
+	
 }

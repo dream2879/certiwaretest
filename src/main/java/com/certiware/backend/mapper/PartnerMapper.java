@@ -49,7 +49,7 @@ public interface PartnerMapper {
 	@Select(  "SELECT * "
 			+ "FROM TB_PARTNER "
 			+ "WHERE PARTNERID = #{param1}")
-	public SelectDetailModel selectPartnerByPartnerId(int partnerId) throws Exception;
+	public PartnerModel selectPartnerByPartnerId(int partnerId) throws Exception;
 	
 	/**
 	 * TB_PARTNER 테이블 입력
