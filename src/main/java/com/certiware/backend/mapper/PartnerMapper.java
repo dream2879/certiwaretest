@@ -64,9 +64,10 @@ public interface PartnerMapper {
 			+ "		#{partnerCode},  "
 			+ "		#{businessNumber}, "
 			+ "		#{businessCode}"
+			+ ")"
 			)
 	@Options(useGeneratedKeys = true, keyProperty="partnerId")
-	public PartnerModel insertPartner(PartnerModel partnerModel) throws Exception;
+	public void insertPartner(PartnerModel partnerModel) throws Exception;
 	
 	
 	/**

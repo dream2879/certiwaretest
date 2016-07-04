@@ -48,7 +48,7 @@ public class PartnerService {
 	 */
 	public boolean insertPartner(PartnerModel partnerModel) throws Exception{
 		
-		partnerMapper.insertPartner(partnerModel).getPartnerId();
+		partnerMapper.insertPartner(partnerModel);
 		
 		return true;
 	}
