@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.ServletException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -100,8 +101,9 @@ public class AdminController {
 		
 		ResultModel resultModel = new ResultModel();
 		try{
-			// 넘어온 Password를 BCrypt알고리즘을 이용하여 변환한다.
-			//userModel.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
+			// 넘어온 Password를 BCrypt알고리즘을 이용하여 변환한다.			
+			userModel.setPassword(BCrypt.hashpw(userModel.getPassword(), BCrypt.gensalt()));			
+			System.out.println("BCRYPT : " + userModel.getPassword());
 			
 			resultModel.setResult(adminService.insertUser(userModel));
 			
@@ -132,6 +134,10 @@ public class AdminController {
 		ResultModel resultModel = new ResultModel();
 		
 		try{
+			
+			// 넘어온 Password를 BCrypt알고리즘을 이용하여 변환한다.			
+			userModel.setPassword(BCrypt.hashpw(userModel.getPassword(), BCrypt.gensalt()));			
+			System.out.println("BCRYPT : " + userModel.getPassword());
 			
 			resultModel.setResult(adminService.updateUser(userModel));
 			

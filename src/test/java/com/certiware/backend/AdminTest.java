@@ -9,7 +9,9 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.certiware.backend.controller.AdminController;
 import com.certiware.backend.model.admin.SelectUserListModel;
+import com.certiware.backend.model.common.UserModel;
 import com.certiware.backend.service.AdminService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -18,7 +20,10 @@ import com.certiware.backend.service.AdminService;
 public class AdminTest {
 	
 	@Autowired
-	AdminService adminService; 
+	AdminService adminService;
+	
+	@Autowired
+	AdminController adminController;
 	
 	//@RequestMapping("/selectUserList")
 	@Test
@@ -49,6 +54,41 @@ public class AdminTest {
 				
 		System.out.println("selectUserList() logging end.." );
 			
+	}//
+	
+	/*
+	@Test
+	public void selectInsert() throws Exception {
+		
+		UserModel userModel = new UserModel();
+		
+		userModel.setUserId("test55");
+		userModel.setPassword("5555");
+		userModel.setUserName("김재형");
+		userModel.setDeptCode("2");
+		userModel.setRoleCode("4");
+		userModel.setRankCode("5");
+		
+		adminController.insertUser(userModel);
+	
+	}
+	*/
+	
+	@Test
+	public void update() throws Exception {
+		
+		UserModel userModel = new UserModel();
+		
+		userModel.setUserId("test44");
+		userModel.setPassword("4444");
+		userModel.setUserName("안일준");
+		userModel.setDeptCode("2");
+		userModel.setRankCode("9");
+		userModel.setRoleCode("4");
+		
+		
+		adminController.updateUser(userModel);
+	
 	}
 
 }

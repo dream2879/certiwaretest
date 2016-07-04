@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.ServletException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,10 +57,10 @@ public class MainController {
 				throw new ServletException ("User name not found.");
 			}
 			
-			String pwd = userModel.getPassword();
+			String pwd = userModel.getPassword();			
 			
-			if (!password.equals(pwd)) {
-			//if (!bCryptPasswordEncoder.matches(password, pwd)) {
+			//if (!password.equals(pwd)) {
+			if (!BCrypt.checkpw(password, pwd)) {
 				throw new ServletException("Invalid login. Please check your name and password.");
 			}
 			

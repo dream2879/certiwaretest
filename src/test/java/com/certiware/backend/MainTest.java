@@ -1,6 +1,8 @@
 package com.certiware.backend;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +25,7 @@ public class MainTest {
 	MainService mainService;
 	
 	@Autowired
-	MainController test;
+	MainController mainController;
 	
 	//@RequestMapping("/selectUserList")
 		@Test
@@ -79,5 +81,16 @@ public class MainTest {
 			
 		}
 		*/
+		
+		@Test
+		public void login() throws Exception {
+			Map<String, String> json = new HashMap<>();
+			
+			json.put("userId", "test55");
+			json.put("password", "5555");
+			
+			mainController.login(json);
+		
+		}
 
 }
