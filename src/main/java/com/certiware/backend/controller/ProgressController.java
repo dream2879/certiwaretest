@@ -1,5 +1,6 @@
 package com.certiware.backend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.ResultModel;
 import com.certiware.backend.model.progress.ModifyManpowerMmModel;
 import com.certiware.backend.model.progress.ModifyManpowerModel;
+import com.certiware.backend.model.progress.SelectProgressListReqModel;
+import com.certiware.backend.model.progress.SelectProgressListResModel;
 import com.certiware.backend.service.ProgressService;
 
 @RestController
@@ -140,5 +143,31 @@ public class ProgressController {
 		
 		return resultModel;
 	}// end insertUser
+	
+	/**
+	 * 프로젝트 진행현황을 조회한다.
+	 * @param selectProgressListReqModel
+	 * @return
+	 * @throws ServletException
+	 */
+	@RequestMapping("selectProgressList")
+	public List<SelectProgressListResModel> selectProgressList(SelectProgressListReqModel selectProgressListReqModel) throws ServletException{
+		System.out.println("selectProgressList() end...");
+		List<SelectProgressListResModel> selectProgressListResModels = new ArrayList<>();
+		try{
+			
+			selectProgressListResModels =  progressService.selectProgressList(selectProgressListReqModel);
+			
+		}
+		catch(Exception e)
+		{			
+			System.out.println("error : " + e.toString());
+			throw new ServletException(e.toString());
+		}
+		
+		System.out.println("selectProgressList() end...");
+		
+		return selectProgressListResModels;
+	}
 
 }

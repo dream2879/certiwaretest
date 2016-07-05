@@ -177,7 +177,7 @@ public class TestService {
 		query += "                           STARTDATE,                                                                                               " + System.getProperty("line.separator") ;
 		query += "                           ENDDATE,                                                                                                 " + System.getProperty("line.separator") ;
 		query += "                           REMARKS                                                                                                  " + System.getProperty("line.separator") ;
-		query += "                      FROM tb_manpower) B                                                                                           " + System.getProperty("line.separator") ;
+		query += "                      FROM TB_MANPOWER) B                                                                                           " + System.getProperty("line.separator") ;
 		query += "             WHERE A.PROJECTID = B.PROJECTID AND A.MANPOWERNAME = B.MANPOWERNAME                                                    " + System.getProperty("line.separator") ;
 		query += "          GROUP BY B.PROJECTID, B.MANPOWERNAME WITH ROLLUP                                                                          " + System.getProperty("line.separator") ;
 		query += "          UNION ALL                                                                                                                 " + System.getProperty("line.separator") ;
@@ -230,7 +230,7 @@ public class TestService {
 		query += "                           STARTDATE,                                                                                               " + System.getProperty("line.separator") ;
 		query += "                           ENDDATE,                                                                                                 " + System.getProperty("line.separator") ;
 		query += "                           REMARKS                                                                                                  " + System.getProperty("line.separator") ;
-		query += "                      FROM tb_manpower) B                                                                                           " + System.getProperty("line.separator") ;
+		query += "                      FROM TB_MANPOWER) B                                                                                           " + System.getProperty("line.separator") ;
 		query += "             WHERE A.PROJECTID = B.PROJECTID AND A.MANPOWERNAME = B.MANPOWERNAME                                                    " + System.getProperty("line.separator") ;
 		query += "          GROUP BY B.PROJECTID, B.MANPOWERNAME WITH ROLLUP                                                                          " + System.getProperty("line.separator") ;
 		query += "                                              ) A                                                                                   " + System.getProperty("line.separator") ;

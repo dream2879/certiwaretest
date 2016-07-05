@@ -18,6 +18,7 @@ import com.certiware.backend.model.SelectProgress;
 import com.certiware.backend.model.common.UserModel;
 import com.certiware.backend.model.progress.SelectProgressListReqModel;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
+import com.certiware.backend.service.ProgressService;
 import com.certiware.backend.service.TestService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,6 +30,9 @@ public class CertiwareApplicationTests {
 	RoleFilter filter;
 	@Autowired 
 	TestService testService;  
+	
+	@Autowired
+	ProgressService progressService;
 	/*
 	@Test
 	public void test() throws Exception {
@@ -74,10 +78,10 @@ public class CertiwareApplicationTests {
 		
 		selectProgressListReqModel.setStartDate(startDate);
 		selectProgressListReqModel.setEndDate(endDate);
-		List<SelectProgressListResModel> selectProgresses = testService.test(selectProgressListReqModel); 
+		List<SelectProgressListResModel> selectProgresses = progressService.selectProgressList(selectProgressListReqModel); 
 		
 		// 로그
-		/*
+		
 		System.out.println("test2() logging Start.." );
 				
 		for (int i = 0; i < selectProgresses.size(); i++) {		
@@ -88,7 +92,7 @@ public class CertiwareApplicationTests {
 		}
 				
 		System.out.println("test2() logging end.." + selectProgresses.size());
-		*/
+		
 		
 		
 		

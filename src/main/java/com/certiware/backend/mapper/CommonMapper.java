@@ -11,6 +11,8 @@ import com.certiware.backend.model.common.PartnerCodeModel;
 import com.certiware.backend.model.common.RankCodeModel;
 import com.certiware.backend.model.common.RatingCodeModel;
 import com.certiware.backend.model.common.RoleCodeModel;
+import com.certiware.backend.model.common.UserModel;
+import com.certiware.backend.model.progress.SelectProgressListResModel;
 
 public interface CommonMapper {
 	
@@ -82,6 +84,8 @@ public interface CommonMapper {
 	@Select(  "SELECT * "
 			+ "FROM TB_ROLECODE "
 			+ "ORDER BY PRIORITY")
-	public List<RoleCodeModel> SelectRoleCode() throws Exception;	
+	public List<RoleCodeModel> SelectRoleCode() throws Exception;
+	
+	
 
 }

@@ -8,7 +8,10 @@ import org.apache.ibatis.annotations.Select;
 
 import com.certiware.backend.model.common.ManpowerMmModel;
 import com.certiware.backend.model.common.ManpowerModel;
+import com.certiware.backend.model.common.QueryModel;
+import com.certiware.backend.model.common.UserModel;
 import com.certiware.backend.model.progress.ProjectPartnerModel;
+import com.certiware.backend.model.progress.SelectProgressListResModel;
 
 public interface ProgressMapper {
 
@@ -140,5 +143,17 @@ public interface ProgressMapper {
 			+ "AND MONTH=#{month}"
 			)
 	public int deleteManpowerMm(ManpowerMmModel manpowerMmModel) throws Exception;
+	
+	
+	/**
+	 * 쿼리문을 전달받아 직접날린다.
+	 * 프로젝트 진행현황 로직이 복잡하여 쿼리문을 직접받도록 개발함
+	 * @param queryModel
+	 * @return
+	 * @throws Exception
+	 */
+	@Select(" ${query} ")
+	//public List<UserModel> selectTest(UserModel query) throws Exception;
+	public List<SelectProgressListResModel> SelectQuery(QueryModel queryModel) throws Exception;
 
 }
