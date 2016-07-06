@@ -14,6 +14,7 @@ import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.project.SelectProjectListModel;
 import com.certiware.backend.model.project.SelectListModel;
+import com.certiware.backend.model.project.SelectOutsourcingModel;
 
 public interface ProjectMapper {
 	
@@ -73,10 +74,11 @@ public interface ProjectMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Select(" SELECT * "
-			+ "FROM TB_OUTSOURCING "
-			+ "WHERE PROJECTID = #{param1}")
-	public List<OutsourcingModel> selectOutsourcingByProjectId(int projectId) throws Exception;
+	@Select(  " SELECT A.*, B.PARTNERNAME  "
+			+ " FROM TB_OUTSOURCING A, TB_PARTNER B  "
+			+ " WHERE A.PARTNERID = B.PARTNERID   "
+			+ " AND A.PROJECTID = #{param1}")
+	public List<SelectOutsourcingModel> selectOutsourcingByProjectId(int projectId) throws Exception;
 	
 	/**
 	 * TB_PROJECT 테이블 입력

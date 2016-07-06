@@ -6,6 +6,7 @@ public class SelectProgressListReqModel {
 	private String deptCode;
 	private java.util.Date startDate;
 	private java.util.Date endDate;
+	
 	public int getProjectId() {
 		return ProjectId;
 	}

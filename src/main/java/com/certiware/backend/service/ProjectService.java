@@ -12,6 +12,7 @@ import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectDetailModel;
 import com.certiware.backend.model.project.SelectListModel;
+import com.certiware.backend.model.project.SelectOutsourcingModel;
 import com.certiware.backend.model.project.SelectProjectListModel;
 
 @Service
@@ -48,9 +49,19 @@ public class ProjectService {
 		selectDetailModel.setProjectModel(projectMapper.selectProjectByPK(projectId));
 		
 		// 외주 정보 조회
-		selectDetailModel.setOutsourcingModels(projectMapper.selectOutsourcingByProjectId(projectId));
+		selectDetailModel.setSelectOutsourcingModel(projectMapper.selectOutsourcingByProjectId(projectId));
 		
 		return selectDetailModel;
+	}
+	
+	/**
+	 * 프로젝트 아이디로 외주 정보를 가져온다.
+	 * @param projectId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SelectOutsourcingModel> selectOutsourcingList(int projectId) throws Exception{
+		return projectMapper.selectOutsourcingByProjectId(projectId);
 	}
 	
 	/**

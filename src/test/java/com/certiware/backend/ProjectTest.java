@@ -57,7 +57,7 @@ public class ProjectTest {
 		
 		System.out.println("selectList() logging end.." );
 	}// end
-	
+	/*
 	// @RequestMapping(value="/selectDetail", method=RequestMethod.POST)
 	@Test
 	public void selectDetail() throws Exception {	
@@ -85,7 +85,7 @@ public class ProjectTest {
 		
 		System.out.println("selectDetail() logging end.." );
 	}// end
-	
+	*/
 	
 	// @RequestMapping(value="/insertProject", method=RequestMethod.POST)
 	@Test

@@ -1,5 +1,6 @@
 package com.certiware.backend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import com.certiware.backend.model.common.ResultModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectDetailModel;
 import com.certiware.backend.model.project.SelectListModel;
+import com.certiware.backend.model.project.SelectOutsourcingModel;
 import com.certiware.backend.model.project.SelectProjectListModel;
 import com.certiware.backend.service.ProjectService;
 
@@ -88,6 +90,40 @@ public class ProjectController {
 				
 		
 	}//end selectDetail
+	
+	/**
+	 * 프로젝트 아이디로 거래처 정보를 가져온다.
+	 * @param json
+	 * @return
+	 * @throws ServletException
+	 */
+	@RequestMapping(value="/selectOutsourcingList")
+	public List<SelectOutsourcingModel> selectOutsourcingList(@RequestBody Map<String, String> json) throws ServletException{
+		System.out.println("selectOutsourcingList() start...");		
+		
+		int projectId;
+		List<SelectOutsourcingModel> selectOutsourcingModels = new ArrayList<>();
+		
+		try{
+			
+			projectId = Integer.parseInt(json.get("projectId"));
+			
+			selectOutsourcingModels = projectService.selectOutsourcingList(projectId);
+			
+		}catch(Exception e)
+		{
+			System.out.println("error : " + e.toString());
+			throw new ServletException(e.toString());
+		}
+		
+		System.out.println("selectOutsourcingList() start...");
+		
+		return selectOutsourcingModels;
+				
+		
+	}//end selectOutsourcingList
+	
+	
 	
 	/**
 	 * 프로젝트 정보를 입력한다.
