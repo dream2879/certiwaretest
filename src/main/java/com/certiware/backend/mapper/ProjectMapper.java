@@ -74,7 +74,7 @@ public interface ProjectMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Select(  " SELECT A.*, B.PARTNERNAME  "
+	@Select(  " SELECT A.*, B.PARTNERNAME, B.PARTNERCODE  "
 			+ " FROM TB_OUTSOURCING A, TB_PARTNER B  "
 			+ " WHERE A.PARTNERID = B.PARTNERID   "
 			+ " AND A.PROJECTID = #{param1}")
@@ -162,7 +162,7 @@ public interface ProjectMapper {
 			+ "		ENDDATE=#{endDate}     "						
 			+ "</script>"
 			)	
-	public int mergeOutsourcing(OutsourcingModel outsourcingModel) throws Exception;
+	public int mergeOutsourcing(SelectOutsourcingModel outsourcingModel) throws Exception;
 	
 	/**
 	 * TB_OUTSOURCING 테이블삭제
@@ -174,6 +174,6 @@ public interface ProjectMapper {
 			+ "WHERE PROJECTID =#{projectId} "
 			+ "AND PARTNERID = #{partnerId} "
 			+ "AND OUTSOURCINGCODE = #{outsourcingCode}")
-	public int deleteOutsourcing(OutsourcingModel outsourcingModel) throws Exception;
+	public int deleteOutsourcing(SelectOutsourcingModel outsourcingModel) throws Exception;
 
 }

@@ -114,7 +114,7 @@ public class MainController {
 	 * @return
 	 * @throws ServletException
 	 */
-	@RequestMapping("selectPartner")
+	@RequestMapping("/selectPartner")
 	public List<PartnerModel> selectCustomerPatner(@RequestBody PartnerModel partnerModel) throws ServletException{
 		System.out.println("selectCustomerPatner() start... ");
 		List<PartnerModel> partnerModels = null;

@@ -6,21 +6,25 @@ import com.certiware.backend.model.common.OutsourcingModel;
 
 public class ModifyOutsourcingModel {
 	
-	private List<OutsourcingModel> mergeOutsourcingModels;
-	private List<OutsourcingModel> deleteOutsourcingModels;
+	private List<SelectOutsourcingModel> mergeOutsourcingModels;
+	private List<SelectOutsourcingModel> deleteOutsourcingModels;
 	
-	public List<OutsourcingModel> getMergeOutsourcingModels() {
+	public List<SelectOutsourcingModel> getMergeOutsourcingModels() {
 		return mergeOutsourcingModels;
 	}
-	public void setMergeOutsourcingModels(List<OutsourcingModel> mergeOutsourcingModels) {
+	public void setMergeOutsourcingModels(List<SelectOutsourcingModel> mergeOutsourcingModels) {
 		this.mergeOutsourcingModels = mergeOutsourcingModels;
 	}
-	public List<OutsourcingModel> getDeleteOutsourcingModels() {
+	public List<SelectOutsourcingModel> getDeleteOutsourcingModels() {
 		return deleteOutsourcingModels;
 	}
-	public void setDeleteOutsourcingModels(List<OutsourcingModel> deleteOutsourcingModels) {
+	public void setDeleteOutsourcingModels(List<SelectOutsourcingModel> deleteOutsourcingModels) {
 		this.deleteOutsourcingModels = deleteOutsourcingModels;
 	}
+	
+	
+	
+
 	
 	
 

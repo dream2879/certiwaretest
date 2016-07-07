@@ -174,7 +174,7 @@ public class ProjectTest {
 	}// end
 	
 	
-	
+	/*
 	// @RequestMapping(value="/modifyOutsourcing")
 	@SuppressWarnings("null")
 	@Test
@@ -237,7 +237,7 @@ public class ProjectTest {
 				System.out.println("selectList() logging end.." );
 
 	}// end
-	
+	*/
 	
 	
 	// @RequestMapping("/selectProjectList")

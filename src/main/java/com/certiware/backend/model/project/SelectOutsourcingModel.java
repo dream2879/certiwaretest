@@ -7,12 +7,21 @@ public class SelectOutsourcingModel {
 	private int projectId;
 	private int partnerId;
 	private String partnerName;
+	private String partnerCode;
 	private String outsourcingCode;
 	private int outsourcingAmount;
 	private String ratingCode;
 	private String product;
 	private Date startDate;
 	private String endDate;
+	
+	
+	public String getPartnerCode() {
+		return partnerCode;
+	}
+	public void setPartnerCode(String partnerCode) {
+		this.partnerCode = partnerCode;
+	}
 	public int getProjectId() {
 		return projectId;
 	}

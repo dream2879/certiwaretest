@@ -104,17 +104,17 @@ public class ProjectService {
 	 * @param modifyOutsourcingModel
 	 * @return
 	 * @throws Exception
-	 */
+	*/
 	@Transactional
 	public boolean modifyOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception{
 			
 		//merge
-		for (OutsourcingModel item : modifyOutsourcingModel.getMergeOutsourcingModels()) {			
+		for (SelectOutsourcingModel item : modifyOutsourcingModel.getMergeOutsourcingModels()) {			
 			projectMapper.mergeOutsourcing(item);			
 		}
 		
 		//delete
-		for (OutsourcingModel item : modifyOutsourcingModel.getDeleteOutsourcingModels()) {
+		for (SelectOutsourcingModel item : modifyOutsourcingModel.getDeleteOutsourcingModels()) {
 			projectMapper.deleteOutsourcing(item);		
 		}				
 		return true;
