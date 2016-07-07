@@ -17,6 +17,7 @@ import com.certiware.backend.model.common.QueryModel;
 import com.certiware.backend.model.common.UserModel;
 import com.certiware.backend.model.progress.ModifyManpowerMmModel;
 import com.certiware.backend.model.progress.ModifyManpowerModel;
+import com.certiware.backend.model.progress.SelectPartnerNameList;
 import com.certiware.backend.model.progress.SelectProgressListReqModel;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
 
@@ -305,6 +306,16 @@ public class ProgressService {
 		return progressMapper.SelectQuery(queryModel);
 	}
 	
+	
+	/**
+	 * 프로젝트 아이디를가지고 외주회사명을 가져온다.
+	 * @param partnerId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SelectPartnerNameList> SelectPartnerNameList(int partnerId) throws Exception{
+		return progressMapper.selectOutsourcingByPartnerId(partnerId);
+	}
 	
 
 	

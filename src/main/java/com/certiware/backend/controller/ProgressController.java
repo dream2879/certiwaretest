@@ -16,6 +16,7 @@ import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.ResultModel;
 import com.certiware.backend.model.progress.ModifyManpowerMmModel;
 import com.certiware.backend.model.progress.ModifyManpowerModel;
+import com.certiware.backend.model.progress.SelectPartnerNameList;
 import com.certiware.backend.model.progress.SelectProgressListReqModel;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
 import com.certiware.backend.service.ProgressService;
@@ -151,7 +152,7 @@ public class ProgressController {
 	 * @throws ServletException
 	 */
 	@RequestMapping("selectProgressList")
-	public List<SelectProgressListResModel> selectProgressList(SelectProgressListReqModel selectProgressListReqModel) throws ServletException{
+	public List<SelectProgressListResModel> selectProgressList(@RequestBody SelectProgressListReqModel selectProgressListReqModel) throws ServletException{
 		System.out.println("selectProgressList() end...");
 		List<SelectProgressListResModel> selectProgressListResModels = new ArrayList<>();
 		try{
@@ -168,6 +169,37 @@ public class ProgressController {
 		System.out.println("selectProgressList() end...");
 		
 		return selectProgressListResModels;
+	}
+	
+	
+	/**
+	 * 프로젝트아이디로 외주정보를 가져온다.
+	 * @param json
+	 * @return
+	 * @throws ServletException
+	 */
+	@RequestMapping("/SelectPartnerNameList")
+	public List<SelectPartnerNameList> selectPartnerNameList(@RequestBody Map<String, String> json) throws ServletException{
+		System.out.println("selectManpowerMmList() start...");
+		
+		int projectId;		
+		List<SelectPartnerNameList> selectPartnerNameLists = null;
+				
+		try{
+			
+			projectId = Integer.parseInt(json.get("projectId"));			
+			
+			selectPartnerNameLists = progressService.SelectPartnerNameList(projectId);
+			
+		}catch(Exception e)
+		{
+			System.out.println("error : " + e.toString());
+			throw new ServletException(e.toString());
+		}
+		
+		System.out.println("selectManpowerMmList() end...");
+		
+		return selectPartnerNameLists;
 	}
 
 }

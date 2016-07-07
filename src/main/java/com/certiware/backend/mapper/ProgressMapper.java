@@ -11,6 +11,7 @@ import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.QueryModel;
 import com.certiware.backend.model.common.UserModel;
 import com.certiware.backend.model.progress.ProjectPartnerModel;
+import com.certiware.backend.model.progress.SelectPartnerNameList;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
 
 public interface ProgressMapper {
@@ -155,5 +156,22 @@ public interface ProgressMapper {
 	@Select(" ${query} ")
 	//public List<UserModel> selectTest(UserModel query) throws Exception;
 	public List<SelectProgressListResModel> SelectQuery(QueryModel queryModel) throws Exception;
+	
+	/**
+	 * 프로젝트 아이디를가지고 외주회사명을 가져온다.
+	 * 소속회사가 없는 프리랜서인 경우 프리랜서로 출력
+	 * @param partnerId
+	 * @return
+	 * @throws Exception
+	 */
+	@Select( " SELECT A.PARTNERID, B.DESCRIPTION                            																						"	
+			+ " FROM TB_OUTSOURCING A,                                                                                  "
+			+ "      (SELECT PARTNERID, CASE WHEN PARTNERCODE >= 3 THEN '프리랜서' ELSE PARTNERNAME END AS DESCRIPTION  "
+			+ "         FROM   TB_PARTNER) B                                                                            "
+			+ " WHERE A.PARTNERID = B.PARTNERID                                                                         "
+			+ " AND A.PROJECTID = #{param1}                                                                             "
+			+ " ORDER BY A.PARTNERID                                                                                    "
+			)
+	public List<SelectPartnerNameList> selectOutsourcingByPartnerId(int partnerId) throws Exception;
 
 }
