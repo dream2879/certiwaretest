@@ -31,7 +31,7 @@ public class PartnerController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/selectList")
-	public List<SelectListModel> selectList(SelectListModel selectListModel) throws ServletException{
+	public List<SelectListModel> selectList(@RequestBody SelectListModel selectListModel) throws ServletException{
 		
 		System.out.println("selectList() start...");
 		

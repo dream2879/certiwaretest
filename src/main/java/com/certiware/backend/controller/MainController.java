@@ -1,5 +1,6 @@
 package com.certiware.backend.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.UserModel;
+import com.certiware.backend.model.main.AmountModel;
+import com.certiware.backend.model.main.ManModel;
 import com.certiware.backend.model.main.SelectLoginModel;
+import com.certiware.backend.model.main.StaticModel;
 import com.certiware.backend.service.MainService;
 
 import io.jsonwebtoken.Jwts;
@@ -134,5 +138,62 @@ public class MainController {
 		return partnerModels;
 	}
 	
+	
+	@RequestMapping("/selectStaticData")
+	public StaticModel selectStaticData() throws ServletException{
+		StaticModel staticModel = new StaticModel();
+		
+		List<AmountModel> amountModelms = new ArrayList<>();		
+		AmountModel amountModel1 = new AmountModel();
+		AmountModel amountModel2 = new AmountModel();
+		AmountModel amountModel3 = new AmountModel();
+		
+		amountModel1.setDeptName("DW");
+		amountModel1.setAmount(1000);
+		
+		amountModel2.setDeptName("OSS");
+		amountModel2.setAmount(2000);
+		
+		amountModel3.setDeptName("SOLUTION");
+		amountModel3.setAmount(1500);
+		
+		amountModelms.add(amountModel1);
+		amountModelms.add(amountModel2);
+		amountModelms.add(amountModel3);
+		
+		
+		
+		List<ManModel> manModels = new ArrayList<>();
+		ManModel manModel1 = new ManModel();
+		ManModel manModel2 = new ManModel();
+		ManModel manModel3 = new ManModel();
+		
+		manModel1.setMonth("2015-01-01");
+		manModel1.setAmount(3000);
+		
+		manModel2.setMonth("2015-02-01");
+		manModel2.setAmount(2000);
+		
+		manModel3.setMonth("2015-03-01");
+		manModel3.setAmount(4000);
+		
+		
+		manModels.add(manModel1);
+		manModels.add(manModel2);
+		manModels.add(manModel2);
+		
+		
+		staticModel.setAmountModel(amountModelms);
+		staticModel.setManModel(manModels);
+		
+		
+		
+		return staticModel;
+		
+	}
+	
 
 }
+
+
+
