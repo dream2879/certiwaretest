@@ -27,7 +27,7 @@ public interface PartnerMapper {
 			+ " AND A.PARTNERCODE = C.PARTNERCODE "
 			
 			// partnerName
-			+ "<if test=\"partnerName != null\"> "
+			+ "<if test=\"partnerName != null and partnerName != ''\"> "
 			+ " AND A.PARTNERNAME LIKE CONCAT('%',#{partnerName}, '%') "
 			+ "</if>"
 			

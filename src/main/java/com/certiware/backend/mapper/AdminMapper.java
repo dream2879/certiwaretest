@@ -29,15 +29,15 @@ public interface AdminMapper {
 			+ " AND A.RANKCODE = C.RANKCODE                                                                            "
 			+ " AND A.ROLECODE = D.ROLECODE                                                                            "
 			//userName
-			+ "<if test=\"userName != null\"> "
+			+ "<if test=\"userName != null and userName != '' \"> "
 			+ " AND A.USERNAME LIKE CONCAT('%',#{userName}, '%') "
 			+ "</if>"
 			//deptName
-			+ "<if test=\"deptName != null\"> "
+			+ "<if test=\"deptName != null and deptName != '' \"> "
 			+ " AND B.DEPTNAME LIKE CONCAT('%',#{deptName}, '%') "
 			+ "</if>"
 			//rankName
-			+ "<if test=\"rankName != null\"> "
+			+ "<if test=\"rankName != null and rankName != '' \"> "
 			+ " AND C.RANKNAME LIKE CONCAT('%',#{rankName}, '%') "
 			+ "</if>"			
 			+ "</script>"		
@@ -55,10 +55,10 @@ public interface AdminMapper {
 			+ "SELECT USERID, USERNAME, DEPTCODE, RANKCODE, ROLECODE "
 			+ "FROM TB_USER "
 			// userId is not null이라면 WHERE조건 추가
-			+ "<if test=\"userId != null\"> "
+			+ "<if test=\"userId != null and userId != ''\"> "
 			+ "WHERE USERID =#{userId} "
 			+ "</if>"
-			+ "<if test=\"userName != null\"> "
+			+ "<if test=\"userName != null and userName != ''\"> "
 			+ "WHERE USERNAME like CONCAT('%',#{userName}, '%') "
 			+ "</if>"
 			+ "</script>"			

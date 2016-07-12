@@ -41,15 +41,15 @@ public interface ProjectMapper {
 			+ " FROM TB_PROJECT A, TB_PARTNER B  "
 			+ " WHERE A.PARTNERID = B.PARTNERID "
 			// projectName
-			+ "<if test=\"projectName != null\"> "
+			+ "<if test=\"projectName != null and projectName != '' \"> "
 			+ " AND A.PROJECTNAME LIKE CONCAT('%',#{projectName}, '%') "
 			+ "</if>"
 			// partnerName
-			+ "<if test=\"partnerName != null\"> "
+			+ "<if test=\"partnerName != null and partnerName != '' \"> "
 			+ " AND B.PARTNERNAME LIKE CONCAT('%',#{partnerName}, '%') "
 			+ "</if>"
 			// deptCode
-			+ "<if test=\"deptCode != null\"> "
+			+ "<if test=\"deptCode != null and deptCode != '' \"> "
 			+ " AND A.DEPTCODE = #{deptCode}  "
 			+ "</if>"			
 			+ "</script>"
