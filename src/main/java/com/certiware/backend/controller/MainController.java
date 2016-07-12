@@ -20,6 +20,7 @@ import com.certiware.backend.model.main.AmountModel;
 import com.certiware.backend.model.main.ManModel;
 import com.certiware.backend.model.main.SelectLoginModel;
 import com.certiware.backend.model.main.StaticModel;
+import com.certiware.backend.model.main.TokeModel;
 import com.certiware.backend.service.MainService;
 
 import io.jsonwebtoken.Jwts;
@@ -41,7 +42,8 @@ public class MainController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(@RequestBody Map<String, String> json) throws ServletException {
+	public TokeModel login(@RequestBody Map<String, String> json) throws ServletException {
+		TokeModel tokeModel = new TokeModel(); 
 		UserModel userModel = new UserModel();
 		String userId = null;
 		String password = null;
@@ -74,8 +76,11 @@ public class MainController {
 			throw new ServletException(e.toString());
 		}
 		
-		System.out.println("login() end...");		
-		return Jwts.builder().setSubject(userId).claim("roles", "user").setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact();		
+		System.out.println("login() end...");
+		
+		tokeModel.setTokens(Jwts.builder().setSubject(userId).claim("roles", "user").setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact());
+		tokeModel.setDate(System.currentTimeMillis());
+		return tokeModel; 		
 	}// end login
 	
 	/**
