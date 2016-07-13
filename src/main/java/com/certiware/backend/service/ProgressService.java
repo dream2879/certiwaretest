@@ -20,6 +20,7 @@ import com.certiware.backend.model.progress.ModifyManpowerModel;
 import com.certiware.backend.model.progress.SelectPartnerNameList;
 import com.certiware.backend.model.progress.SelectProgressListReqModel;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
+import com.certiware.backend.model.progress.UpdateManpowerModel;
 
 @Service
 public class ProgressService {
@@ -40,26 +41,34 @@ public class ProgressService {
 	}
 	
 	/**
-	 * TB_MANPOWER 테이블 MERGE, DELETE 수행
+	 * TB_MANPOWER 테이블 UPDATE
 	 * @param modifyManpowerModel
 	 * @return
 	 * @throws Exception
 	 */
 	@Transactional
-	public boolean modifyManpower(ModifyManpowerModel modifyManpowerModel) throws Exception{		
+	public boolean updateManpower(UpdateManpowerModel updateManpowerModel) throws Exception{	
 	
-		// merge
-		for (ManpowerModel manpowerModel : modifyManpowerModel.getMergeManpowerModels()) {
-			progressMapper.mergeManpower(manpowerModel);
-		}
 		
+			progressMapper.updateManpower(updateManpowerModel);
 		
-		// delete
-		for (ManpowerModel manpowerModel : modifyManpowerModel.getDeleteManpowerModels()) {
-			progressMapper.deleteManpower(manpowerModel);
-		}
 		
 		return true;
+	}
+	
+	/**
+	 * Manpower 정보를 삭제한다.
+	 * @param manpowerModel
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	public boolean deleteManpower(ManpowerModel manpowerModel) throws Exception{
+		
+		progressMapper.deleteManpower(manpowerModel);
+		
+		return true;
+		
 	}
 	
 	/**

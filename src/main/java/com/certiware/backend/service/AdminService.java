@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.certiware.backend.mapper.AdminMapper;
 import com.certiware.backend.model.admin.ModifyDeptCodeModel;
 import com.certiware.backend.model.admin.SelectUserListModel;
+import com.certiware.backend.model.admin.UpdateUserModel;
 import com.certiware.backend.model.common.DeptCodeModel;
 import com.certiware.backend.model.common.UserModel;
 
@@ -55,9 +56,9 @@ public class AdminService {
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean updateUser(UserModel userModel) throws Exception{
+	public boolean updateUser(UpdateUserModel updateUserModel) throws Exception{
 		
-		adminMapper.updateUser(userModel);
+		adminMapper.updateUser(updateUserModel);
 		
 		return true;
 	}

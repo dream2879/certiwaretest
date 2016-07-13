@@ -19,6 +19,7 @@ import com.certiware.backend.model.progress.ModifyManpowerModel;
 import com.certiware.backend.model.progress.SelectPartnerNameList;
 import com.certiware.backend.model.progress.SelectProgressListReqModel;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
+import com.certiware.backend.model.progress.UpdateManpowerModel;
 import com.certiware.backend.service.ProgressService;
 
 @RestController
@@ -63,13 +64,13 @@ public class ProgressController {
 	 * @return
 	 * @throws ServletException
 	 */
-	@RequestMapping("/modifyManpower")
-	public ResultModel modifyManpower(@RequestBody ModifyManpowerModel modifyManpowerModel) throws ServletException{
+	@RequestMapping("/updateManpower")
+	public ResultModel updateManpower(@RequestBody UpdateManpowerModel updateManpowerModel) throws ServletException{
 		System.out.println("modifyManpower() start...");
 		ResultModel resultModel = new ResultModel();
 				
 		try{
-			resultModel.setResult(progressService.modifyManpower(modifyManpowerModel));
+			resultModel.setResult(progressService.updateManpower(updateManpowerModel));
 			
 			
 		}catch(Exception e)
@@ -81,6 +82,35 @@ public class ProgressController {
 		}
 		
 		System.out.println("modifyManpower() end...");
+		
+		return resultModel;
+	}// end modifyManpower
+	
+	
+	/**
+	 * 프로젝트 투입인력 삭제한다.
+	 * @param modifyManpowerModel
+	 * @return
+	 * @throws ServletException
+	 */
+	@RequestMapping("/deleteManpower")
+	public ResultModel deleteManpower(@RequestBody ManpowerModel manpowerModel) throws ServletException{
+		System.out.println("deleteManpower() start...");
+		ResultModel resultModel = new ResultModel();
+				
+		try{
+			resultModel.setResult(progressService.deleteManpower(manpowerModel));
+			
+			
+		}catch(Exception e)
+		{
+			resultModel.setMessage(e.toString());
+			
+			System.out.println("error : " + e.toString());
+			//throw new ServletException(e.toString());
+		}
+		
+		System.out.println("deleteManpower() end...");
 		
 		return resultModel;
 	}// end modifyManpower

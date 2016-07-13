@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.certiware.backend.model.admin.SelectUserListModel;
+import com.certiware.backend.model.admin.UpdateUserModel;
 import com.certiware.backend.model.common.DeptCodeModel;
 import com.certiware.backend.model.common.UserModel;
 
@@ -85,16 +86,21 @@ public interface AdminMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Update(  " UPDATE TB_USER "
+	@Update(  "<script>"
+			+ " UPDATE TB_USER "
 			+ " SET USERID=#{userId},"
+			+ "<if test=\"password != null and password != ''\"> "
 			+ "		PASSWORD=#{password}, "
+			+ "</if>"
 			+ "		USERNAME=#{userName}, "
 			+ "		DEPTCODE =#{deptCode}, "
 			+ "		RANKCODE=#{rankCode}, "
 			+ "		ROLECODE=#{roleCode} "
-			+ " WHERE USERID = #{userId} "
+			+ " WHERE USERID = #{pk} "
+			+ "</script>"
+			
 			)
-	public int updateUser(UserModel userModel) throws Exception;
+	public int updateUser(UpdateUserModel updateUserModel) throws Exception;
 	
 	/**
 	 * TB_USER 테이블삭제

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.admin.ModifyDeptCodeModel;
 import com.certiware.backend.model.admin.SelectUserListModel;
+import com.certiware.backend.model.admin.UpdateUserModel;
 import com.certiware.backend.model.common.DeptCodeModel;
 import com.certiware.backend.model.common.ResultModel;
 import com.certiware.backend.model.common.UserModel;
@@ -127,7 +128,7 @@ public class AdminController {
 	 * @throws ServletException
 	 */
 	@RequestMapping("/updateUser")	
-	public ResultModel updateUser(@RequestBody UserModel userModel) throws ServletException{
+	public ResultModel updateUser(@RequestBody UpdateUserModel updateUserModel) throws ServletException{
 		
 		System.out.println("updateUser() start...");
 		
@@ -136,10 +137,10 @@ public class AdminController {
 		try{
 			
 			// 넘어온 Password를 BCrypt알고리즘을 이용하여 변환한다.			
-			userModel.setPassword(BCrypt.hashpw(userModel.getPassword(), BCrypt.gensalt()));			
-			System.out.println("BCRYPT : " + userModel.getPassword());
+			updateUserModel.setPassword(BCrypt.hashpw(updateUserModel.getPassword(), BCrypt.gensalt()));			
+			System.out.println("BCRYPT : " + updateUserModel.getPassword());
 			
-			resultModel.setResult(adminService.updateUser(userModel));
+			resultModel.setResult(adminService.updateUser(updateUserModel));
 			
 		}catch(Exception e)
 		{			
@@ -160,7 +161,7 @@ public class AdminController {
 	 * @return
 	 * @throws ServletException
 	 */
-	//@RequestMapping("/deleteUser")
+	@RequestMapping("/deleteUser")
 	public ResultModel deleteUser(@RequestBody Map<String, String> json) throws ServletException{
 		System.out.println("deleteUser() start...");
 		

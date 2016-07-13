@@ -87,7 +87,7 @@ public class AdminTest {
 		userModel.setRoleCode("4");
 		
 		
-		adminController.updateUser(userModel);
+//		adminController.updateUser(userModel);
 	
 	}
 

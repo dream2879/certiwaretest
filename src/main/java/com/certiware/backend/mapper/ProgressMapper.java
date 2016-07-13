@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.certiware.backend.model.common.ManpowerMmModel;
 import com.certiware.backend.model.common.ManpowerModel;
@@ -13,6 +14,7 @@ import com.certiware.backend.model.common.UserModel;
 import com.certiware.backend.model.progress.ProjectPartnerModel;
 import com.certiware.backend.model.progress.SelectPartnerNameList;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
+import com.certiware.backend.model.progress.UpdateManpowerModel;
 
 public interface ProgressMapper {
 
@@ -60,7 +62,7 @@ public interface ProgressMapper {
 	
 	
 	/**
-	 * TB_MANPOWER 테이블 MERGE
+	 * TB_MANPOWER 테이블 insert
 	 * @param manpowerModels
 	 * @return
 	 * @throws Exception
@@ -77,15 +79,29 @@ public interface ProgressMapper {
 			+ "		#{endDate}, "
 			+ "		#{remarks}"
 			+ ") "   
-			+ " ON DUPLICATE KEY UPDATE "	// update
-			+ "		PARTNERID =#{partnerId},"
-			+ "		RATINGCODE=#{RatingCode},"
-			+ "		SELLINGAMOUNT=#{sellingAmount},"
-			+ "		OUTSOURCINGAMOUNT=#{outsourcingAmount},"
-			+ "		STARTDATE=#{startDate},ENDDATE=#{endDate},"
-			+ "		REMARKS=#{remarks} "
+//			+ " ON DUPLICATE KEY UPDATE "	// update
+//			+ "		PARTNERID =#{partnerId},"
+//			+ "		RATINGCODE=#{RatingCode},"
+//			+ "		SELLINGAMOUNT=#{sellingAmount},"
+//			+ "		OUTSOURCINGAMOUNT=#{outsourcingAmount},"
+//			+ "		STARTDATE=#{startDate},ENDDATE=#{endDate},"
+//			+ "		REMARKS=#{remarks} "
 			)
-	public void mergeManpower(ManpowerModel manpowerModel) throws Exception;
+	public void inserteManpower(ManpowerModel manpowerModel) throws Exception;
+	
+	@Update(  " UPDATE TB_MANPOWER SET      "
+			+ "   MANPOWERNAME = #{manpowerName},        "
+			+ "   PARTNERID = #{partnerId},            "
+			+ "   RATINGCODE = #{RatingCode},          "
+			+ "   SELLINGAMOUNT = #{sellingAmount},        "
+			+ "   OUTSOURCINGAMOUNT = #{outsourcingAmount},    "
+			+ "   STARTDATE = #{startDate},           "
+			+ "   ENDDATE = #{endDate},             "
+			+ "   REMARKS = #{remarks}              "
+			+ " WHERE PROJECTID = #{pk1}     "
+			+ " AND MANPOWERNAME = #{pk2} "
+)
+	public void updateManpower(UpdateManpowerModel updateManpowerModel) throws Exception;
 	
 	
 	/**
