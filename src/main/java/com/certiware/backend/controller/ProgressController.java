@@ -57,6 +57,34 @@ public class ProgressController {
 		return manpowerModels;
 	}// end selectManpowerList
 	
+	/**
+	 * 투입인력 정보 입력
+	 * @param manpowerModel
+	 * @return
+	 * @throws ServletException
+	 */
+	@RequestMapping("/insertManpower")
+	public ResultModel insertManpower(@RequestBody ManpowerModel manpowerModel) throws ServletException{
+		System.out.println("insertManpower() start...");
+		ResultModel resultModel = new ResultModel();
+				
+		try{
+			resultModel.setResult(progressService.insertManpower(manpowerModel));
+			
+			
+		}catch(Exception e)
+		{
+			resultModel.setMessage(e.toString());
+			
+			System.out.println("error : " + e.toString());
+			//throw new ServletException(e.toString());
+		}
+		
+		System.out.println("insertManpower() end...");
+		
+		return resultModel;
+	}// end insertManpower
+	
 	
 	/**
 	 * 프로젝트 투입인력 정보를 수정한다.

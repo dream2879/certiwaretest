@@ -41,6 +41,21 @@ public class ProgressService {
 	}
 	
 	/**
+	 * TB_MANPOWER 테이블 INSERT
+	 * @param manpowerModel
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	public boolean insertManpower(ManpowerModel manpowerModel ) throws Exception{	
+	
+		
+			progressMapper.inserteManpower(manpowerModel);		
+		
+		return true;
+	}
+	
+	/**
 	 * TB_MANPOWER 테이블 UPDATE
 	 * @param modifyManpowerModel
 	 * @return
