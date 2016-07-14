@@ -11,7 +11,7 @@ public class OutsourcingModel {
 	private String ratingCode;
 	private String product;
 	private Date startDate;
-	private String endDate;
+	private Date endDate;
 	public int getProjectId() {
 		return projectId;
 	}
@@ -54,10 +54,10 @@ public class OutsourcingModel {
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 	

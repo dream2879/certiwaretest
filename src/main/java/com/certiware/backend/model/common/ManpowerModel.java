@@ -7,7 +7,7 @@ public class ManpowerModel {
 	private int projectId;
 	private String manpowerName;
 	private int partnerId;
-	private String RatingCode;
+	private String ratingCode;
 	private int sellingAmount;
 	private int outsourcingAmount;
 	private Date startDate;
@@ -32,13 +32,11 @@ public class ManpowerModel {
 		this.partnerId = partnerId;
 	}
 	public String getRatingCode() {
-		return RatingCode;
+		return ratingCode;
 	}
 	public void setRatingCode(String ratingCode) {
-		RatingCode = ratingCode;
+		this.ratingCode = ratingCode;
 	}
-	
-
 	public int getSellingAmount() {
 		return sellingAmount;
 	}
