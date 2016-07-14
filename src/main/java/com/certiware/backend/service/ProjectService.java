@@ -108,16 +108,59 @@ public class ProjectService {
 	@Transactional
 	public boolean modifyOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception{
 			
-		//merge
-		for (SelectOutsourcingModel item : modifyOutsourcingModel.getMergeOutsourcingModels()) {			
-			projectMapper.mergeOutsourcing(item);			
-		}
-		
-		//delete
-		for (SelectOutsourcingModel item : modifyOutsourcingModel.getDeleteOutsourcingModels()) {
-			projectMapper.deleteOutsourcing(item);		
-		}				
+//		//merge
+//		for (SelectOutsourcingModel item : modifyOutsourcingModel.getMergeOutsourcingModels()) {			
+//			projectMapper.mergeOutsourcing(item);			
+//		}
+//		
+//		//delete
+//		for (SelectOutsourcingModel item : modifyOutsourcingModel.getDeleteOutsourcingModels()) {
+//			projectMapper.deleteOutsourcing(item);		
+//		}				
 		return true;
+	}
+	
+	/**
+	 * 아웃소싱 정보 입력
+	 * @param outsourcingModel
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean insertOutsourcing(OutsourcingModel outsourcingModel) throws Exception{
+		
+		projectMapper.inertOutsourcing(outsourcingModel);
+		
+		return true;
+		
+	}
+	
+	/**
+	 * 아웃소싱 정보 업데이터
+	 * @param outsourcingModel
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean updateOutsourcing(OutsourcingModel outsourcingModel) throws Exception{
+		
+		projectMapper.updateOutsourcing(outsourcingModel);
+		
+		return true;
+		
+	}
+	
+	
+	/**
+	 * 아웃소싱 정보 삭제
+	 * @param outsourcingModel
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean deleteOutsourcing(OutsourcingModel outsourcingModel) throws Exception{
+		
+		projectMapper.deleteOutsourcing(outsourcingModel);
+		
+		return true;
+		
 	}
 	
 	/**

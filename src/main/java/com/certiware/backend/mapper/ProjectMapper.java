@@ -164,6 +164,44 @@ public interface ProjectMapper {
 			)	
 	public int mergeOutsourcing(SelectOutsourcingModel outsourcingModel) throws Exception;
 	
+	
+	/**
+	 * TB_OUTSOURCING 테이블 INSERT
+	 * @param outsourcingModel
+	 * @return
+	 * @throws Exception
+	 */
+	@Insert(  "INSERT INTO TB_OUTSOURCING VALUES " 			 
+			+ "(	"
+			+ "		#{projectId}, "
+			+ "		#{partnerId}, "
+			+ "		#{outsourcingCode}, "
+			+ "		#{outsourcingAmount}, "
+			+ "		#{ratingCode}, "
+			+ "		#{product}, "
+			+ "		#{startDate}, "
+			+ "		#{endDate}"
+			+ " )")
+	public void inertOutsourcing(OutsourcingModel outsourcingModel) throws Exception;
+	
+	
+	/**
+	 * TB_OUTSOURCING UPDATE
+	 * @param outsourcingModel
+	 * @throws Exception
+	 */
+	@Update(  " UPDATE TB_OUTSOURCING SET                                                                            "
+			+ "     OUTSOURCINGAMOUNT=#{outsourcingAmount},                                                          "
+			+ "     RATINGCODE=#{ratingCode},                                                                        "
+			+ "     PRODUCT=#{product},                                                                              "
+			+ "     STARTDATE=#{startDate},                                                                          "
+			+ "     ENDDATE=#{endDate}                                                                               "
+			+ " WHERE PROJECTID = #{projectId} AND PARTNERID = #{partnerId} AND OUTSOURCINGCODE = #{outsourcingCode} "
+			)
+	public void updateOutsourcing(OutsourcingModel outsourcingModel) throws Exception;
+	
+	
+	
 	/**
 	 * TB_OUTSOURCING 테이블삭제
 	 * @param outsourcingModels
@@ -174,6 +212,6 @@ public interface ProjectMapper {
 			+ "WHERE PROJECTID =#{projectId} "
 			+ "AND PARTNERID = #{partnerId} "
 			+ "AND OUTSOURCINGCODE = #{outsourcingCode}")
-	public int deleteOutsourcing(SelectOutsourcingModel outsourcingModel) throws Exception;
+	public int deleteOutsourcing(OutsourcingModel outsourcingModel) throws Exception;
 
 }

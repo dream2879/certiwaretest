@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.certiware.backend.model.common.OutsourcingModel;
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.common.ResultModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
@@ -213,20 +214,49 @@ public class ProjectController {
 		
 	}//end deleteProject()
 	
+//	/**
+//	 * 
+//	 * @param modifyOutsourcingModel
+//	 * @return
+//	 * @throws ServletException
+//	 */
+//	@RequestMapping(value="/modifyOutsourcing")
+//	public ResultModel modifyOutsourcing(@RequestBody ModifyOutsourcingModel modifyOutsourcingModel) throws ServletException{
+//		System.out.println("modifyOutsourcing() start... ");		
+//		ResultModel resultModel = new ResultModel();
+//		
+//		try{
+//			
+//			resultModel.setResult(projectService.modifyOutsourcing(modifyOutsourcingModel));
+//			
+//		}
+//		catch(Exception e)
+//		{
+//			resultModel.setMessage(e.toString());
+//			System.out.println("error!! :" + e.toString());
+//			//throw new ServletException(e.toString());
+//		}
+//		
+//		System.out.println("modifyOutsourcing() end... ");
+//		return resultModel;
+//		
+//	}//end modifyOutsourcing
+	
+	
 	/**
-	 * 
-	 * @param modifyOutsourcingModel
+	 * 외주정보 입력
+	 * @param outsourcingModel
 	 * @return
 	 * @throws ServletException
 	 */
-	@RequestMapping(value="/modifyOutsourcing")
-	public ResultModel modifyOutsourcing(@RequestBody ModifyOutsourcingModel modifyOutsourcingModel) throws ServletException{
-		System.out.println("modifyOutsourcing() start... ");		
+	@RequestMapping(value="/insertOutsourcing")
+	public ResultModel insertOutsourcing(@RequestBody OutsourcingModel outsourcingModel) throws ServletException{
+		System.out.println("insertOutsourcing() start... ");		
 		ResultModel resultModel = new ResultModel();
 		
 		try{
 			
-			resultModel.setResult(projectService.modifyOutsourcing(modifyOutsourcingModel));
+			resultModel.setResult(projectService.insertOutsourcing(outsourcingModel));
 			
 		}
 		catch(Exception e)
@@ -236,10 +266,66 @@ public class ProjectController {
 			//throw new ServletException(e.toString());
 		}
 		
-		System.out.println("modifyOutsourcing() end... ");
+		System.out.println("insertOutsourcing() end... ");
 		return resultModel;
 		
-	}//end modifyOutsourcing
+	}//end insertOutsourcing
+	
+	/**
+	 * 외주정보 변경
+	 * @param outsourcingModel
+	 * @return
+	 * @throws ServletException
+	 */
+	@RequestMapping(value="/updateOutsourcing")
+	public ResultModel updateOutsourcing(@RequestBody OutsourcingModel outsourcingModel) throws ServletException{
+		System.out.println("updateOutsourcing() start... ");		
+		ResultModel resultModel = new ResultModel();
+		
+		try{
+			
+			resultModel.setResult(projectService.updateOutsourcing(outsourcingModel));
+			
+		}
+		catch(Exception e)
+		{
+			resultModel.setMessage(e.toString());
+			System.out.println("error!! :" + e.toString());
+			//throw new ServletException(e.toString());
+		}
+		
+		System.out.println("updateOutsourcing() end... ");
+		return resultModel;
+		
+	}//end updateOutsourcing
+	
+	/**
+	 * 외주정보 삭제
+	 * @param outsourcingModel
+	 * @return
+	 * @throws ServletException
+	 */
+	@RequestMapping(value="/deleteOutsourcing")
+	public ResultModel deleteOutsourcing(@RequestBody OutsourcingModel outsourcingModel) throws ServletException{
+		System.out.println("deleteOutsourcing() start... ");		
+		ResultModel resultModel = new ResultModel();
+		
+		try{
+			
+			resultModel.setResult(projectService.deleteOutsourcing(outsourcingModel));
+			
+		}
+		catch(Exception e)
+		{
+			resultModel.setMessage(e.toString());
+			System.out.println("error!! :" + e.toString());
+			//throw new ServletException(e.toString());
+		}
+		
+		System.out.println("deleteOutsourcing() end... ");
+		return resultModel;
+		
+	}//end deleteOutsourcing
 	
 	/**
 	 * 본부에 속해있는 프로젝트 목록을 가져온다.
