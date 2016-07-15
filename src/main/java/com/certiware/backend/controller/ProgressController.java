@@ -154,15 +154,15 @@ public class ProgressController {
 		System.out.println("selectManpowerMmList() start...");
 		
 		int projectId;
-		String manpowerMm;
+		String manpowerName;
 		List<ManpowerMmModel> manpowerMmModels = null;
 				
 		try{
 			
 			projectId = Integer.parseInt(json.get("projectId"));
-			manpowerMm = json.get("manpowerMm");
+			manpowerName = json.get("manpowerName");
 			
-			manpowerMmModels = progressService.selectManpowerMmList(projectId, manpowerMm);	
+			manpowerMmModels = progressService.selectManpowerMmList(projectId, manpowerName);	
 			
 		}catch(Exception e)
 		{
@@ -183,13 +183,13 @@ public class ProgressController {
 	 * @throws ServletException
 	 */
 	@RequestMapping("/modifyManpowerMm")
-	public ResultModel modifyManpowerMm(@RequestBody ModifyManpowerMmModel modifyManpowerMmModel) throws ServletException{
+	public ResultModel modifyManpowerMm(@RequestBody List<ManpowerMmModel> manpowerMmModels) throws ServletException{
 		System.out.println("modifyManpowerMm() start...");
 		ResultModel resultModel = new ResultModel();		
 				
 		try{
 			
-			resultModel.setResult(progressService.modifyManpowerMm(modifyManpowerMmModel));
+			resultModel.setResult(progressService.modifyManpowerMm(manpowerMmModels));
 			
 		}catch(Exception e)
 		{

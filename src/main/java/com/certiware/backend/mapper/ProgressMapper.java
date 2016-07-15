@@ -144,7 +144,7 @@ public interface ProgressMapper {
 			+ "		#{mm}"
 			+ ") "
 			+ "ON DUPLICATE KEY UPDATE "
-			+ "		MM = #{mm}"
+			+ "		MM = #{mm}"			
 			)
 	public void mergeManpowerMm(ManpowerMmModel manpowerMmModel) throws Exception;
 	

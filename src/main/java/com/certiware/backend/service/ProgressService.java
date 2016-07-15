@@ -104,17 +104,12 @@ public class ProgressService {
 	 * @throws Exception
 	 */
 	@Transactional
-	public boolean modifyManpowerMm(ModifyManpowerMmModel modifyManpowerMmModel) throws Exception{
+	public boolean modifyManpowerMm(List<ManpowerMmModel> manpowerMmModels) throws Exception{
 		
-		// update
-		for (ManpowerMmModel manpowerMmModel : modifyManpowerMmModel.getMergeManpowerMmModels()) {
+		// merge
+		for (ManpowerMmModel manpowerMmModel : manpowerMmModels) {
 			progressMapper.mergeManpowerMm(manpowerMmModel);
 		}
-		
-		// delete
-		for (ManpowerMmModel manpowerMmModel : modifyManpowerMmModel.getDeleteManpowerMmModels()) {
-			progressMapper.deleteManpowerMm(manpowerMmModel);
-		}	
 		
 		return true;
 	}

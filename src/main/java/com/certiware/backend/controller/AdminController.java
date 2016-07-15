@@ -192,7 +192,7 @@ public class AdminController {
 	 * @return
 	 * @throws ServletException
 	 */
-	//@RequestMapping("/selectDeptCode")
+	@RequestMapping("/selectDeptCode")
 	public List<DeptCodeModel> selectDeptCode() throws ServletException{
 		System.out.println("selectDeptCode() start...");
 		
@@ -219,7 +219,7 @@ public class AdminController {
 	 * @return
 	 * @throws ServletException
 	 */
-	//@RequestMapping("/modifyDoptCode")
+	@RequestMapping("/modifyDoptCode")
 	public ResultModel modifyDoptCode(ModifyDeptCodeModel modifyDeptCodeModel) throws ServletException{
 		System.out.println("modifyDoptCode() start...");
 		
