@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.certiware.backend.model.admin.DeleteDeptCodeModel;
 import com.certiware.backend.model.admin.ModifyDeptCodeModel;
 import com.certiware.backend.model.admin.SelectUserListModel;
 import com.certiware.backend.model.admin.UpdateUserModel;
@@ -213,33 +214,124 @@ public class AdminController {
 		return deptCodeModels;
 	}// end selectDeptCodet
 	
+//	/**
+//	 * 부서정보를 변경한다.
+//	 * @param modifyDeptCodeModel
+//	 * @return
+//	 * @throws ServletException
+//	 */
+//	@RequestMapping("/modifyDoptCode")
+//	public ResultModel modifyDoptCode(ModifyDeptCodeModel modifyDeptCodeModel) throws ServletException{
+//		System.out.println("modifyDoptCode() start...");
+//		
+//		ResultModel resultModel = new ResultModel();
+//		
+//		try{
+//			
+//			resultModel.setResult(adminService.modifyDeptCode(modifyDeptCodeModel));
+//			
+//		}catch(Exception e)
+//		{
+//			resultModel.setMessage(e.toString());
+//			
+//			System.out.println("error : " + e.toString());
+//			//throw new ServletException(e.toString());
+//		}
+//		
+//		System.out.println("modifyDoptCode() end...");
+//		
+//		return resultModel;
+//	}// end modifyDoptCode
+	
 	/**
-	 * 부서정보를 변경한다.
-	 * @param modifyDeptCodeModel
+	 * 부서을 입력한다.
+	 * @param json
 	 * @return
 	 * @throws ServletException
 	 */
-	@RequestMapping("/modifyDoptCode")
-	public ResultModel modifyDoptCode(ModifyDeptCodeModel modifyDeptCodeModel) throws ServletException{
-		System.out.println("modifyDoptCode() start...");
+	@RequestMapping("/insertDeptCode")
+	public ResultModel insertDeptCode(@RequestBody Map<String, String> json) throws ServletException{
+		System.out.println("insertDeptCode() start...");
 		
+		String deptName;
 		ResultModel resultModel = new ResultModel();
 		
 		try{
 			
-			resultModel.setResult(adminService.modifyDeptCode(modifyDeptCodeModel));
+			deptName = json.get("deptName");
+			
+			resultModel.setResult(adminService.insertDeptCode(deptName));			
 			
 		}catch(Exception e)
-		{
+		{			
 			resultModel.setMessage(e.toString());
 			
 			System.out.println("error : " + e.toString());
 			//throw new ServletException(e.toString());
 		}
 		
-		System.out.println("modifyDoptCode() end...");
+		System.out.println("insertDeptCode() end...");
 		
 		return resultModel;
-	}// end modifyDoptCode
+	}// end insertDeptCode
+	
+	
+	/**
+	 * 부서정보를 업데이트한다.
+	 * @param deptCodeModels
+	 * @return
+	 * @throws ServletException
+	 */
+	@RequestMapping("/updateDeptCode")
+	public ResultModel updateDeptCode(@RequestBody List<DeptCodeModel> deptCodeModels) throws ServletException{
+		System.out.println("updateDeptCode() start...");
+		
+		
+		ResultModel resultModel = new ResultModel();
+		
+		try{		
+			resultModel.setResult(adminService.updateDeptCode(deptCodeModels));			
+			
+		}catch(Exception e)
+		{			
+			resultModel.setMessage(e.toString());
+			
+			System.out.println("error : " + e.toString());
+			//throw new ServletException(e.toString());
+		}
+		
+		System.out.println("updateDeptCode() end...");
+		
+		return resultModel;
+	}// end updateDeptCode
+	
+	/**
+	 * 부서코드를 삭제한다.
+	 * @param json
+	 * @return
+	 * @throws ServletException
+	 */
+	@RequestMapping("/deleteDeptCode")
+	public ResultModel deleteDeptCode(@RequestBody List<DeleteDeptCodeModel> deptCodeModels) throws ServletException{
+		System.out.println("deleteDeptCode() start...");		
+		
+		ResultModel resultModel = new ResultModel();
+		
+		try{	
+			
+			resultModel.setResult(adminService.deleteDeptCode(deptCodeModels));			
+			
+		}catch(Exception e)
+		{			
+			resultModel.setMessage(e.toString());
+			
+			System.out.println("error : " + e.toString());
+			//throw new ServletException(e.toString());
+		}
+		
+		System.out.println("deleteDeptCode() end...");
+		
+		return resultModel;
+	}// end deleteDeptCode
 	
 }

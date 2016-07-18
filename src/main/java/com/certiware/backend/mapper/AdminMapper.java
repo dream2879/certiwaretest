@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.certiware.backend.model.admin.SelectUserListModel;
 import com.certiware.backend.model.admin.UpdateUserModel;
+import com.certiware.backend.model.admin.DeleteDeptCodeModel;
 import com.certiware.backend.model.common.DeptCodeModel;
 import com.certiware.backend.model.common.UserModel;
 
@@ -112,21 +113,51 @@ public interface AdminMapper {
 			+ "WHERE USERID = #{param1}")
 	public int deleteUserByUserId(String userId) throws Exception;
 	
+//	/**
+//	 * TB_DEPTCODE 테이블MERGE
+//	 * @param deptCodeModels
+//	 * @throws Exception
+//	 */
+//	@Insert(  " INSERT INTO TB_DEPTCODE VALUES (" //INSERT
+//			+ "		#{deptCode},"
+//			+ " 	#{deptName},"
+//			+ " 	#{priority}"
+//			+ "	) "
+//			+ " ON DUPLICATE KEY UPDATE " //UPDATE
+//			+ "		DEPTNAME=#{deptName}, "
+//			+ "		PRIORITY=#{priority} "
+//			)
+//	public int mergeDeptCode(DeptCodeModel deptCodeModel) throws Exception;
+//	
+	
 	/**
-	 * TB_DEPTCODE 테이블MERGE
-	 * @param deptCodeModels
+	 * TB_DEPTCODE 테이블 INSERT
+	 * @param deptName
 	 * @throws Exception
 	 */
-	@Insert(  " INSERT INTO TB_DEPTCODE VALUES (" //INSERT
-			+ "		#{deptCode},"
-			+ " 	#{deptName},"
-			+ " 	#{priority}"
-			+ "	) "
-			+ " ON DUPLICATE KEY UPDATE " //UPDATE
-			+ "		DEPTNAME=#{deptName}, "
-			+ "		PRIORITY=#{priority} "
+	@Insert(  " INSERT INTO TB_DEPTCODE "
+			+ " VALUES "
+			+ " ("
+			+ " (SELECT MAX(CAST(DEPTCODE AS UNSIGNED)) + 1 FROM TB_DEPTCODE AS TEMP1), " // 본부코드 임의생성
+			+ " #{param1}, "
+			+ " (SELECT MAX(PRIORITY) + 1 FROM TB_DEPTCODE AS TEMP)" // 우선순위 최하위로 설정
+			+ ") "
 			)
-	public int mergeDeptCode(DeptCodeModel deptCodeModel) throws Exception;
+	public void insertDeptCode(String deptName) throws Exception;	
+	
+	
+	/**
+	 * TB_DEPTCODE 테이블 UPDATE
+	 * @param deptName
+	 * @throws Exception
+	 */
+	@Update(  " UPDATE TB_DEPTCODE 				"
+			+ "   SET DEPTNAME = #{deptName},  	"
+			+ "   PRIORITY = #{priority}        "
+			+ " WHERE DEPTCODE = #{deptCode}   	"
+			)
+	public void updateDeptCode(DeptCodeModel deptCodeModel) throws Exception;
+	
 	
 	/**
 	 * TB_DEPTCODE 테이블삭제 
@@ -134,9 +165,32 @@ public interface AdminMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Delete(  "DELETE * FROM TB_DEPTCODE "
+	@Delete(  "DELETE FROM TB_DEPTCODE "
 			+ "WHERE DEPTCODE = #{deptCode}")
-	public int deleteDeptCodeByPK(DeptCodeModel deptCodeModel) throws Exception;
+	public void deleteDeptCodeByPK(DeleteDeptCodeModel deleteDeptCodeModel) throws Exception;	
+	
+	/**
+	 * TB_USER 테이블의 부서명을 변경한다.
+	 * TB_DEPT 테입테블의 부서를 삭제하기전 선수작업
+	 * @param deleteDeptCodeModel
+	 * @throws Exception
+	 */
+	@Update(  "	UPDATE TB_USER "
+			+ "		SET DEPTCODE = #{updateDeptCode} "
+			+ " WHERE DEPTCODE = #{deptCode}")
+	public void updateUserDeptCode(DeleteDeptCodeModel deleteDeptCodeModel) throws Exception;
+	
+	/**
+	 * TB_PROJECT 테이블의 부서명을 변경한다.
+	 * TB_DEPT 테입테블의 부서를 삭제하기전 선수작업
+	 * @param deleteDeptCodeModel
+	 * @throws Exception
+	 */
+	@Update(  "	UPDATE TB_PROJECT "
+			+ "		SET DEPTCODE = #{updateDeptCode} "
+			+ "	WHERE DEPTCODE = #{deptCode}")
+	public void updateProjectDeptCode(DeleteDeptCodeModel deleteDeptCodeModel) throws Exception;
+	
 	
 	
 }
