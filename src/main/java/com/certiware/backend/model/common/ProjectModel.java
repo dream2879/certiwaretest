@@ -16,6 +16,7 @@ public class ProjectModel {
 	private int outsourcingAmount;
 	private int netAmount;
 	private String remarks;
+	
 	public int getProjectId() {
 		return projectId;
 	}

@@ -99,7 +99,8 @@ public interface ProjectMapper {
 			+ "		#{vtaAmount}, "
 			+ "		#{outsourcingAmount}, "
 			+ "		#{netAmount}, "
-			+ "		#{remarks}) "
+			+ "		#{remarks}"
+			+ ") "
 		    )
 	@Options(useGeneratedKeys = true, keyProperty="projectId")
 	public void insertProject(ProjectModel projectModel) throws Exception;	

@@ -10,10 +10,11 @@ public class SelectListModel {
 	private String partnerName; 
 	private int contractAmount; 
 	private int outsourcingAmount; 
-	private int netAmountl; 
+	private int netAmount; 
 	private Date startDate; 
 	private Date endDate; 
 	private String deptCode;
+	private String remarks;
 	
 	public int getProjectId() {
 		return projectId;
@@ -51,11 +52,11 @@ public class SelectListModel {
 	public void setOutsourcingAmount(int outsourcingAmount) {
 		this.outsourcingAmount = outsourcingAmount;
 	}
-	public int getNetAmountl() {
-		return netAmountl;
+	public int getNetAmount() {
+		return netAmount;
 	}
-	public void setNetAmountl(int netAmountl) {
-		this.netAmountl = netAmountl;
+	public void setNetAmount(int netAmount) {
+		this.netAmount = netAmount;
 	}
 	public Date getStartDate() {
 		return startDate;
@@ -74,7 +75,13 @@ public class SelectListModel {
 	}
 	public void setDeptCode(String deptCode) {
 		this.deptCode = deptCode;
-	} 
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	
 	
 	
