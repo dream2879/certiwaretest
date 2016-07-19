@@ -17,6 +17,7 @@ import com.certiware.backend.config.RoleFilter;
 import com.certiware.backend.controller.ProjectController;
 import com.certiware.backend.model.common.ManpowerMmModel;
 import com.certiware.backend.model.common.ManpowerModel;
+import com.certiware.backend.model.progress.UpdateManpowerModel;
 import com.certiware.backend.service.ProgressService;
 import com.certiware.backend.service.TestService;
 
@@ -41,10 +42,12 @@ public class CertiwareApplicationTests {
 		
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
-		Date startDate = df.parse("2016-01-02");
-		Date endDate = df.parse("2017-01-01");
+		Date startDate = df.parse("2016-03-28");
+		Date endDate = df.parse("2016-06-28");
 		
 		ManpowerModel req = new ManpowerModel();
+		
+//		UpdateManpowerModel req = new UpdateManpowerModel();
 		List<ManpowerMmModel> res = new ArrayList<>();
 		
 		req.setProjectId(1);
@@ -55,9 +58,13 @@ public class CertiwareApplicationTests {
 		req.setOutsourcingAmount(30000000);
 		req.setStartDate(startDate);
 		req.setEndDate(endDate);
+//		req.setPk1(1);
+//		req.setPk2("박민기");
 		
 		
-		progressService.insertManpower(req);
+//		progressService.insertManpower(req);
+		
+		progressService.deleteManpower(req);
 		
 //		res = progressService.mergeManpowerMM(req);
 		

@@ -154,18 +154,36 @@ public interface ProgressMapper {
 			)
 	public void mergeManpowerMm(ManpowerMmModel manpowerMmModel) throws Exception;
 	
+	
 	/**
 	 * TB_MANPOWERMM 테이블삭제
+	 * 기간 조건(startDate, endData 조건에 해당하는 값만 삭제)
 	 * @param manpowerMmModels
 	 * @return
 	 * @throws Exception
 	 */
 	@Delete(  "DELETE FROM TB_MANPOWERMM "
 			+ "WHERE PROJECTID=#{projectId} "
-			+ "AND MANPOWERNAME=#{manpowerName} "
-			+ "AND MONTH=#{month}"
+			+ "AND MANPOWERNAME=#{manpowerName} "			
+			+ "AND ( MONTH < DATE_FORMAT(#{startDate}, '%Y-%m-01') "
+			+ "		 OR MONTH > DATE_FORMAT(#{endDate}, '%Y-%m-01') "
+			+ "	)"
 			)
-	public int deleteManpowerMm(ManpowerMmModel manpowerMmModel) throws Exception;
+	public int deleteManpowerMmByPeriod(ManpowerModel manpowerModel) throws Exception;
+	
+	/**
+	 * TB_MANPOWERMM 테이블삭제
+	 * PK로 볼수있는 projectId manpowerName 값으로
+	 * 해당 인력의 모든 MM 정보 삭제
+	 * @param manpowerMmModels
+	 * @return
+	 * @throws Exception
+	 */
+	@Delete(  "DELETE FROM TB_MANPOWERMM "
+			+ "WHERE PROJECTID=#{projectId} "
+			+ "AND MANPOWERNAME=#{manpowerName} "			
+			)
+	public int deleteManpowerMmByPK(ManpowerModel manpowerModel) throws Exception;
 	
 	
 	/**

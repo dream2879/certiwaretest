@@ -31,7 +31,8 @@ public class ProgressService {
 	@Autowired
 	CommonService commonService;
 	
-	public List<ManpowerMmModel> mergeManpowerMM(ManpowerModel manpowerModel) throws Exception {
+//	public List<ManpowerMmModel> mergeManpowerMM(ManpowerModel manpowerModel) throws Exception {
+	public void mergeManpowerMM(ManpowerModel manpowerModel) throws Exception {
 		
 		List<ManpowerMmModel> manpowerMmModels = new ArrayList<ManpowerMmModel>();
 		
@@ -101,7 +102,7 @@ public class ProgressService {
 		
 		this.modifyManpowerMm(manpowerMmModels);
 		
-		return manpowerMmModels;
+//		return manpowerMmModels;
 			
 	}
 	
@@ -146,11 +147,16 @@ public class ProgressService {
 		progressMapper.updateManpower(updateManpowerModel);
 		
 		
+		// startDate와 endDate가 변경됬다고 보고 TB_MANPWERMM의 정보도 수정해준다.
+		
 		ManpowerModel manpowerModel = new ManpowerModel();
 		manpowerModel.setProjectId(updateManpowerModel.getProjectId());
 		manpowerModel.setManpowerName(updateManpowerModel.getManpowerName());
 		manpowerModel.setStartDate(updateManpowerModel.getStartDate());
 		manpowerModel.setEndDate(updateManpowerModel.getEndDate());
+		
+		// 변경된 기간에 포함되지 않는 기간의 MM정보 삭제
+		this.deleteManpowerMmByPeriod(manpowerModel);
 		
 		// 투입기간 변경에 따라 MM을 자동계산하여 보낸다.
 		this.mergeManpowerMM(manpowerModel);
@@ -168,7 +174,11 @@ public class ProgressService {
 	@Transactional
 	public boolean deleteManpower(ManpowerModel manpowerModel) throws Exception{
 		
+		// TB_MANOWER 정보 삭제
 		progressMapper.deleteManpower(manpowerModel);
+		
+		// TB_MANPWERMM 정보도 삭제
+		this.deleteManpowerMmByPK(manpowerModel);
 		
 		return true;
 		
@@ -201,6 +211,35 @@ public class ProgressService {
 		
 		return true;
 	}
+	
+	/**
+	 * TB_MANPOWERMM 테이블 사용자 정보 삭제(기간에 해당하는 것만)
+	 * @param manpowerMmModel
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	public boolean deleteManpowerMmByPeriod(ManpowerModel manpowerModel) throws Exception{
+		
+		progressMapper.deleteManpowerMmByPeriod(manpowerModel);
+		
+		return true;
+	}
+	
+	/**
+	 * TB_MANPWERMM 테이블 사용자 정보 삭제
+	 * @param manpowerMmModel
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	public boolean deleteManpowerMmByPK(ManpowerModel manpowerModel) throws Exception{
+		
+		progressMapper.deleteManpowerMmByPK(manpowerModel);
+		
+		return true;
+	}
+	
 	
 	
 	/**
