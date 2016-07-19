@@ -72,13 +72,16 @@ public interface AdminMapper {
 	 * @param userModel
 	 * @throws Exception
 	 */
-	@Insert(  "INSERT INTO TB_USER VALUES ("
+	@Insert(  "INSERT INTO TB_USER VALUES "
+			+ "("
 			+ "	#{userId},"
 			+ " #{password},"
 			+ " #{userName},"
 			+ " #{deptCode},"
 			+ " #{rankCode},"
-			+ " #{roleCode});")
+			+ " #{roleCode}"
+			+ ")"
+			)
 	public void insertUser(UserModel userModel) throws Exception;
 	
 	/**
@@ -169,6 +172,7 @@ public interface AdminMapper {
 			+ "WHERE DEPTCODE = #{deptCode}")
 	public void deleteDeptCodeByPK(DeleteDeptCodeModel deleteDeptCodeModel) throws Exception;	
 	
+	
 	/**
 	 * TB_USER 테이블의 부서명을 변경한다.
 	 * TB_DEPT 테입테블의 부서를 삭제하기전 선수작업
@@ -179,6 +183,7 @@ public interface AdminMapper {
 			+ "		SET DEPTCODE = #{updateDeptCode} "
 			+ " WHERE DEPTCODE = #{deptCode}")
 	public void updateUserDeptCode(DeleteDeptCodeModel deleteDeptCodeModel) throws Exception;
+	
 	
 	/**
 	 * TB_PROJECT 테이블의 부서명을 변경한다.

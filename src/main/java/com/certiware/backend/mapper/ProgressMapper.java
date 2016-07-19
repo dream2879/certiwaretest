@@ -57,7 +57,8 @@ public interface ProgressMapper {
 	 */
 	@Select(  "SELECT * "
 			+ "FROM TB_MANPOWER "
-			+ "WHERE PROJECTID = #{param1}")
+			+ "WHERE PROJECTID = #{param1}"
+			)
 	public List<ManpowerModel> selectManpowerList(int projectId) throws Exception;
 	
 	
@@ -89,6 +90,11 @@ public interface ProgressMapper {
 			)
 	public void inserteManpower(ManpowerModel manpowerModel) throws Exception;
 	
+	/**
+	 * TB_MANPOWER 테이블 변경
+	 * @param updateManpowerModel
+	 * @throws Exception
+	 */
 	@Update(  " UPDATE TB_MANPOWER SET      "
 			+ "   MANPOWERNAME = #{manpowerName},        "
 			+ "   PARTNERID = #{partnerId},            "

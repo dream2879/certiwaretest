@@ -90,8 +90,6 @@ public class ProjectModel {
 	}
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
-	}
-	
-	
+	}	
 
 }

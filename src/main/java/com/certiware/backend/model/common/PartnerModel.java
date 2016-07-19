@@ -8,7 +8,9 @@ public class PartnerModel {
 	private String partnerName;
 	private String partnerCode;
 	private int businessNumber;
-	private String businessCode;	
+	private String businessCode;
+	private String ceoName;	
+	private String address;	
 	private Date createDate;
 	
 	public int getPartnerId() {
@@ -40,6 +42,18 @@ public class PartnerModel {
 	}
 	public void setBusinessCode(String businessCode) {
 		this.businessCode = businessCode;
+	}
+	public String getCeoName() {
+		return ceoName;
+	}
+	public void setCeoName(String ceoName) {
+		this.ceoName = ceoName;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public Date getCreateDate() {
 		return createDate;

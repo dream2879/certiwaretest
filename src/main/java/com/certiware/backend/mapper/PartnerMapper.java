@@ -21,7 +21,7 @@ public interface PartnerMapper {
 	 */
 	@Select(  "<script> "
 			+ "SELECT A.PARTNERID, A.PARTNERNAME, A.BUSINESSNUMBER, A.BUSINESSCODE, B.DESCRIPTION AS BUSINESSDESCRIPTION, "
-			+ "        A.PARTNERCODE, C.DESCRIPTION AS PARTNERDESCRIPTION, A.CREATEDATE "
+			+ "        A.PARTNERCODE, C.DESCRIPTION AS PARTNERDESCRIPTION, A.CEONAME, A.ADDRESS, A.CREATEDATE "
 			+ " FROM TB_PARTNER A, TB_BUSINESSCODE B, TB_PARTNERCODE C "
 			+ " WHERE A.BUSINESSCODE = B.BUSINESSCODE "
 			+ " AND A.PARTNERCODE = C.PARTNERCODE "
@@ -63,7 +63,9 @@ public interface PartnerMapper {
 			+ "		#{partnerName}, "
 			+ "		#{partnerCode},  "
 			+ "		#{businessNumber}, "
-			+ "		#{businessCode}"
+			+ "		#{businessCode},"
+			+ "		#{ceoName}, "
+			+ "		#{address}"
 			+ ")"
 			)
 	@Options(useGeneratedKeys = true, keyProperty="partnerId")
@@ -81,7 +83,9 @@ public interface PartnerMapper {
 			+ "		PARTNERNAME=#{partnerName}, "
 			+ " 	PARTNERCODE=#{partnerCode},"
 			+ " 	BUSINESSNUMBER=#{businessNumber},"
-			+ " 	BUSINESSCODE=#{businessCode} "
+			+ " 	BUSINESSCODE=#{businessCode}, "
+			+ " 	CEONAME=#{ceoName}, "
+			+ " 	ADDRESS=#{address} "
 			+ " WHERE PARTNERID = #{partnerId} "
 			)
 	public int updatePartnerByPartnerId(PartnerModel partnerModel) throws Exception;

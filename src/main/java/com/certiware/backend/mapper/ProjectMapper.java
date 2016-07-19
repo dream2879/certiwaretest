@@ -25,9 +25,14 @@ public interface ProjectMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Select(  "SELECT PROJECTID, PROJECTNAME "
+	@Select(  "<script>"
+			+ "SELECT PROJECTID, PROJECTNAME "
 			+ "FROM TB_PROJECT "
-			+ "WHERE DEPTCODE = #{param1}")
+			+ "<if test=\"param1 != null and param1 != '' \"> "
+			+ "WHERE DEPTCODE = #{param1}"
+			+ "</if>"
+			+ "</script>"
+			)
 	public List<SelectProjectListModel> selectProjectByDeptCode(String deptCode) throws Exception;	
 
 	/**

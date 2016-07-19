@@ -10,8 +10,9 @@ public class SelectListModel {
 	private String businessDescription;
 	private String partnerCode;
 	private String partnerDescription;
+	private String ceoName;	
+	private String address;	
 	private Date createDate;
-	
 	public int getPartnerId() {
 		return partnerId;
 	}
@@ -54,11 +55,24 @@ public class SelectListModel {
 	public void setPartnerDescription(String partnerDescription) {
 		this.partnerDescription = partnerDescription;
 	}
+	public String getCeoName() {
+		return ceoName;
+	}
+	public void setCeoName(String ceoName) {
+		this.ceoName = ceoName;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public Date getCreateDate() {
 		return createDate;
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+
 
 }
