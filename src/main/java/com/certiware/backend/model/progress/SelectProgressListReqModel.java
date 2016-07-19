@@ -1,18 +1,16 @@
 package com.certiware.backend.model.progress;
 
+import java.text.SimpleDateFormat;
+
 public class SelectProgressListReqModel {
 	
-	private int ProjectId;
+	
 	private String deptCode;
 	private java.util.Date startDate;
 	private java.util.Date endDate;
+	private String projectName;
 	
-	public int getProjectId() {
-		return ProjectId;
-	}
-	public void setProjectId(int projectId) {
-		ProjectId = projectId;
-	}
+	
 	public String getDeptCode() {
 		return deptCode;
 	}
@@ -31,9 +29,12 @@ public class SelectProgressListReqModel {
 	public void setEndDate(java.util.Date endDate) {
 		this.endDate = endDate;
 	}
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
 	
-	
-	
-
-
 }
+

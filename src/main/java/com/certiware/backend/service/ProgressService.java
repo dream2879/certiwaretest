@@ -126,12 +126,17 @@ public class ProgressService {
 		
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
-		Date startDate =  selectProgressListReqModel.getStartDate();
-		Date endDate = selectProgressListReqModel.getEndDate();
-		
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(startDate);
+		cal.setTime(selectProgressListReqModel.getStartDate());
 		
+		// 시작일과 마지막일 세팅
+		Date startDate =  df.parse(cal.get(cal.YEAR) +"-01-01");
+		Date endDate = df.parse(cal.get(cal.YEAR) +"-12-01");		
+		
+		// 시작일 달력에 다시 세팅
+		cal.setTime(startDate);
+	
+		String A = " WHERE MONTH BETWEEN '" + startDate + "' AND '" + endDate +"'"; 
 		
 		// Dynamic Query를 만들기위한 로직
 		String dQuery0 = "";
@@ -139,8 +144,8 @@ public class ProgressService {
 		String dQuery2 = "";
 		String dQuery3 = "";
 		String dQuery4 = "";
-		int index = 1;
 		
+		int index = 1;		
 		do{
 			
 			//System.out.println(df.format((cal.getTime())));
@@ -233,8 +238,10 @@ public class ProgressService {
 //		query += "                                     CASE WHEN MONTH = '2016-02-02 오전 12:00:00' THEN ROUND(MM, 2) ELSE 0 END AS M2                " + System.getProperty("line.separator") ;
 		query += dQuery3;
 		
-		query += "                                		-- 반복문 수행 끝                                                                               " + System.getProperty("line.separator") ;
-		query += "                                FROM TB_MANPOWERMM) A                                                                               " + System.getProperty("line.separator") ;
+		query += "                                		-- 반복문 수행 끝                                                                               " + System.getProperty("line.separator") ;		
+		query += "                                FROM TB_MANPOWERMM                                                                               " + System.getProperty("line.separator") ;
+		query += " 								  WHERE MONTH BETWEEN '" + startDate + "' AND '" + endDate +"' "; 
+		query += "                                ) A                                                                               " + System.getProperty("line.separator") ;
 		query += "                    GROUP BY PROJECTID, MANPOWERNAME) A,                                                                            " + System.getProperty("line.separator") ;
 		query += "                   (SELECT PROJECTID,                                                                                               " + System.getProperty("line.separator") ;
 		query += "                           MANPOWERNAME,                                                                                            " + System.getProperty("line.separator") ;
@@ -287,7 +294,9 @@ public class ProgressService {
 //		query += "                                     CASE WHEN MONTH = '2016-02-02 오전 12:00:00' THEN ROUND(MM, 2) ELSE 0 END AS M2                " + System.getProperty("line.separator") ;
 		query += dQuery3;
 		query += "                                		-- 반복문 수행 끝                                                                               " + System.getProperty("line.separator") ;
-		query += "                                FROM TB_MANPOWERMM) A                                                                               " + System.getProperty("line.separator") ;
+		query += "                                FROM TB_MANPOWERMM                                                                               " + System.getProperty("line.separator") ;
+		query += " 								  WHERE MONTH BETWEEN '" + startDate + "' AND '" + endDate +"' "; 
+		query += "                                ) A                                                                               " + System.getProperty("line.separator") ;
 		query += "                    GROUP BY PROJECTID, MANPOWERNAME) A,                                                                            " + System.getProperty("line.separator") ;
 		query += "                   (SELECT PROJECTID,                                                                                               " + System.getProperty("line.separator") ;
 		query += "                           MANPOWERNAME,                                                                                            " + System.getProperty("line.separator") ;
@@ -310,6 +319,19 @@ public class ProgressService {
 		query += "                 PARTNERID                                                                                                          " + System.getProperty("line.separator") ;
 		query += "            FROM TB_PARTNER) D                                                                                                      " + System.getProperty("line.separator") ;
 		query += "            ON A.PROJECTID = D.PARTNERID                                                                                            " + System.getProperty("line.separator") ;
+		query += "            WHERE 1=1                                                                                            " + System.getProperty("line.separator") ;
+		
+		if(selectProgressListReqModel.getDeptCode() != null && selectProgressListReqModel.getDeptCode() != ""){
+			
+			query += " AND B.DEPTCODE = '" + selectProgressListReqModel.getDeptCode() + "' "+ System.getProperty("line.separator") ;
+			
+		}
+		
+		if(selectProgressListReqModel.getProjectName() != null && selectProgressListReqModel.getProjectName() != ""){			
+			
+			query += " AND B.PROJECTNAME LIKE '%" + selectProgressListReqModel.getProjectName() + "%' "+ System.getProperty("line.separator") ;
+		}
+		
 		query += "ORDER BY A.PROJECTID,                                                                                                               " + System.getProperty("line.separator") ;
 		query += "         A.IDSORT,                                                                                                                  " + System.getProperty("line.separator") ;
 		query += "         A.MANPOWERNAME,                                                                                                            " + System.getProperty("line.separator") ;
