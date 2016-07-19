@@ -57,7 +57,7 @@ public interface PartnerMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Insert(  "INSERT INTO TB_PARTNER (PARTNERNAME, PARTNERCODE, BUSINESSNUMBER, BUSINESSCODE)" 
+	@Insert(  "INSERT INTO TB_PARTNER (PARTNERNAME, PARTNERCODE, BUSINESSNUMBER, BUSINESSCODE, CEONAME, ADDRESS) " 
 			+ "VALUES "
 			+ "("
 			+ "		#{partnerName}, "

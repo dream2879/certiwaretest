@@ -4,9 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,11 +15,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.certiware.backend.config.RoleFilter;
 import com.certiware.backend.controller.ProjectController;
-import com.certiware.backend.model.SelectProgress;
-import com.certiware.backend.model.common.UserModel;
-import com.certiware.backend.model.progress.SelectProgressListReqModel;
-import com.certiware.backend.model.progress.SelectProgressListResModel;
-import com.certiware.backend.model.project.SelectOutsourcingModel;
+import com.certiware.backend.model.common.ManpowerMmModel;
+import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.service.ProgressService;
 import com.certiware.backend.service.TestService;
 
@@ -41,57 +36,70 @@ public class CertiwareApplicationTests {
 	@Autowired
 	ProjectController projectController;
 	
-//	@Test
-//	public void test() throws Exception {
-//		
-//		// String req = "USER ";
-//		UserModel req = new UserModel();
-//		List<UserModel> res = new ArrayList<>();
-//		
-//		req.setUserName( "SELECT * FROM TB_USER ");
-//		
-//		
-//		res = testService.selectTest(req);
-//		
-//		// 로그
-//				System.out.println("selectUserList() logging Start.." );
-//						
-//				for (int i = 0; i < res.size(); i++) {		
-//							
-//					System.out.println("class index("+ i +")");
-//					Log.setLog(res.get(i), "    ");
-//							
-//				}
-//						
-//				System.out.println("selectUserList() logging end.." );
-//		
-//		
-//	}
-//	
-	
-	
-	
 	@Test
-	public void test2() throws Exception {
-		
-		System.out.println("test2() logging Start.." );
-		
-		SelectProgressListReqModel selectProgressListReqModel = new SelectProgressListReqModel();
+	public void test() throws Exception {
 		
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Date startDate = df.parse("2016-01-02");
-		Date endDate = df.parse("2016-03-31");
+		Date endDate = df.parse("2017-01-01");
 		
-		selectProgressListReqModel.setStartDate(startDate);
-		selectProgressListReqModel.setEndDate(endDate);
-		selectProgressListReqModel.setDeptCode("5");
-		selectProgressListReqModel.setProjectName("AAA");
+		ManpowerModel req = new ManpowerModel();
+		List<ManpowerMmModel> res = new ArrayList<>();
 		
-		testService.DateTest(selectProgressListReqModel);
+		req.setProjectId(1);
+		req.setManpowerName("박민기");
+		req.setPartnerId(2);
+		req.setRatingCode("8");
+		req.setSellingAmount(10000000);
+		req.setOutsourcingAmount(30000000);
+		req.setStartDate(startDate);
+		req.setEndDate(endDate);
 		
-
-		List<SelectProgressListResModel> selectProgresses = progressService.selectProgressList(selectProgressListReqModel); 
+		
+		progressService.insertManpower(req);
+		
+//		res = progressService.mergeManpowerMM(req);
+		
+		// 로그
+				System.out.println("selectUserList() logging Start.." );
+						
+				for (int i = 0; i < res.size(); i++) {		
+							
+					System.out.println("class index("+ i +")");
+					Log.setLog(res.get(i), "    ");
+							
+				}
+						
+				System.out.println("selectUserList() logging end.." );
+		
+		
+	}
+	
+	
+//	
+//	
+//	@Test
+//	public void test2() throws Exception {
+//		
+//		System.out.println("test2() logging Start.." );
+//		
+//		SelectProgressListReqModel selectProgressListReqModel = new SelectProgressListReqModel();
+//		
+//		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//		
+//		Date startDate = df.parse("2016-01-02");
+//		Date endDate = df.parse("2016-03-31");
+//		
+//		selectProgressListReqModel.setStartDate(startDate);
+//		selectProgressListReqModel.setEndDate(endDate);
+//		selectProgressListReqModel.setDeptCode("5");
+//		selectProgressListReqModel.setProjectName("AAA");
+//		
+//		testService.DateTest(selectProgressListReqModel);
+//		
+//
+//		List<SelectProgressListResModel> selectProgresses = progressService.selectProgressList(selectProgressListReqModel); 
 //		
 //		// 로그
 //		
@@ -106,7 +114,7 @@ public class CertiwareApplicationTests {
 //				
 //		System.out.println("test2() logging end.." + selectProgresses.size());
 //		
-	}
+//	}
 	
 //	
 //	@Test

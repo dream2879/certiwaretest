@@ -50,9 +50,7 @@ public class TestService {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Date startDate =  selectProgressListReqModel.getStartDate();
-		Date endDate = selectProgressListReqModel.getEndDate();
-		
-		
+		Date endDate = selectProgressListReqModel.getEndDate();		
 		
 		Calendar cal = Calendar.getInstance();
 		Calendar cal2 = Calendar.getInstance();

@@ -1,13 +1,13 @@
 package com.certiware.backend.model.common;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class ManpowerMmModel {
 	
 	private int projectId;
 	private String manpowerName;
 	private Date month;
-	private float mm;
+	private double mm;
 	
 	public int getProjectId() {
 		return projectId;
@@ -27,10 +27,10 @@ public class ManpowerMmModel {
 	public void setMonth(Date month) {
 		this.month = month;
 	}
-	public float getMm() {
+	public double getMm() {
 		return mm;
 	}
-	public void setMm(float mm) {
+	public void setMm(double mm) {
 		this.mm = mm;
 	}
 	

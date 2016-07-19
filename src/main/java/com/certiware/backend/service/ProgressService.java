@@ -2,6 +2,7 @@ package com.certiware.backend.service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +31,80 @@ public class ProgressService {
 	@Autowired
 	CommonService commonService;
 	
+	public List<ManpowerMmModel> mergeManpowerMM(ManpowerModel manpowerModel) throws Exception {
+		
+		List<ManpowerMmModel> manpowerMmModels = new ArrayList<ManpowerMmModel>();
+		
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		
+		
+		int projectId = manpowerModel.getProjectId();
+		String manpowerName = manpowerModel.getManpowerName();
+		Date startDate =  manpowerModel.getStartDate();
+		Date endDate = manpowerModel.getEndDate();		
+		
+		Calendar cal = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		cal.setTime(startDate);
+		cal2.setTime(endDate);		
+		
+		// 시작점 확인
+		boolean flag = true;
+		double mm=0;
+		while(!(-1 == endDate.compareTo(df.parse(df.format((cal.getTime())))))){
+			
+			ManpowerMmModel temp = new ManpowerMmModel();
+			
+			// MM을 계산하기전 기본 세팅
+			temp.setProjectId(projectId);
+			temp.setManpowerName(manpowerName);
+			temp.setMonth(cal.getTime()); // 년,월만 잘 들어가지면 됨 		
+		
+			
+			// 반복문 시작 loop 
+			if(flag)
+			{
+//				System.out.println("계산 : " + (double) cal.get(cal.DAY_OF_MONTH) + " / " + (double) cal.getActualMaximum(cal.DAY_OF_MONTH));
+				// MM 구하기 근무일수/해당월의일수
+				mm = (double) cal.get(cal.DAY_OF_MONTH) / (double) cal.getActualMaximum(cal.DAY_OF_MONTH); 
+				cal.set(cal.DATE, 1);
+				
+				flag = false;
+				
+			}
+			// 반복문 중간
+			else
+			{				
+				mm = 1.0;				
+			}
+			
+			// cal에 월을 더 해준다. 
+			cal.add(Calendar.MONTH, 1);
+			
+			// 반복문 마지막 loop			
+			if((-1 >= endDate.compareTo(df.parse(df.format((cal.getTime())))))){				
+				
+			// System.out.println("계산 : " + (double) cal2.get(cal2.DAY_OF_MONTH) + " / " + (double) cal2.getActualMaximum(cal2.DAY_OF_MONTH));
+				
+				// MM 구하기 근무일수/해당월의일수
+				mm = (double) cal2.get(cal2.DAY_OF_MONTH) / (double) cal2.getActualMaximum(cal2.DAY_OF_MONTH);				
+			}
+			
+			// 소수점 4자리까지 구하기(버림)
+			mm = (int) (mm * 10000) / 10000.0;	
+			// temp 객체에 mm추가
+			temp.setMm(mm);
+			// temp 객체 add
+			manpowerMmModels.add(temp);			
+			
+		};
+		
+		this.modifyManpowerMm(manpowerMmModels);
+		
+		return manpowerMmModels;
+			
+	}
+	
 	/**
 	 * TB_MANPOWER 테이블조회
 	 * @param projectId:프로젝트아이디
@@ -47,10 +122,13 @@ public class ProgressService {
 	 * @throws Exception
 	 */
 	@Transactional
-	public boolean insertManpower(ManpowerModel manpowerModel ) throws Exception{	
+	public boolean insertManpower(ManpowerModel manpowerModel) throws Exception{	
 	
-		
-			progressMapper.inserteManpower(manpowerModel);		
+			// TB_MANPWER 테이블에 정보를 입력한다.
+			progressMapper.inserteManpower(manpowerModel);
+			
+			// 투입기간에 따라 MM을 자동계산하여 보낸다.
+			this.mergeManpowerMM(manpowerModel);
 		
 		return true;
 	}
@@ -62,10 +140,20 @@ public class ProgressService {
 	 * @throws Exception
 	 */
 	@Transactional
-	public boolean updateManpower(UpdateManpowerModel updateManpowerModel) throws Exception{	
-	
+	public boolean updateManpower(UpdateManpowerModel updateManpowerModel) throws Exception{
+						
+		// TB_MANPWER 테이블에 정보를 변경한다.
+		progressMapper.updateManpower(updateManpowerModel);
 		
-			progressMapper.updateManpower(updateManpowerModel);
+		
+		ManpowerModel manpowerModel = new ManpowerModel();
+		manpowerModel.setProjectId(updateManpowerModel.getProjectId());
+		manpowerModel.setManpowerName(updateManpowerModel.getManpowerName());
+		manpowerModel.setStartDate(updateManpowerModel.getStartDate());
+		manpowerModel.setEndDate(updateManpowerModel.getEndDate());
+		
+		// 투입기간 변경에 따라 MM을 자동계산하여 보낸다.
+		this.mergeManpowerMM(manpowerModel);
 		
 		
 		return true;

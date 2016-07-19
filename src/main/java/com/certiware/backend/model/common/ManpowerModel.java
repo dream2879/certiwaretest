@@ -1,6 +1,6 @@
 package com.certiware.backend.model.common;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class ManpowerModel {
 	

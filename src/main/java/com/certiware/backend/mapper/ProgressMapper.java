@@ -146,7 +146,7 @@ public interface ProgressMapper {
 			+ "("
 			+ "		#{projectId}, "
 			+ "		#{manpowerName}, "
-			+ "		#{month}, "
+			+ "		DATE_FORMAT(#{month}, '%Y-%m-01'), "
 			+ "		#{mm}"
 			+ ") "
 			+ "ON DUPLICATE KEY UPDATE "
