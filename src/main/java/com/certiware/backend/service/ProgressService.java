@@ -240,7 +240,7 @@ public class ProgressService {
 		
 		query += "                                		-- 반복문 수행 끝                                                                               " + System.getProperty("line.separator") ;		
 		query += "                                FROM TB_MANPOWERMM                                                                               " + System.getProperty("line.separator") ;
-		query += " 								  WHERE MONTH BETWEEN '" + startDate + "' AND '" + endDate +"' "; 
+		query += " 								  WHERE MONTH BETWEEN '" + df.format(startDate) + "' AND '" + df.format(endDate) +"' "; 
 		query += "                                ) A                                                                               " + System.getProperty("line.separator") ;
 		query += "                    GROUP BY PROJECTID, MANPOWERNAME) A,                                                                            " + System.getProperty("line.separator") ;
 		query += "                   (SELECT PROJECTID,                                                                                               " + System.getProperty("line.separator") ;
@@ -295,7 +295,7 @@ public class ProgressService {
 		query += dQuery3;
 		query += "                                		-- 반복문 수행 끝                                                                               " + System.getProperty("line.separator") ;
 		query += "                                FROM TB_MANPOWERMM                                                                               " + System.getProperty("line.separator") ;
-		query += " 								  WHERE MONTH BETWEEN '" + startDate + "' AND '" + endDate +"' "; 
+		query += " 								  WHERE MONTH BETWEEN '" + df.format(startDate) + "' AND '" + df.format(endDate) +"' "; 
 		query += "                                ) A                                                                               " + System.getProperty("line.separator") ;
 		query += "                    GROUP BY PROJECTID, MANPOWERNAME) A,                                                                            " + System.getProperty("line.separator") ;
 		query += "                   (SELECT PROJECTID,                                                                                               " + System.getProperty("line.separator") ;

@@ -80,16 +80,18 @@ public class CertiwareApplicationTests {
 		
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
-		Date startDate = df.parse("2016-01-02");
+		Date startDate = df.parse("2017-01-02");
 		Date endDate = df.parse("2016-03-31");
 		
 		selectProgressListReqModel.setStartDate(startDate);
 		selectProgressListReqModel.setEndDate(endDate);
+		selectProgressListReqModel.setDeptCode("1");
+		selectProgressListReqModel.setProjectName("AAA");
 		
 		testService.DateTest(selectProgressListReqModel);
 		
 
-//		List<SelectProgressListResModel> selectProgresses = progressService.selectProgressList(selectProgressListReqModel); 
+List<SelectProgressListResModel> selectProgresses = progressService.selectProgressList(selectProgressListReqModel); 
 //		
 //		// 로그
 //		
