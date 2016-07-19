@@ -28,12 +28,12 @@ public interface ProjectMapper {
 	@Select(  "<script>"
 			+ "SELECT PROJECTID, PROJECTNAME "
 			+ "FROM TB_PROJECT "
-			+ "<if test=\"param1 != null and param1 != '' \"> "
+			+ "<if test=\"deptCode != null and deptCode != '' \"> "
 			+ "WHERE DEPTCODE = #{param1}"
 			+ "</if>"
 			+ "</script>"
 			)
-	public List<SelectProjectListModel> selectProjectByDeptCode(String deptCode) throws Exception;	
+	public List<SelectProjectListModel> selectProjectByDeptCode(@Param("deptCode") String deptCode) throws Exception;	
 
 	/**
 	 * TB_PROJECT 테이블조회
