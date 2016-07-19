@@ -156,7 +156,7 @@ public class ProgressService {
 			
 			dQuery2 += "SUM(A.M"+index+") + ";
 			
-			dQuery3 += "CASE WHEN MONTH = '" + df.format((cal.getTime()))  + "' THEN ROUND(MM, 2) ELSE 0 END AS M"+ index +"," + System.getProperty("line.separator");
+			dQuery3 += "CASE WHEN MONTH = '" + df.format((cal.getTime()))  + "' THEN ROUND(MM, 4) ELSE 0 END AS M"+ index +"," + System.getProperty("line.separator");
 			
 			dQuery4 += "CASE WHEN B.AMOUNT = 0 THEN 0 ELSE SUM(A.M"+ index +") END AS M"+ index +"," + System.getProperty("line.separator");
 			
@@ -221,7 +221,7 @@ public class ProgressService {
 		query += "                   SUM(A.MSUM * B.AMOUNT) AS TOT,                                                                                   " + System.getProperty("line.separator") ;
 		query += "                   SUM( (B.AMOUNT * A.MSUM) - (A.MSUM * B.TMPAMOUNT)) AS NET,                                                       " + System.getProperty("line.separator") ;
 		query += "                   B.REMARKS                                                                                                        " + System.getProperty("line.separator") ;
-		query += "              FROM (  SELECT PROJECTID,                                                                                             " + System.getProperty("line.separator") ;
+		query += "              FROM (  SELECT A.PROJECTID,                                                                                             " + System.getProperty("line.separator") ;
 		query += "                             MANPOWERNAME,                                                                                          " + System.getProperty("line.separator") ;
 		query += "                             -- 반복문 시작                                                                                         " + System.getProperty("line.separator") ;
 //		query += "                             SUM(M1) AS M1,                                                                                         " + System.getProperty("line.separator") ;
@@ -230,17 +230,29 @@ public class ProgressService {
 		query += dQuery1;
 		query += dQuery2;
 		query += "                        		-- 반복문 끝                                                                                            " + System.getProperty("line.separator") ;
-		query += "                        FROM (SELECT PROJECTID,                                                                                     " + System.getProperty("line.separator") ;
+		query += "                        FROM (SELECT A.PROJECTID,                                                                                     " + System.getProperty("line.separator") ;
 		query += "                                     MANPOWERNAME,                                                                                  " + System.getProperty("line.separator") ;
 		query += "                                     -- 반복문 수행 시작                                                                            " + System.getProperty("line.separator") ;
 		
-//		query += "                                     CASE WHEN MONTH = '2016-01-01 오전 12:00:00' THEN ROUND(MM, 2) ELSE 0 END AS M1,               " + System.getProperty("line.separator") ;
-//		query += "                                     CASE WHEN MONTH = '2016-02-02 오전 12:00:00' THEN ROUND(MM, 2) ELSE 0 END AS M2                " + System.getProperty("line.separator") ;
+//		query += "                                     CASE WHEN MONTH = '2016-01-01 오전 12:00:00' THEN ROUND(MM, 4) ELSE 0 END AS M1,               " + System.getProperty("line.separator") ;
+//		query += "                                     CASE WHEN MONTH = '2016-02-02 오전 12:00:00' THEN ROUND(MM, 4) ELSE 0 END AS M2                " + System.getProperty("line.separator") ;
 		query += dQuery3;
 		
 		query += "                                		-- 반복문 수행 끝                                                                               " + System.getProperty("line.separator") ;		
-		query += "                                FROM TB_MANPOWERMM                                                                               " + System.getProperty("line.separator") ;
-		query += " 								  WHERE MONTH BETWEEN '" + df.format(startDate) + "' AND '" + df.format(endDate) +"' "; 
+		query += "                                FROM TB_MANPOWERMM A, TB_PROJECT B                                                                               " + System.getProperty("line.separator") ;
+		query += " 								  WHERE MONTH BETWEEN '" + df.format(startDate) + "' AND '" + df.format(endDate) +"' ";
+		
+		if(selectProgressListReqModel.getDeptCode() != null && selectProgressListReqModel.getDeptCode() != ""){
+			
+			query += " AND B.DEPTCODE = '" + selectProgressListReqModel.getDeptCode() + "' "+ System.getProperty("line.separator") ;
+			
+		}
+		
+		if(selectProgressListReqModel.getProjectName() != null && selectProgressListReqModel.getProjectName() != ""){			
+			
+			query += " AND B.PROJECTNAME LIKE '%" + selectProgressListReqModel.getProjectName() + "%' "+ System.getProperty("line.separator") ;
+		}
+		
 		query += "                                ) A                                                                               " + System.getProperty("line.separator") ;
 		query += "                    GROUP BY PROJECTID, MANPOWERNAME) A,                                                                            " + System.getProperty("line.separator") ;
 		query += "                   (SELECT PROJECTID,                                                                                               " + System.getProperty("line.separator") ;
@@ -278,7 +290,7 @@ public class ProgressService {
 		query += "                   SUM(A.MSUM * B.AMOUNT) AS TOT,                                                                                   " + System.getProperty("line.separator") ;
 		query += "                   SUM( (A.MSUM * B.TMPAMOUNT) - (B.AMOUNT * A.MSUM)) AS NET,                                                       " + System.getProperty("line.separator") ;
 		query += "                   B.REMARKS                                                                                                        " + System.getProperty("line.separator") ;
-		query += "              FROM (  SELECT PROJECTID,                                                                                             " + System.getProperty("line.separator") ;
+		query += "              FROM (  SELECT A.PROJECTID,                                                                                             " + System.getProperty("line.separator") ;
 		query += "                             MANPOWERNAME,                                                                                          " + System.getProperty("line.separator") ;
 		query += "                              -- 반복문 시작                                                                                        " + System.getProperty("line.separator") ;
 		query += dQuery1;
@@ -287,15 +299,27 @@ public class ProgressService {
 //		query += "                             SUM(M2) AS M2,                                                                                         " + System.getProperty("line.separator") ;
 //		query += "                             SUM(M1) + SUM(M2) AS MSUM                                                                              " + System.getProperty("line.separator") ;
 		query += "                        		-- 반복문 끝                                                                                            " + System.getProperty("line.separator") ;
-		query += "                        FROM (SELECT PROJECTID,                                                                                     " + System.getProperty("line.separator") ;
+		query += "                        FROM (SELECT A.PROJECTID,                                                                                     " + System.getProperty("line.separator") ;
 		query += "                                     MANPOWERNAME,                                                                                  " + System.getProperty("line.separator") ;
 		query += "                                     -- 반복문 수행 시작                                                                            " + System.getProperty("line.separator") ;
-//		query += "                                     CASE WHEN MONTH = '2016-01-01 오전 12:00:00' THEN ROUND(MM, 2) ELSE 0 END AS M1,               " + System.getProperty("line.separator") ;
-//		query += "                                     CASE WHEN MONTH = '2016-02-02 오전 12:00:00' THEN ROUND(MM, 2) ELSE 0 END AS M2                " + System.getProperty("line.separator") ;
+//		query += "                                     CASE WHEN MONTH = '2016-01-01 오전 12:00:00' THEN ROUND(MM, 4) ELSE 0 END AS M1,               " + System.getProperty("line.separator") ;
+//		query += "                                     CASE WHEN MONTH = '2016-02-02 오전 12:00:00' THEN ROUND(MM, 4) ELSE 0 END AS M2                " + System.getProperty("line.separator") ;
 		query += dQuery3;
 		query += "                                		-- 반복문 수행 끝                                                                               " + System.getProperty("line.separator") ;
-		query += "                                FROM TB_MANPOWERMM                                                                               " + System.getProperty("line.separator") ;
-		query += " 								  WHERE MONTH BETWEEN '" + df.format(startDate) + "' AND '" + df.format(endDate) +"' "; 
+		query += "                                FROM TB_MANPOWERMM A, TB_PROJECT B                                                                               " + System.getProperty("line.separator") ;
+		query += " 								  WHERE MONTH BETWEEN '" + df.format(startDate) + "' AND '" + df.format(endDate) +"' ";
+		
+		if(selectProgressListReqModel.getDeptCode() != null && selectProgressListReqModel.getDeptCode() != ""){
+			
+			query += " AND B.DEPTCODE = '" + selectProgressListReqModel.getDeptCode() + "' "+ System.getProperty("line.separator") ;
+			
+		}
+		
+		if(selectProgressListReqModel.getProjectName() != null && selectProgressListReqModel.getProjectName() != ""){			
+			
+			query += " AND B.PROJECTNAME LIKE '%" + selectProgressListReqModel.getProjectName() + "%' "+ System.getProperty("line.separator") ;
+		}
+		
 		query += "                                ) A                                                                               " + System.getProperty("line.separator") ;
 		query += "                    GROUP BY PROJECTID, MANPOWERNAME) A,                                                                            " + System.getProperty("line.separator") ;
 		query += "                   (SELECT PROJECTID,                                                                                               " + System.getProperty("line.separator") ;
@@ -318,20 +342,7 @@ public class ProgressService {
 		query += "         (SELECT CASE WHEN PARTNERCODE >= 3 THEN '프리랜서' ELSE PARTNERNAME END AS DESCRIPTION,                                    " + System.getProperty("line.separator") ;
 		query += "                 PARTNERID                                                                                                          " + System.getProperty("line.separator") ;
 		query += "            FROM TB_PARTNER) D                                                                                                      " + System.getProperty("line.separator") ;
-		query += "            ON A.PROJECTID = D.PARTNERID                                                                                            " + System.getProperty("line.separator") ;
-		query += "            WHERE 1=1                                                                                            " + System.getProperty("line.separator") ;
-		
-		if(selectProgressListReqModel.getDeptCode() != null && selectProgressListReqModel.getDeptCode() != ""){
-			
-			query += " AND B.DEPTCODE = '" + selectProgressListReqModel.getDeptCode() + "' "+ System.getProperty("line.separator") ;
-			
-		}
-		
-		if(selectProgressListReqModel.getProjectName() != null && selectProgressListReqModel.getProjectName() != ""){			
-			
-			query += " AND B.PROJECTNAME LIKE '%" + selectProgressListReqModel.getProjectName() + "%' "+ System.getProperty("line.separator") ;
-		}
-		
+		query += "            ON A.PROJECTID = D.PARTNERID                                                                                            " + System.getProperty("line.separator") ;		
 		query += "ORDER BY A.PROJECTID,                                                                                                               " + System.getProperty("line.separator") ;
 		query += "         A.IDSORT,                                                                                                                  " + System.getProperty("line.separator") ;
 		query += "         A.MANPOWERNAME,                                                                                                            " + System.getProperty("line.separator") ;
