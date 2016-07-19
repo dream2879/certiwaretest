@@ -5,8 +5,8 @@ import java.sql.Date;
 public class SelectListModel {
 	
 	private int projectId; 
-	private String projectName; 
-	private int partnerId; 
+	private String projectName;
+	private int partnerId;	
 	private String partnerName; 
 	private int contractAmount; 
 	private int outsourcingAmount; 

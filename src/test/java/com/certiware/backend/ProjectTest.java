@@ -26,8 +26,16 @@ import com.certiware.backend.service.ProjectService;
 @WebAppConfiguration
 public class ProjectTest {
 	
+	
+	
 	@Autowired
 	ProjectService projectService;
+	
+	@Test
+	public void test() throws Exception {
+		//selectProjectList
+		projectService.selectProjectList("");
+	}// end
 	
 	// @RequestMapping(value="/selectList")
 	@Test
