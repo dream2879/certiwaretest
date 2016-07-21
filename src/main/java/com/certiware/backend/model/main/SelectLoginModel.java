@@ -9,6 +9,7 @@ import com.certiware.backend.model.common.PartnerCodeModel;
 import com.certiware.backend.model.common.RankCodeModel;
 import com.certiware.backend.model.common.RatingCodeModel;
 import com.certiware.backend.model.common.RoleCodeModel;
+import com.certiware.backend.model.common.UnitPriceModel;
 import com.certiware.backend.model.common.UserModel;
 
 /**
@@ -19,13 +20,14 @@ import com.certiware.backend.model.common.UserModel;
 public class SelectLoginModel {
 	
 	// 코드
-	private List<DeptCodeModel> deptCodeModels;
-	private List<RankCodeModel> rankCodeModels;
-	private List<RoleCodeModel> roleCodeModels;
-	private List<PartnerCodeModel> partnerCodeModels;
-	private List<BusinessCodeModel> businessCodeModels;
-	private List<RatingCodeModel> ratingCodeModels;
-	private List<OutsourcingCodeModel> outsourcingCodeModels;
+	private List<DeptCodeModel> deptCodeModels;					// 부서
+	private List<RankCodeModel> rankCodeModels;					// 직급
+	private List<RoleCodeModel> roleCodeModels;					// 권한
+	private List<PartnerCodeModel> partnerCodeModels;			// 거래처구분
+	private List<BusinessCodeModel> businessCodeModels;			// 회사구분
+	private List<RatingCodeModel> ratingCodeModels;				// 등급
+	private List<OutsourcingCodeModel> outsourcingCodeModels;	// 외주구분
+	private List<UnitPriceModel> unitPriceModels;				// 단가
 	
 	// 사용자정보
 	private UserModel userModel;
@@ -87,6 +89,12 @@ public class SelectLoginModel {
 	}
 	public void setSelectMenuModels(List<SelectMenuModel> selectMenuModels) {
 		this.selectMenuModels = selectMenuModels;
+	}
+	public List<UnitPriceModel> getUnitPriceModels() {
+		return unitPriceModels;
+	}
+	public void setUnitPriceModels(List<UnitPriceModel> unitPriceModels) {
+		this.unitPriceModels = unitPriceModels;
 	}
 	
 	

@@ -26,8 +26,8 @@ public class SelectProgressListResModel {
 	private double m11;
 	private double m12;
 	private double mSum;
-	private int tot;
-	private int net;
+	private long tot;
+	private long net;
 	private String remarks;
 	public int getProjectId() {
 		return projectId;
@@ -161,16 +161,16 @@ public class SelectProgressListResModel {
 	public void setmSum(double mSum) {
 		this.mSum = mSum;
 	}
-	public int getTot() {
+	public long getTot() {
 		return tot;
 	}
-	public void setTot(int tot) {
+	public void setTot(long tot) {
 		this.tot = tot;
 	}
-	public int getNet() {
+	public long getNet() {
 		return net;
 	}
-	public void setNet(int net) {
+	public void setNet(long net) {
 		this.net = net;
 	}
 	public String getRemarks() {
@@ -181,5 +181,4 @@ public class SelectProgressListResModel {
 	}
 	
 	
-
 }
