@@ -110,8 +110,8 @@ public class MainTest {
 		res = mainController.selectDashboard(req);
 		
 		// log
-		Log.setLog(res.getProjectStatisticsModel(), "");
-		Log.setLog(res.getManpowerStatisticsModel(), "");
+		//Log.setLog(res.getProjectStatisticsModel(), "");
+		//Log.setLog(res.getManpowerStatisticsModel(), "");
 		Log.setLog(res.getManpowerMMStatisticsModel(), "");
 	
 	}
