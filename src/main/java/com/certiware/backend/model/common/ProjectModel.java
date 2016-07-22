@@ -4,19 +4,18 @@ import java.sql.Date;
 
 public class ProjectModel {
 	
-	private int projectId;
-	private String projectName;
-	private String deptCode;
-	private int partnerId;
-	private Date startDate;
-	private Date endDate;
-	private int contractAmount;
-	private int supplyAmount;
-	private int vtaAmount;
-	private int outsourcingAmount;
-	private int netAmount;
-	private String remarks;
-	
+	private int projectId;			// 프로젝트 아이디
+	private String projectName;		// 프로젝트 이름
+	private String deptCode;		// 부서코드
+	private int partnerId;			// 거래처 아이디
+	private Date startDate;			// 시작일
+	private Date endDate;			// 종료일
+	private long contractAmount;		// 계약금액
+	private long supplyAmount;		// 공급가액
+	private long vtaAmount;			// 부가세액
+	private long outsourcingAmount;	// 외주금액
+	private long netAmount;			// 순매출
+	private String remarks;			// 비고
 	public int getProjectId() {
 		return projectId;
 	}
@@ -53,36 +52,34 @@ public class ProjectModel {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	public int getContractAmount() {
+	public long getContractAmount() {
 		return contractAmount;
 	}
-	public void setContractAmount(int contractAmount) {
+	public void setContractAmount(long contractAmount) {
 		this.contractAmount = contractAmount;
 	}
-	
-
-	public int getSupplyAmount() {
+	public long getSupplyAmount() {
 		return supplyAmount;
 	}
-	public void setSupplyAmount(int supplyAmount) {
+	public void setSupplyAmount(long supplyAmount) {
 		this.supplyAmount = supplyAmount;
 	}
-	public int getVtaAmount() {
+	public long getVtaAmount() {
 		return vtaAmount;
 	}
-	public void setVtaAmount(int vtaAmount) {
+	public void setVtaAmount(long vtaAmount) {
 		this.vtaAmount = vtaAmount;
 	}
-	public int getOutsourcingAmount() {
+	public long getOutsourcingAmount() {
 		return outsourcingAmount;
 	}
-	public void setOutsourcingAmount(int outsourcingAmount) {
+	public void setOutsourcingAmount(long outsourcingAmount) {
 		this.outsourcingAmount = outsourcingAmount;
 	}
-	public int getNetAmount() {
+	public long getNetAmount() {
 		return netAmount;
 	}
-	public void setNetAmount(int netAmount) {
+	public void setNetAmount(long netAmount) {
 		this.netAmount = netAmount;
 	}
 	public String getRemarks() {
@@ -90,6 +87,8 @@ public class ProjectModel {
 	}
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
-	}	
+	}
+	
+	
 
 }

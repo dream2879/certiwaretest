@@ -105,13 +105,14 @@ public class MainTest {
 		
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		req.setYear(df.parse("2016-03-28"));
+		req.setDeptCode("88");
 		
 		// 서비스 호출
 		res = mainController.selectDashboard(req);
 		
 		// log
-		//Log.setLog(res.getProjectStatisticsModel(), "");
-		//Log.setLog(res.getManpowerStatisticsModel(), "");
+		Log.setLog(res.getProjectStatisticsModel(), "");
+		Log.setLog(res.getManpowerStatisticsModel(), "");
 		Log.setLog(res.getManpowerMMStatisticsModel(), "");
 	
 	}

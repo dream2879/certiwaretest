@@ -2,7 +2,7 @@ package com.certiware.backend.model.common;
 
 public class QueryModel {
 	
-	private String query;
+	private String query;	// 쿼리문을 담는다
 
 	public String getQuery() {
 		return query;

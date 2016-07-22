@@ -4,14 +4,14 @@ import java.sql.Date;
 
 public class OutsourcingModel {
 	
-	private int projectId;
-	private int partnerId;
-	private String outsourcingCode;
-	private int outsourcingAmount;
-	private String ratingCode;
-	private String product;
-	private Date startDate;
-	private Date endDate;
+	private int projectId;			// 프로젝트 아이디
+	private int partnerId;			// 거래처 아이디
+	private String outsourcingCode;	// 외주구분코드
+	private long outsourcingAmount;	// 외주계약단가
+	private String ratingCode;		// 등급코드
+	private String product;			// 상품명
+	private Date startDate;			// 시작일
+	private Date endDate;			// 종료일
 	public int getProjectId() {
 		return projectId;
 	}
@@ -30,10 +30,10 @@ public class OutsourcingModel {
 	public void setOutsourcingCode(String outsourcingCode) {
 		this.outsourcingCode = outsourcingCode;
 	}
-	public int getOutsourcingAmount() {
+	public long getOutsourcingAmount() {
 		return outsourcingAmount;
 	}
-	public void setOutsourcingAmount(int outsourcingAmount) {
+	public void setOutsourcingAmount(long outsourcingAmount) {
 		this.outsourcingAmount = outsourcingAmount;
 	}
 	public String getRatingCode() {
@@ -60,6 +60,8 @@ public class OutsourcingModel {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	
+	
 	
 	
 	

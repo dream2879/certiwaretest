@@ -2,12 +2,12 @@ package com.certiware.backend.model.common;
 
 public class UserModel {
 	
-	private String userId;
-	private String password;
-	private String userName;
-	private String deptCode;
-	private String rankCode;
-	private String roleCode;
+	private String userId;		// 사용자 아이디
+	private String password;	// 비밀번호
+	private String userName;	// 사용자 명
+	private String deptCode;	// 부서코드
+	private String rankCode;	// 등급코드
+	private String roleCode;	// 권한코드
 	
 	public String getUserId() {
 		return userId;

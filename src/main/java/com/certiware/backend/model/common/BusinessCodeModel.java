@@ -2,9 +2,9 @@ package com.certiware.backend.model.common;
 
 public class BusinessCodeModel {
 	
-	private String businessCode;
-	private String description;
-	private int priority;
+	private String businessCode;	// 사업자코드
+	private String description;		// 코드설명
+	private int priority;			// 우선순위(정렬)
 	
 	public String getBusinessCode() {
 		return businessCode;

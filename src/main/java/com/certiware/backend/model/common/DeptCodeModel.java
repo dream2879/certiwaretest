@@ -2,9 +2,9 @@ package com.certiware.backend.model.common;
 
 public class DeptCodeModel {
 	
-	private String deptCode;
-	private String deptName;
-	private int priority;
+	private String deptCode;	// 부서코드
+	private String deptName;	// 부서이름
+	private int priority;		// 우선순위(정렬)
 	
 	public String getDeptCode() {
 		return deptCode;

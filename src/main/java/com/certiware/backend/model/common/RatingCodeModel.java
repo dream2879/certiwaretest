@@ -2,9 +2,9 @@ package com.certiware.backend.model.common;
 
 public class RatingCodeModel {
 	
-	private String ratingCode;
-	private String description;
-	private int priority;
+	private String ratingCode;	// 등급코드
+	private String description;	// 등급설명
+	private int priority;		// 정렬(우선순위)
 	
 	public String getRatingCode() {
 		return ratingCode;

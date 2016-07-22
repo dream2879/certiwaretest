@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class ManpowerMmModel {
 	
-	private int projectId;
-	private String manpowerName;
-	private Date month;
-	private double mm;
+	private int projectId;			// 프로젝트아이디
+	private String manpowerName;	// 투입인력이름
+	private Date month;				// 월정보	
+	private double mm;				// M/M
 	
 	public int getProjectId() {
 		return projectId;

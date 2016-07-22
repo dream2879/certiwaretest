@@ -165,7 +165,7 @@ public class MainService {
 			month = index < 10 ? "0" + index : String.valueOf(index);
 			
 			// DynamicQuery 부분
-			dynamicQuery += " SUM(CASE WHEN '"+ cal1.get(cal1.YEAR) +"-"+ month +"-01' BETWEEN DATE_FORMAT(STARTDATE, '%Y-%m-01') AND DATE_FORMAT(ENDDATE, '%Y-%m-01') THEN 1 ELSE 0 END) AS M"+ index +", " + System.getProperty("line.separator");		
+			dynamicQuery += " IFNULL(SUM(CASE WHEN '"+ cal1.get(cal1.YEAR) +"-"+ month +"-01' BETWEEN DATE_FORMAT(STARTDATE, '%Y-%m-01') AND DATE_FORMAT(ENDDATE, '%Y-%m-01') THEN 1 ELSE 0 END),0) AS M"+ index +", " + System.getProperty("line.separator");		
 			
 			// 달력과 인덱스 값을 증가시킨다.
 			cal1.add(Calendar.MONTH, 1);
@@ -246,7 +246,7 @@ public class MainService {
 			
 			// DynamicQuery 부분
 			dynamicQuery1 += "M" + index + " + ";
-			dynamicQuery2 += " SUM(CASE WHEN '"+ cal1.get(cal1.YEAR) +"-"+ month +"-01' BETWEEN DATE_FORMAT(A.STARTDATE, '%Y-%m-01') AND DATE_FORMAT(A.ENDDATE, '%Y-%m-01') THEN 1 ELSE 0 END) AS M"+ index +", " + System.getProperty("line.separator");		
+			dynamicQuery2 += " IFNULL(SUM(CASE WHEN '"+ cal1.get(cal1.YEAR) +"-"+ month +"-01' BETWEEN DATE_FORMAT(A.STARTDATE, '%Y-%m-01') AND DATE_FORMAT(A.ENDDATE, '%Y-%m-01') THEN 1 ELSE 0 END),0) AS M"+ index +", " + System.getProperty("line.separator");		
 			
 			// 달력과 인덱스 값을 증가시킨다.
 			cal1.add(Calendar.MONTH, 1);
@@ -337,7 +337,7 @@ public class MainService {
 			month = index < 10 ? "0" + index : String.valueOf(index);
 			
 			// DynamicQuery 부분			
-			dynamicQuery += "TRUNCATE(SUM(CASE WHEN '"+ cal1.get(cal1.YEAR) +"-"+ month +"-01' = MONTH THEN SELLINGAMOUNT ELSE 0 END / 10000000), 1) AS M" + index +", " + System.getProperty("line.separator");		
+			dynamicQuery += "IFNULL(TRUNCATE(SUM(CASE WHEN '"+ cal1.get(cal1.YEAR) +"-"+ month +"-01' = MONTH THEN SELLINGAMOUNT ELSE 0 END / 10000000), 1), 0) AS M" + index +", " + System.getProperty("line.separator");		
 			
 			// 달력과 인덱스 값을 증가시킨다.
 			cal1.add(Calendar.MONTH, 1);
@@ -353,7 +353,7 @@ public class MainService {
 		
 		query += dynamicQuery;
 		
-		query += " SUM(SELLINGAMOUNT) AS TOTAL " + System.getProperty("line.separator");
+		query += " IFNULL(SUM(SELLINGAMOUNT),0) AS TOTAL " + System.getProperty("line.separator");
 		query += " FROM ( " + System.getProperty("line.separator");
 		query += " 			SELECT DATE_FORMAT(A.MONTH, '%Y-%m-%d') AS MONTH, FLOOR(A.MM * B.SELLINGAMOUNT) AS SELLINGAMOUNT " + System.getProperty("line.separator");
 		query += " 			FROM TB_MANPOWERMM A, TB_MANPOWER B, TB_PROJECT C " + System.getProperty("line.separator");
@@ -364,7 +364,7 @@ public class MainService {
 		// deptCode
 		if(deptCode != null && deptCode != ""){
 					
-			query += " AND B.DEPTCODE = '" + deptCode + "' "+ System.getProperty("line.separator") + System.getProperty("line.separator");
+			query += " AND C.DEPTCODE = '" + deptCode + "' "+ System.getProperty("line.separator") + System.getProperty("line.separator");
 					
 		}
 		
