@@ -1,5 +1,8 @@
 package com.certiware.backend;
 
+import java.nio.charset.Charset;
+
+import javax.servlet.Filter;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,6 +15,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.certiware.backend.config.JwtFilter;
 import com.certiware.backend.config.RoleFilter;
@@ -47,7 +53,7 @@ public class CertiwareApplication extends SpringBootServletInitializer {
 	public FilterRegistrationBean jwtFilter(RoleFilter roleFilter) throws Exception {
 		final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
 		registrationBean.setFilter(new JwtFilter(roleFilter));
-		//registrationBean.addUrlPatterns("/rest/*");
+//		registrationBean.addUrlPatterns("/rest/*");
 		registrationBean.addUrlPatterns("/*");
 		
 		return registrationBean;
@@ -64,16 +70,8 @@ public class CertiwareApplication extends SpringBootServletInitializer {
 		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource);
 		return sessionFactory.getObject();
-	}
-	
-	/**
-	 * 
-	 */
-	@Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(CertiwareApplication.class);
-    }
-	
+	}	
+
 
 	public static void main(String[] args) {
 		SpringApplicationBuilder springApplicationBuilder = new SpringApplicationBuilder(CertiwareApplication.class);

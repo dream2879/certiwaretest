@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.certiware.backend.component.QueryComponent;
 import com.certiware.backend.mapper.CommonMapper;
 import com.certiware.backend.mapper.MainMapper;
 import com.certiware.backend.model.common.PartnerModel;
@@ -30,6 +31,8 @@ public class MainService {
 	private MainMapper mainMapper;
 	@Autowired 
 	private CommonMapper commonMapper;
+	@Autowired
+	private QueryComponent queryComponent;
 	
 	/**
 	 * TB_USER 테이블조회
@@ -105,274 +108,22 @@ public class MainService {
 	public SelectDashboardResModel selectDashboard(SelectDashboardReqModel selectDashboardReqModel, SelectDashboardResModel selectDashboardResModel) throws Exception{
 		
 		// 프로젝트 갯수 통계 정보 조회
-		selectDashboardResModel.setProjectStatisticsModel(this.selectProjectStatistics(selectDashboardReqModel));
+		selectDashboardResModel.setProjectStatisticsModel(												// 저장
+				mainMapper.selectProjectStatistics(														// DB 조회
+						queryComponent.makeSelectProjectStatisticsQuery(selectDashboardReqModel)));		// 쿼리생성
 		
 		// 프로젝트 인원 통계 정보 조회
-		selectDashboardResModel.setManpowerStatisticsModel(this.selectManpowerStatistics(selectDashboardReqModel));
+		selectDashboardResModel.setManpowerStatisticsModel(												// 저장
+				mainMapper.selectManpowerStatistics(													// DB 조회
+						queryComponent.makeSelectManpowerStatisticsQuery(selectDashboardReqModel)));	// 쿼리생성
 		
 		// 프로젝트 매출 통계정보 조회
-		selectDashboardResModel.setManpowerMMStatisticsModel(this.selectManpowerMMStatistics(selectDashboardReqModel));
+		selectDashboardResModel.setManpowerMMStatisticsModel(											// 저장
+				mainMapper.selectManpowerMMStatistics(													// DB 조회
+						queryComponent.makeSelectManpowerMMStatisticsQuery(selectDashboardReqModel)));	// 쿼리생성
 		
 		return selectDashboardResModel;		
 	}
-	
-	/**
-	 * 프로젝트 갯수 정보를 조회하기 위한 쿼리 작성
-	 * @param selectDashboardReqModel
-	 * @return
-	 * @throws Exception
-	 */
-	private ProjectStatisticsModel selectProjectStatistics(SelectDashboardReqModel selectDashboardReqModel) throws Exception{		
-			
-		String query = "";
-				
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Date startDate = null, endDate = null;
-		String deptCode = selectDashboardReqModel.getDeptCode();
-		
-		Calendar cal1 = Calendar.getInstance();
-		Calendar cal2 = Calendar.getInstance();
-		
-		System.out.println(df.format(cal2.getTime()));
-		
-		cal1.setTime(selectDashboardReqModel.getYear());
-		
-		// 시작일 설정
-		startDate = df.parse(cal1.get(cal1.YEAR)+"-01-01");
-		cal1.setTime(startDate);
-		
-		/*
-		 * 마지막일 설정
-		 * 입력받은 년도가 현재년도라면 현재월의 마지막일을 endDate로 하고 
-		 * 아니라면 해당 년도의 마지막일(12-31)을 마지막일로 한다.
-		*/
-		if(cal1.get(cal1.YEAR) == cal2.get(cal2.YEAR)){
-			endDate = df.parse(cal2.get(cal2.YEAR)+"-"
-								+ (Integer.parseInt(String.valueOf(cal2.get(cal2.MONTH))) + 1 < 10 ? "0" + (Integer.parseInt(String.valueOf(cal2.get(cal2.MONTH))) + 1)  : Integer.parseInt(String.valueOf(cal2.get(cal2.MONTH))) + 1 ) 
-								+"-"+ String.valueOf(cal2.getActualMaximum(cal2.DAY_OF_MONTH)));
-		}else{
-			endDate = df.parse(cal1.get(cal1.YEAR)+"-12-31");			
-		}
-		
-		// 반복문 시작
-		int index = 1;
-		String dynamicQuery = "";
-		String month = "";
-		
-		do{
-			// 숫가자 10이하면 앞에 0을 붙여주기 위한 로직
-			month = index < 10 ? "0" + index : String.valueOf(index);
-			
-			// DynamicQuery 부분
-			dynamicQuery += " IFNULL(SUM(CASE WHEN '"+ cal1.get(cal1.YEAR) +"-"+ month +"-01' BETWEEN DATE_FORMAT(STARTDATE, '%Y-%m-01') AND DATE_FORMAT(ENDDATE, '%Y-%m-01') THEN 1 ELSE 0 END),0) AS M"+ index +", " + System.getProperty("line.separator");		
-			
-			// 달력과 인덱스 값을 증가시킨다.
-			cal1.add(Calendar.MONTH, 1);
-			index++;			
-			
-		}while((index <= 12) && !(-1 >= endDate.compareTo(df.parse(df.format((cal1.getTime()))))));
-		
-		
-		// 쿼리작성		
-		query += " SELECT " + System.getProperty("line.separator");
-		
-		query += dynamicQuery;
-		
-		query += " COUNT(*) AS TOTAL " + System.getProperty("line.separator");
-		query += " FROM TB_PROJECT " + System.getProperty("line.separator");
-		query += " WHERE STARTDATE <= '" + df.format(endDate) + "' AND ENDDATE >= '" + df.format(startDate) + "'" + System.getProperty("line.separator");
-		
-		// deptCode
-		if(deptCode != null && deptCode != ""){
-			
-			query += " AND DEPTCODE = '" + deptCode + "' "+ System.getProperty("line.separator") + System.getProperty("line.separator");
-			
-		}		
-		
-		return mainMapper.selectProjectStatistics(query);	
-	}
-	
-	
-	/**
-	 * 프로젝트 투입인력 정보를 구한다.
-	 * @param selectDashboardReqModel
-	 * @return
-	 * @throws Exception
-	 */
-	private ManpowerStatisticsModel selectManpowerStatistics(SelectDashboardReqModel selectDashboardReqModel) throws Exception{
-		
-		String query = "";
-		
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Date startDate = null, endDate = null;
-		String deptCode = selectDashboardReqModel.getDeptCode();
-		
-		Calendar cal1 = Calendar.getInstance();
-		Calendar cal2 = Calendar.getInstance();
-		
-		System.out.println(df.format(cal2.getTime()));
-		
-		cal1.setTime(selectDashboardReqModel.getYear());
-		
-		// 시작일 설정
-		startDate = df.parse(cal1.get(cal1.YEAR)+"-01-01");
-		cal1.setTime(startDate);
-		
-		/*
-		 * 마지막일 설정
-		 * 입력받은 년도가 현재년도라면 현재월의 마지막일을 endDate로 하고 
-		 * 아니라면 해당 년도의 마지막일(12-31)을 마지막일로 한다.
-		*/
-		if(cal1.get(cal1.YEAR) == cal2.get(cal2.YEAR)){
-			endDate = df.parse(cal2.get(cal2.YEAR)+"-"
-								+ (Integer.parseInt(String.valueOf(cal2.get(cal2.MONTH))) + 1 < 10 ? "0" + (Integer.parseInt(String.valueOf(cal2.get(cal2.MONTH))) + 1)  : Integer.parseInt(String.valueOf(cal2.get(cal2.MONTH))) + 1 ) 
-								+"-"+ String.valueOf(cal2.getActualMaximum(cal2.DAY_OF_MONTH)));
-		}else{
-			endDate = df.parse(cal1.get(cal1.YEAR)+"-12-31");			
-		}
-		
-		// 반복문 시작
-		int index = 1;
-		String dynamicQuery1 = "";
-		String dynamicQuery2 = "";
-		
-		String month = "";
-		
-		do{
-			// 숫가자 10이하면 앞에 0을 붙여주기 위한 로직
-			month = index < 10 ? "0" + index : String.valueOf(index);
-			
-			// DynamicQuery 부분
-			dynamicQuery1 += "M" + index + " + ";
-			dynamicQuery2 += " IFNULL(SUM(CASE WHEN '"+ cal1.get(cal1.YEAR) +"-"+ month +"-01' BETWEEN DATE_FORMAT(A.STARTDATE, '%Y-%m-01') AND DATE_FORMAT(A.ENDDATE, '%Y-%m-01') THEN 1 ELSE 0 END),0) AS M"+ index +", " + System.getProperty("line.separator");		
-			
-			// 달력과 인덱스 값을 증가시킨다.
-			cal1.add(Calendar.MONTH, 1);
-			index++;			
-			
-		}while((index <= 12) && !(-1 >= endDate.compareTo(df.parse(df.format((cal1.getTime()))))));
-		
-		// 마지막의 "+ "를 제거하고 Alias를 추가한다.
-		dynamicQuery1 = dynamicQuery1.substring(0, dynamicQuery1.length() -2) + " AS MMTOTAL" + System.getProperty("line.separator");
-		
-		
-		// 쿼리 작성
-		query += " SELECT *, " + System.getProperty("line.separator");
-		
-		query += dynamicQuery1;
-		
-		query += "FROM ( SELECT" + System.getProperty("line.separator");
-		
-		query += dynamicQuery2;
-		
-		query += " COUNT(*) AS REALTOTAL " + System.getProperty("line.separator");
-		query += " FROM TB_MANPOWER A, TB_PROJECT B " + System.getProperty("line.separator");
-		query += " WHERE A.PROJECTID = B.PROJECTID " + System.getProperty("line.separator");
-		query += " AND B.STARTDATE <= '" + df.format(endDate) + "' AND B.ENDDATE >= '" + df.format(startDate) + "'" + System.getProperty("line.separator");
-		
-		// deptCode
-		if(deptCode != null && deptCode != ""){
-			
-			query += " AND B.DEPTCODE = '" + deptCode + "' "+ System.getProperty("line.separator") + System.getProperty("line.separator");
-			
-		}	
-		
-		query += " ) A " + System.getProperty("line.separator");
-		
-		
-		return mainMapper.selectManpowerStatistics(query);	
-	}
-	
-	
-	/**
-	 * 월별 매출 현황을 구한다.
-	 * @param selectDashboardReqModel
-	 * @return
-	 * @throws Exception
-	 */
-	private ManpowerMMStatisticsModel selectManpowerMMStatistics(SelectDashboardReqModel selectDashboardReqModel) throws Exception{
-		
-		String query = "";
-		
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Date startDate = null, endDate = null;
-		String deptCode = selectDashboardReqModel.getDeptCode();
-		
-		Calendar cal1 = Calendar.getInstance();
-		Calendar cal2 = Calendar.getInstance();
-		
-		System.out.println(df.format(cal2.getTime()));
-		
-		cal1.setTime(selectDashboardReqModel.getYear());
-		
-		// 시작일 설정
-		startDate = df.parse(cal1.get(cal1.YEAR)+"-01-01");
-		cal1.setTime(startDate);
-		
-		/*
-		 * 마지막일 설정
-		 * 입력받은 년도가 현재년도라면 현재월의 마지막일을 endDate로 하고 
-		 * 아니라면 해당 년도의 마지막일(12-31)을 마지막일로 한다.
-		 * TB_MANPOWERMM 테이블에 DAY는 01로 넣어 끝자리를 01로 함
-		*/
-		if(cal1.get(cal1.YEAR) == cal2.get(cal2.YEAR)){
-			endDate = df.parse(cal2.get(cal2.YEAR)+"-"
-								+ (Integer.parseInt(String.valueOf(cal2.get(cal2.MONTH))) + 1 < 10 ? "0" + (Integer.parseInt(String.valueOf(cal2.get(cal2.MONTH))) + 1)  : Integer.parseInt(String.valueOf(cal2.get(cal2.MONTH))) + 1 ) 
-								+"-01");
-		}else{
-			endDate = df.parse(cal1.get(cal1.YEAR)+"-12-01");			
-		}
-		
-		// 반복문 시작
-		int index = 1;
-		String dynamicQuery = "";		
-		
-		String month = "";
-		
-		do{
-			// 숫가자 10이하면 앞에 0을 붙여주기 위한 로직
-			month = index < 10 ? "0" + index : String.valueOf(index);
-			
-			// DynamicQuery 부분			
-			dynamicQuery += "IFNULL(TRUNCATE(SUM(CASE WHEN '"+ cal1.get(cal1.YEAR) +"-"+ month +"-01' = MONTH THEN SELLINGAMOUNT ELSE 0 END / 10000000), 1), 0) AS M" + index +", " + System.getProperty("line.separator");		
-			
-			// 달력과 인덱스 값을 증가시킨다.
-			cal1.add(Calendar.MONTH, 1);
-			index++;			
-			
-		}while((index <= 12) && !(-1 >= endDate.compareTo(df.parse(df.format((cal1.getTime()))))));
-		
-		System.out.println(dynamicQuery);
-		
-		// 쿼리작석
-		
-		query += " SELECT " + System.getProperty("line.separator");
-		
-		query += dynamicQuery;
-		
-		query += " IFNULL(SUM(SELLINGAMOUNT),0) AS TOTAL " + System.getProperty("line.separator");
-		query += " FROM ( " + System.getProperty("line.separator");
-		query += " 			SELECT DATE_FORMAT(A.MONTH, '%Y-%m-%d') AS MONTH, FLOOR(A.MM * B.SELLINGAMOUNT) AS SELLINGAMOUNT " + System.getProperty("line.separator");
-		query += " 			FROM TB_MANPOWERMM A, TB_MANPOWER B, TB_PROJECT C " + System.getProperty("line.separator");
-		query += " 			WHERE A.PROJECTID = B.PROJECTID AND B.MANPOWERNAME = A.MANPOWERNAME " + System.getProperty("line.separator");
-		query += " 			AND B.PARTNERID = C.PARTNERID " + System.getProperty("line.separator");		
-		query += " 			AND  A.MONTH BETWEEN '" + df.format(startDate) +"' AND '" + df.format(endDate) + "'" + System.getProperty("line.separator");
-		
-		// deptCode
-		if(deptCode != null && deptCode != ""){
-					
-			query += " AND C.DEPTCODE = '" + deptCode + "' "+ System.getProperty("line.separator") + System.getProperty("line.separator");
-					
-		}
-		
-		query += " ) A";
-		
-		return mainMapper.selectManpowerMMStatistics(query);	
-	}
-	
 	
 	/**
 	 * 단가 테이블을 조회한다.
@@ -391,6 +142,8 @@ public class MainService {
 	 */
 	@Transactional
 	public boolean mergeUnitPrice(List<UnitPriceModel> unitPriceModels) throws Exception{
+		
+		// 반복
 		for (UnitPriceModel unitPriceModel : unitPriceModels) {
 			mainMapper.mergeUnitPrice(unitPriceModel);			
 		}
