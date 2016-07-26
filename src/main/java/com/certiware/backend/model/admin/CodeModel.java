@@ -8,11 +8,10 @@ package com.certiware.backend.model.admin;
  */
 public class CodeModel {
 	
-	private String code;	// 코드값
-	private String name;	// 코드이름 or 설명
-	private int priority;	// 우선순위
-	private String pk;		// 해당 테이블에서 pk
-	
+	private String code;		// 코드값
+	private String name;		// 코드이름 or 설명
+	private int priority;		// 우선순위
+	private String updateCode;	// 코드값을 삭제시 다른 코드로 변경한다.
 	public String getCode() {
 		return code;
 	}
@@ -31,13 +30,12 @@ public class CodeModel {
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
-	public String getPk() {
-		return pk;
+	public String getUpdateCode() {
+		return updateCode;
 	}
-	public void setPk(String pk) {
-		this.pk = pk;
+	public void setUpdateCode(String updateCode) {
+		this.updateCode = updateCode;
 	}
-	
 	
 	
 
