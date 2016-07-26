@@ -7,7 +7,7 @@ public class UpdateUserModel {
 	private String password;
 	private String userName;
 	private String email;		// 이메일
-	private long phoneNumber;	// 전화번호
+	private String phoneNumber;	// 전화번호
 	private String deptCode;
 	private String rankCode;
 	private String roleCode;
@@ -42,10 +42,10 @@ public class UpdateUserModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public long getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(long phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	public String getDeptCode() {

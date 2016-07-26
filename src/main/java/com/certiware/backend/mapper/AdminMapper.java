@@ -15,6 +15,9 @@ import com.certiware.backend.model.common.UserModel;
 
 public interface AdminMapper {
 	
+	
+	/******************************************** TB_USER ****************************************************/
+	
 	/**
 	 * TB_USER 테이블조회
 	 * PASSWORD를 제외한 모든 유저 정보를 리턴 
@@ -117,24 +120,10 @@ public interface AdminMapper {
 	 */
 	@Delete(  "DELETE FROM TB_USER "
 			+ "WHERE USERID = #{param1}")
-	public int deleteUserByUserId(String userId) throws Exception;
+	public int deleteUserByUserId(String userId) throws Exception;	
 	
-//	/**
-//	 * TB_DEPTCODE 테이블MERGE
-//	 * @param deptCodeModels
-//	 * @throws Exception
-//	 */
-//	@Insert(  " INSERT INTO TB_DEPTCODE VALUES (" //INSERT
-//			+ "		#{deptCode},"
-//			+ " 	#{deptName},"
-//			+ " 	#{priority}"
-//			+ "	) "
-//			+ " ON DUPLICATE KEY UPDATE " //UPDATE
-//			+ "		DEPTNAME=#{deptName}, "
-//			+ "		PRIORITY=#{priority} "
-//			)
-//	public int mergeDeptCode(DeptCodeModel deptCodeModel) throws Exception;
-//	
+	
+	/******************************************** TB_DEPTCODE ****************************************************/
 	
 	/**
 	 * TB_DEPTCODE 테이블 INSERT
@@ -150,7 +139,6 @@ public interface AdminMapper {
 			+ ") "
 			)
 	public void insertDeptCode(String deptName) throws Exception;	
-	
 	
 	/**
 	 * TB_DEPTCODE 테이블 UPDATE
@@ -177,7 +165,7 @@ public interface AdminMapper {
 	
 	
 	/**
-	 * TB_USER 테이블의 부서명을 변경한다.
+	 * TB_USER 테이블의 부서코드를 변경한다.
 	 * TB_DEPT 테입테블의 부서를 삭제하기전 선수작업
 	 * @param deleteDeptCodeModel
 	 * @throws Exception
@@ -189,7 +177,7 @@ public interface AdminMapper {
 	
 	
 	/**
-	 * TB_PROJECT 테이블의 부서명을 변경한다.
+	 * TB_PROJECT 테이블의 부서코드를 변경한다.
 	 * TB_DEPT 테입테블의 부서를 삭제하기전 선수작업
 	 * @param deleteDeptCodeModel
 	 * @throws Exception
@@ -198,6 +186,10 @@ public interface AdminMapper {
 			+ "		SET DEPTCODE = #{updateDeptCode} "
 			+ "	WHERE DEPTCODE = #{deptCode}")
 	public void updateProjectDeptCode(DeleteDeptCodeModel deleteDeptCodeModel) throws Exception;
+	
+	
+	
+	/******************************************** TB_DEPTCODE ****************************************************/
 	
 	
 	

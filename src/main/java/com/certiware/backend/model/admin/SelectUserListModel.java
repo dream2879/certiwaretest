@@ -6,7 +6,7 @@ public class SelectUserListModel {
 	private String password;	// 비밀번호
 	private String userName;	// 사용자이름
 	private String email;		// 이메일
-	private long phoneNumber;	// 전화번호
+	private String phoneNumber;	// 전화번호
 	private String deptCode;	// 부서코드
 	private String deptName;	// 부서명
 	private String rankCode;	// 직급코드
@@ -37,10 +37,10 @@ public class SelectUserListModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public long getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(long phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	public String getDeptCode() {

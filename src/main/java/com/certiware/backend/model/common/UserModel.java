@@ -2,11 +2,11 @@ package com.certiware.backend.model.common;
 
 public class UserModel {
 	
-	private String userId;		// 사용자 아이디
+	private String userId;		// 사용자아이디
 	private String password;	// 비밀번호
-	private String userName;	// 사용자 명
+	private String userName;	// 사용자명
 	private String email;		// 이메일
-	private long phoneNumber;	// 전화번호
+	private String phoneNumber;	// 전화번호
 	private String deptCode;	// 부서코드
 	private String rankCode;	// 등급코드
 	private String roleCode;	// 권한코드
@@ -35,10 +35,10 @@ public class UserModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public long getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(long phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	public String getDeptCode() {
