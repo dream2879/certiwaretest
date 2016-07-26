@@ -1,9 +1,6 @@
 package com.certiware.backend.service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +13,6 @@ import com.certiware.backend.mapper.MainMapper;
 import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.UnitPriceModel;
 import com.certiware.backend.model.common.UserModel;
-import com.certiware.backend.model.main.ManpowerMMStatisticsModel;
-import com.certiware.backend.model.main.ManpowerStatisticsModel;
-import com.certiware.backend.model.main.ProjectStatisticsModel;
 import com.certiware.backend.model.main.SelectDashboardReqModel;
 import com.certiware.backend.model.main.SelectDashboardResModel;
 import com.certiware.backend.model.main.SelectLoginModel;
@@ -41,6 +35,8 @@ public class MainService {
 	 * @throws Exception
 	 */
 	public UserModel selectUserByPK(String userId) throws Exception {	
+		
+		// DB 호출 및 결과 리턴
 		return mainMapper.selectUserByPK(userId);	
 	}
 	
@@ -73,6 +69,7 @@ public class MainService {
 		// 메뉴목록
 		selectLoginModel.setSelectMenuModels(mainMapper.selectMenuByRoleCode(selectLoginModel.getUserModel().getRoleCode()));
 		
+		// 결과 리턴
 		return selectLoginModel;		
 	}
 	
@@ -83,6 +80,8 @@ public class MainService {
 	 * @throws Exception
 	 */
 	public List<PartnerModel> selectCustomerPatner(PartnerModel partnerModel) throws Exception{
+		
+		// DB 호출 및 결과 리턴
 		return mainMapper.selectCustomerPatner(partnerModel);
 	}
 	
@@ -94,6 +93,7 @@ public class MainService {
 	 */
 	public List<SelectMenuModel> selectMenuList(String roleCode) throws Exception  {		
 			
+		// DB 호출 및 결과 리턴
 		return mainMapper.selectMenuByRoleCode(roleCode);		
 	}
 
@@ -145,6 +145,8 @@ public class MainService {
 		
 		// 반복
 		for (UnitPriceModel unitPriceModel : unitPriceModels) {
+			
+			// DB 호출
 			mainMapper.mergeUnitPrice(unitPriceModel);			
 		}
 		
@@ -158,6 +160,7 @@ public class MainService {
 	 */
 	public boolean deleteUnitPrice(String year) throws Exception{
 		
+		// DB 호출
 		mainMapper.deleteUnitPrice(year);
 		
 		return true;

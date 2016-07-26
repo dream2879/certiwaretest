@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.certiware.backend.mapper.AdminMapper;
 import com.certiware.backend.model.admin.DeleteDeptCodeModel;
-import com.certiware.backend.model.admin.ModifyDeptCodeModel;
 import com.certiware.backend.model.admin.SelectUserListModel;
 import com.certiware.backend.model.admin.UpdateUserModel;
 import com.certiware.backend.model.common.DeptCodeModel;
@@ -83,30 +82,7 @@ public class AdminService {
 	 */
 	public List<DeptCodeModel> SelectDeptCode() throws Exception{
 		return commonService.SelectDeptCode();
-	}
-	
-//	/**
-//	 * TB_DEPTCODE 테이블의 MERGE, DELETE 문수행
-//	 * @param modifyDeptCodeModel
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	@Transactional
-//	public boolean modifyDeptCode(ModifyDeptCodeModel modifyDeptCodeModel) throws Exception{
-//		
-//		// merge
-//		for (DeptCodeModel deptCodeModel : modifyDeptCodeModel.getMergeDeptCodeModels()) {
-//			adminMapper.mergeDeptCode(deptCodeModel);
-//		}
-//		
-//		// delete
-//		for (DeptCodeModel deptCodeModel : modifyDeptCodeModel.getDeleteDeptCodeModels()) {
-//			adminMapper.deleteDeptCodeByPK(deptCodeModel);
-//		}	
-//		
-//		return true;
-//	}
-	
+	}	
 	/**
 	 * 부서를 입력한다.
 	 * @param deptName

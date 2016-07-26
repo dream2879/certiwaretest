@@ -22,7 +22,7 @@ public interface AdminMapper {
 	 * @throws Exception
 	 */
 	@Select(  "<script>"
-			+ " SELECT A.USERID, A.USERNAME, A.DEPTCODE, B.DEPTNAME, A.RANKCODE, C.RANKNAME, A.ROLECODE, D.DESCRIPTION "
+			+ " SELECT A.USERID, A.USERNAME, A.EMAIL, A.PHONENUMBER, A.DEPTCODE, B.DEPTNAME, A.RANKCODE, C.RANKNAME, A.ROLECODE, D.DESCRIPTION "
 			+ " FROM  TB_USER A,                                                                                       "
 			+ "       TB_DEPTCODE B,                                                                                   "
 			+ "       TB_RANKCODE C,                                                                                   "
@@ -54,7 +54,7 @@ public interface AdminMapper {
 	 * @throws Exception
 	 */
 	@Select(  "<script>"
-			+ "SELECT USERID, USERNAME, DEPTCODE, RANKCODE, ROLECODE "
+			+ "SELECT USERID, USERNAME, EMAIL, PHONENUMBER, DEPTCODE, RANKCODE, ROLECODE "
 			+ "FROM TB_USER "
 			// userId is not null이라면 WHERE조건 추가
 			+ "<if test=\"userId != null and userId != ''\"> "
@@ -77,6 +77,8 @@ public interface AdminMapper {
 			+ "	#{userId},"
 			+ " #{password},"
 			+ " #{userName},"
+			+ " #{email},"
+			+ " #{phoneNumber},"
 			+ " #{deptCode},"
 			+ " #{rankCode},"
 			+ " #{roleCode}"
@@ -97,12 +99,13 @@ public interface AdminMapper {
 			+ "		PASSWORD=#{password}, "
 			+ "</if>"
 			+ "		USERNAME=#{userName}, "
+			+ "		EMAIL=#{email}, "
+			+ "		PHONENUMBER=#{phoneNumber}, "
 			+ "		DEPTCODE =#{deptCode}, "
 			+ "		RANKCODE=#{rankCode}, "
 			+ "		ROLECODE=#{roleCode} "
 			+ " WHERE USERID = #{pk} "
-			+ "</script>"
-			
+			+ "</script>"			
 			)
 	public int updateUser(UpdateUserModel updateUserModel) throws Exception;
 	

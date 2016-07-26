@@ -214,34 +214,6 @@ public class ProjectController {
 		
 	}//end deleteProject()
 	
-//	/**
-//	 * 
-//	 * @param modifyOutsourcingModel
-//	 * @return
-//	 * @throws ServletException
-//	 */
-//	@RequestMapping(value="/modifyOutsourcing")
-//	public ResultModel modifyOutsourcing(@RequestBody ModifyOutsourcingModel modifyOutsourcingModel) throws ServletException{
-//		System.out.println("modifyOutsourcing() start... ");		
-//		ResultModel resultModel = new ResultModel();
-//		
-//		try{
-//			
-//			resultModel.setResult(projectService.modifyOutsourcing(modifyOutsourcingModel));
-//			
-//		}
-//		catch(Exception e)
-//		{
-//			resultModel.setMessage(e.toString());
-//			System.out.println("error!! :" + e.toString());
-//			//throw new ServletException(e.toString());
-//		}
-//		
-//		System.out.println("modifyOutsourcing() end... ");
-//		return resultModel;
-//		
-//	}//end modifyOutsourcing
-	
 	
 	/**
 	 * 외주정보 입력
@@ -269,7 +241,7 @@ public class ProjectController {
 		System.out.println("insertOutsourcing() end... ");
 		return resultModel;
 		
-	}//end insertOutsourcing
+	}//end insertOutsourcing	
 	
 	/**
 	 * 외주정보 변경
@@ -299,6 +271,7 @@ public class ProjectController {
 		
 	}//end updateOutsourcing
 	
+	
 	/**
 	 * 외주정보 삭제
 	 * @param outsourcingModel
@@ -326,6 +299,7 @@ public class ProjectController {
 		return resultModel;
 		
 	}//end deleteOutsourcing
+	
 	
 	/**
 	 * 본부에 속해있는 프로젝트 목록을 가져온다.

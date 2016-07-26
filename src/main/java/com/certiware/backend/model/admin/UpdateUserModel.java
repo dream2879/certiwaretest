@@ -6,9 +6,12 @@ public class UpdateUserModel {
 	private String userId;
 	private String password;
 	private String userName;
+	private String email;		// 이메일
+	private long phoneNumber;	// 전화번호
 	private String deptCode;
 	private String rankCode;
 	private String roleCode;
+	
 	public String getPk() {
 		return pk;
 	}
@@ -33,6 +36,18 @@ public class UpdateUserModel {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public long getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(long phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 	public String getDeptCode() {
 		return deptCode;
 	}
@@ -50,6 +65,5 @@ public class UpdateUserModel {
 	}
 	public void setRoleCode(String roleCode) {
 		this.roleCode = roleCode;
-	}	
-
+	}
 }

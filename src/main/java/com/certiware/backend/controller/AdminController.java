@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.admin.DeleteDeptCodeModel;
-import com.certiware.backend.model.admin.ModifyDeptCodeModel;
 import com.certiware.backend.model.admin.SelectUserListModel;
 import com.certiware.backend.model.admin.UpdateUserModel;
 import com.certiware.backend.model.common.DeptCodeModel;
