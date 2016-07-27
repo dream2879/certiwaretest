@@ -7,12 +7,11 @@ public class PartnerModel {
 	private int partnerId;			// 거래처 아이디
 	private String partnerName;		// 거래처이름
 	private String partnerCode;		// 거래처 구분코드
-	private int businessNumber;		// 회사번호
+	private long businessNumber;		// 회사번호
 	private String businessCode;	// 회사 구분코드
 	private String ceoName;			// 대표자 이름
 	private String address;			// 거래처 회사 주소
 	private Date createDate;		// 등록일
-	
 	public int getPartnerId() {
 		return partnerId;
 	}
@@ -31,10 +30,10 @@ public class PartnerModel {
 	public void setPartnerCode(String partnerCode) {
 		this.partnerCode = partnerCode;
 	}
-	public int getBusinessNumber() {
+	public long getBusinessNumber() {
 		return businessNumber;
 	}
-	public void setBusinessNumber(int businessNumber) {
+	public void setBusinessNumber(long businessNumber) {
 		this.businessNumber = businessNumber;
 	}
 	public String getBusinessCode() {
@@ -61,5 +60,7 @@ public class PartnerModel {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+	
+	
 
 }

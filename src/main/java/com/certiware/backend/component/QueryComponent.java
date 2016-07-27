@@ -241,10 +241,12 @@ public class QueryComponent {
 		query += "         LEFT OUTER JOIN TB_PROJECT B ON A.PROJECTID = B.PROJECTID                                                                  " + System.getProperty("line.separator") ;
 		query += "         LEFT OUTER JOIN TB_RATINGCODE C ON A.RATINGCODE = C.RATINGCODE                                                             " + System.getProperty("line.separator") ;
 		query += "         LEFT OUTER JOIN                                                                                                            " + System.getProperty("line.separator") ;
-		query += "         (SELECT CASE WHEN PARTNERCODE >= 3 THEN '프리랜서' ELSE PARTNERNAME END AS DESCRIPTION,                                    " + System.getProperty("line.separator") ;
+		query += "         (SELECT CASE WHEN PARTNERCODE = '3' THEN '개인사업자'                                     " + System.getProperty("line.separator") ;
+		query += "          			WHEN PARTNERCODE = '4' THEN '프리랜서'                                    " + System.getProperty("line.separator") ;
+		query += "          			ELSE PARTNERNAME END AS DESCRIPTION,                                   " + System.getProperty("line.separator") ;
 		query += "                 PARTNERID                                                                                                          " + System.getProperty("line.separator") ;
 		query += "            FROM TB_PARTNER) D                                                                                                      " + System.getProperty("line.separator") ;
-		query += "            ON A.PROJECTID = D.PARTNERID                                                                                            " + System.getProperty("line.separator") ;		
+		query += "            ON A.PARTNERID = D.PARTNERID                                                                                            " + System.getProperty("line.separator") ;		
 		query += "ORDER BY A.PROJECTID,                                                                                                               " + System.getProperty("line.separator") ;
 		query += "         A.IDSORT,                                                                                                                  " + System.getProperty("line.separator") ;
 		query += "         A.MANPOWERNAME,                                                                                                            " + System.getProperty("line.separator") ;

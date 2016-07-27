@@ -11,6 +11,7 @@ import com.certiware.backend.model.common.ManpowerMmModel;
 import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.QueryModel;
 import com.certiware.backend.model.common.UserModel;
+import com.certiware.backend.model.progress.ManpowerNameModel;
 import com.certiware.backend.model.progress.ProjectPartnerModel;
 import com.certiware.backend.model.progress.SelectPartnerNameList;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
@@ -22,19 +23,29 @@ public interface ProgressMapper {
 	/**
 	 * TB_OUTSOURCING 테이블조회
 	 * 특정 프로젝트에 포함된 PARTNER 리스트를 조회한다.ㅣ
+	 * 개인사업자/프리랜서제외
 	 * @param projectId:프로젝트아이디
 	 * @return
 	 * @throws Exception
 	 */
-	@Select(  " SELECT B.PARTNERID, CASE WHEN B.PARTNERCODE = '3' THEN '자사' ELSE PARTNERNAME END AS PARTNERNAME "
+	@Select(  " SELECT B.PARTNERID, B.PARTNERNAME "
 			+ " FROM TB_OUTSOURCING A, TB_PARTNER B                                                               "
 			+ " WHERE A.PROJECTID = #{param1} "
 			+ " AND A.PARTNERID = B.PARTNERID "
-			+ " AND B.PARTNERCODE <= 3  	          "
+			+ " AND B.PARTNERCODE < 3  	          "
 			+ " ORDER BY B.PARTNERID "
 			)
 	public List<ProjectPartnerModel> selectOutsourcingByProjectId(int projectId) throws Exception;
-	/*
+	
+	@Select(  " SELECT  A.PROJECTID, A.MANPOWERNAME,																									"
+			+ "         CASE WHEN B.PARTNERCODE >= 3 THEN 'A' ELSE A.PARTNERID END AS PARTNERID,      "
+			+ "			A.RATINGCODE, A.SELLINGAMOUNT, A.OUTSOURCINGAMOUNT, A.STARTDATE, A.ENDDATE "
+			+ " FROM TB_MANPOWER A, TB_PARTNER B                                                    "
+			+ " WHERE A.PARTNERID = B.PARTNERID                                                     "
+			+ " AND A.PROJECTID = #{param1}                                                               "
+			)
+	public List<ManpowerNameModel> selectManpowerByProjectId(int projectId) throws Exception;
+	
 	/**
 	 * TB_MANPOWER 테이블조회
 	 * 특정 프로젝트에 포함된 투입인력 목록을 조회한다.
@@ -206,7 +217,9 @@ public interface ProgressMapper {
 	 */
 	@Select( " SELECT A.PARTNERID, B.DESCRIPTION                            																						"	
 			+ " FROM TB_OUTSOURCING A,                                                                                  "
-			+ "      (SELECT PARTNERID, CASE WHEN PARTNERCODE >= 3 THEN '프리랜서' ELSE PARTNERNAME END AS DESCRIPTION  "
+			+ "      (SELECT PARTNERID, CASE 	WHEN PARTNERCODE = '3' THEN '개인사업자' "
+			+ "									WHEN PARTNERCODE = '4' THEN '프리랜서' "
+			+ "									ELSE PARTNERNAME END AS DESCRIPTION  "
 			+ "         FROM   TB_PARTNER) B                                                                            "
 			+ " WHERE A.PARTNERID = B.PARTNERID                                                                         "
 			+ " AND A.PROJECTID = #{param1}                                                                             "

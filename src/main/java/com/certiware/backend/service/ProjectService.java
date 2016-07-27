@@ -21,7 +21,7 @@ public class ProjectService {
 	@Autowired
 	CommonService commonService;
 	@Autowired
-	ProjectMapper projectMapper;
+	ProjectMapper projectMapper;	
 	
 	/**
 	 * TB_PROJECT 조회

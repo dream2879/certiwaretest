@@ -187,7 +187,8 @@ public interface ProjectMapper {
 			+ "		#{product}, "
 			+ "		#{startDate}, "
 			+ "		#{endDate}"
-			+ " )")
+			+ " )"
+			)
 	public void inertOutsourcing(OutsourcingModel outsourcingModel) throws Exception;
 	
 	

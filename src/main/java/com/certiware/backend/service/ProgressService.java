@@ -18,6 +18,8 @@ import com.certiware.backend.mapper.ProgressMapper;
 import com.certiware.backend.model.common.ManpowerMmModel;
 import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.QueryModel;
+import com.certiware.backend.model.progress.ProjectPartnerModel;
+import com.certiware.backend.model.progress.SelectManpowerListModel;
 import com.certiware.backend.model.progress.SelectPartnerNameList;
 import com.certiware.backend.model.progress.SelectProgressListReqModel;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
@@ -42,8 +44,15 @@ public class ProgressService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<ManpowerModel> selectManpowerList(int projectId) throws Exception{
-		return progressMapper.selectManpowerList(projectId);
+	public SelectManpowerListModel selectManpowerList(SelectManpowerListModel selectManpowerListModel, int projectId) throws Exception{
+		
+		// 외주업체리스트를 가져온다(개인사업자/프리랜서 제외)
+		selectManpowerListModel.setProjectPartnerModels(progressMapper.selectOutsourcingByProjectId(projectId));
+		
+		// 투입인력 이름목록을 가져온다.
+		selectManpowerListModel.setManpowerNameModels(progressMapper.selectManpowerByProjectId(projectId));		
+		
+		return selectManpowerListModel;
 	}
 	
 	
@@ -211,7 +220,22 @@ public class ProgressService {
 		return excelComponent.makeSelectProgressListExcel(				// 엑셀파일 생성
 				this.selectProgressList(selectProgressListReqModel));	// 프로젝트 진행현황 DB조회
 	
+	}	
+	
+	
+	/**
+	 * 프로젝트 아이디로 외주 정보를 가져온다.
+	 * 개인사업자/프리랜서 제외
+	 * @param projectId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ProjectPartnerModel> selectOutsourcingList(int projectId) throws Exception{
+		return progressMapper.selectOutsourcingByProjectId(projectId);
 	}
+
+	
+	
 	
 	
 	/************************************** 내부 함수 **************************************/
@@ -289,11 +313,5 @@ public class ProgressService {
 		
 		this.modifyManpowerMm(manpowerMmModels);		
 	}
-
-	
-
-	
-	
-	
 
 }
