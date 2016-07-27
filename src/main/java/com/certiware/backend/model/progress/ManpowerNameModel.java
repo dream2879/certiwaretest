@@ -6,7 +6,8 @@ public class ManpowerNameModel {
 	
 	private String projectId;		// 프로젝트아이디	
 	private String manpowerName;	// 투입인력이름
-	private String partnerId;		// 파트너아이디(개인사업자/프리랜러의 경우 'A'로 담긴다)
+	private int partnerId;			// 파트너아이디
+	private String partnerGubun;	// 파트너 구분을 위해사용 (개인사업자/프리랜러의 경우 'A'로 담긴다)
 	private String ratingCode;		// 등급코드
 	private long sellingAmount;		// 매출단가
 	private long outsourcingAmount;	// 외주단가
@@ -24,11 +25,17 @@ public class ManpowerNameModel {
 	public void setManpowerName(String manpowerName) {
 		this.manpowerName = manpowerName;
 	}
-	public String getPartnerId() {
+	public int getPartnerId() {
 		return partnerId;
 	}
-	public void setPartnerId(String partnerId) {
+	public void setPartnerId(int partnerId) {
 		this.partnerId = partnerId;
+	}
+	public String getPartnerGubun() {
+		return partnerGubun;
+	}
+	public void setPartnerGubun(String partnerGubun) {
+		this.partnerGubun = partnerGubun;
 	}
 	public String getRatingCode() {
 		return ratingCode;
@@ -60,7 +67,6 @@ public class ManpowerNameModel {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	
 	
 	
 	

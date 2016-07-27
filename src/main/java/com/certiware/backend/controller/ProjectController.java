@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.certiware.backend.model.common.OutsourcingModel;
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.common.ResultModel;
+import com.certiware.backend.model.project.InsertOutsourcingModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectDetailModel;
 import com.certiware.backend.model.project.SelectListModel;
@@ -222,13 +223,13 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/insertOutsourcing")
-	public ResultModel insertOutsourcing(@RequestBody OutsourcingModel outsourcingModel) throws ServletException{
+	public ResultModel insertOutsourcing(@RequestBody InsertOutsourcingModel insertOutsourcingModel) throws ServletException{
 		System.out.println("insertOutsourcing() start... ");		
 		ResultModel resultModel = new ResultModel();
 		
 		try{
 			
-			resultModel.setResult(projectService.insertOutsourcing(outsourcingModel));
+			resultModel.setResult(projectService.insertOutsourcing(insertOutsourcingModel));
 			
 		}
 		catch(Exception e)

@@ -37,8 +37,8 @@ public interface ProgressMapper {
 			)
 	public List<ProjectPartnerModel> selectOutsourcingByProjectId(int projectId) throws Exception;
 	
-	@Select(  " SELECT  A.PROJECTID, A.MANPOWERNAME,																									"
-			+ "         CASE WHEN B.PARTNERCODE >= 3 THEN 'A' ELSE A.PARTNERID END AS PARTNERID,      "
+	@Select(  " SELECT  A.PROJECTID, A.MANPOWERNAME, A.PARTNERID,																									"
+			+ "         CASE WHEN B.PARTNERCODE >= 3 THEN 'A' ELSE A.PARTNERID END AS PARTNERGUBUN,      "
 			+ "			A.RATINGCODE, A.SELLINGAMOUNT, A.OUTSOURCINGAMOUNT, A.STARTDATE, A.ENDDATE "
 			+ " FROM TB_MANPOWER A, TB_PARTNER B                                                    "
 			+ " WHERE A.PARTNERID = B.PARTNERID                                                     "

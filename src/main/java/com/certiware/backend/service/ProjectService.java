@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.certiware.backend.mapper.ProjectMapper;
+import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.OutsourcingModel;
 import com.certiware.backend.model.common.ProjectModel;
+import com.certiware.backend.model.project.InsertOutsourcingModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectDetailModel;
 import com.certiware.backend.model.project.SelectListModel;
@@ -21,7 +23,9 @@ public class ProjectService {
 	@Autowired
 	CommonService commonService;
 	@Autowired
-	ProjectMapper projectMapper;	
+	ProjectMapper projectMapper;
+	@Autowired
+	ProgressService progressService;
 	
 	/**
 	 * TB_PROJECT 조회
@@ -126,9 +130,19 @@ public class ProjectService {
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean insertOutsourcing(OutsourcingModel outsourcingModel) throws Exception{
+	public boolean insertOutsourcing(InsertOutsourcingModel insertOutsourcingModel) throws Exception{
 		
-		projectMapper.inertOutsourcing(outsourcingModel);
+		// 외주 업체 등록
+		projectMapper.inertOutsourcing(insertOutsourcingModel);
+		
+		// partnerCode가 3보다크면 개인사입자/프리랜서 임으로 TB_Manpower테이블에 등록해준다.
+		if(Integer.parseInt(insertOutsourcingModel.getPartnerCode()) >= 3){
+			ManpowerModel manpowerModel = new ManpowerModel();
+			
+			manpowerModel.setProjectId(insertOutsourcingModel.getProjectId());
+			
+			progressService.insertManpower(manpowerModel);
+		}
 		
 		return true;
 		
@@ -157,7 +171,11 @@ public class ProjectService {
 	 */
 	public boolean deleteOutsourcing(OutsourcingModel outsourcingModel) throws Exception{
 		
+		// 아웃소싱 정보 삭제
 		projectMapper.deleteOutsourcing(outsourcingModel);
+		
+		// 
+		
 		
 		return true;
 		

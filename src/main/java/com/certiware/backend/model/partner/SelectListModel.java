@@ -5,7 +5,7 @@ import java.sql.Date;
 public class SelectListModel {
 	private int partnerId;
 	private String partnerName;
-	private int businessNumber;
+	private long businessNumber;
 	private String businessCode;
 	private String businessDescription;
 	private String partnerCode;
@@ -13,6 +13,8 @@ public class SelectListModel {
 	private String ceoName;	
 	private String address;	
 	private Date createDate;
+	
+	
 	public int getPartnerId() {
 		return partnerId;
 	}
@@ -25,10 +27,10 @@ public class SelectListModel {
 	public void setPartnerName(String partnerName) {
 		this.partnerName = partnerName;
 	}
-	public int getBusinessNumber() {
+	public long getBusinessNumber() {
 		return businessNumber;
 	}
-	public void setBusinessNumber(int businessNumber) {
+	public void setBusinessNumber(long businessNumber) {
 		this.businessNumber = businessNumber;
 	}
 	public String getBusinessCode() {
@@ -73,6 +75,5 @@ public class SelectListModel {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-
 
 }

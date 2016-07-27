@@ -8,14 +8,13 @@ public class SelectListModel {
 	private String projectName;
 	private int partnerId;	
 	private String partnerName; 
-	private int contractAmount; 
-	private int outsourcingAmount; 
-	private int netAmount; 
+	private long contractAmount; 
+	private long outsourcingAmount; 
+	private long netAmount; 
 	private Date startDate; 
 	private Date endDate; 
 	private String deptCode;
 	private String remarks;
-	
 	public int getProjectId() {
 		return projectId;
 	}
@@ -40,22 +39,22 @@ public class SelectListModel {
 	public void setPartnerName(String partnerName) {
 		this.partnerName = partnerName;
 	}
-	public int getContractAmount() {
+	public long getContractAmount() {
 		return contractAmount;
 	}
-	public void setContractAmount(int contractAmount) {
+	public void setContractAmount(long contractAmount) {
 		this.contractAmount = contractAmount;
 	}
-	public int getOutsourcingAmount() {
+	public long getOutsourcingAmount() {
 		return outsourcingAmount;
 	}
-	public void setOutsourcingAmount(int outsourcingAmount) {
+	public void setOutsourcingAmount(long outsourcingAmount) {
 		this.outsourcingAmount = outsourcingAmount;
 	}
-	public int getNetAmount() {
+	public long getNetAmount() {
 		return netAmount;
 	}
-	public void setNetAmount(int netAmount) {
+	public void setNetAmount(long netAmount) {
 		this.netAmount = netAmount;
 	}
 	public Date getStartDate() {
@@ -82,6 +81,7 @@ public class SelectListModel {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+	
 	
 	
 	

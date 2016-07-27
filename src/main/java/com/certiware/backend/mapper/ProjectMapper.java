@@ -13,6 +13,7 @@ import com.certiware.backend.model.common.OutsourcingModel;
 import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.project.SelectProjectListModel;
+import com.certiware.backend.model.project.InsertOutsourcingModel;
 import com.certiware.backend.model.project.SelectListModel;
 import com.certiware.backend.model.project.SelectOutsourcingModel;
 
@@ -189,7 +190,7 @@ public interface ProjectMapper {
 			+ "		#{endDate}"
 			+ " )"
 			)
-	public void inertOutsourcing(OutsourcingModel outsourcingModel) throws Exception;
+	public void inertOutsourcing(InsertOutsourcingModel insertOutsourcingModel) throws Exception;
 	
 	
 	/**

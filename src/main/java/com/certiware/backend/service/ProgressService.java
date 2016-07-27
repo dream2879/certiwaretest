@@ -117,7 +117,7 @@ public class ProgressService {
 		progressMapper.deleteManpower(manpowerModel);
 		
 		// TB_MANPWERMM 정보도 삭제
-		this.deleteManpowerMmByPK(manpowerModel);
+		//this.deleteManpowerMmByPK(manpowerModel);
 		
 		return true;
 		
@@ -177,8 +177,7 @@ public class ProgressService {
 		progressMapper.deleteManpowerMmByPK(manpowerModel);
 		
 		return true;
-	}
-	
+	}	
 	
 	
 	/**
@@ -280,7 +279,7 @@ public class ProgressService {
 			if(flag)
 			{
 				// MM 구하기 근무일수/해당월의일수
-				mm = (double) cal.get(cal.DAY_OF_MONTH) / (double) cal.getActualMaximum(cal.DAY_OF_MONTH); 
+				mm = (double) (cal.getActualMaximum(cal.DAY_OF_MONTH) - cal.get(cal.DAY_OF_MONTH) + 1) / (double) cal.getActualMaximum(cal.DAY_OF_MONTH); 
 				cal.set(cal.DATE, 1);
 				
 				flag = false;
