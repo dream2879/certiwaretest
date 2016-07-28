@@ -10,12 +10,14 @@ import org.apache.ibatis.annotations.Update;
 import com.certiware.backend.model.common.ManpowerMmModel;
 import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.QueryModel;
-import com.certiware.backend.model.common.UserModel;
 import com.certiware.backend.model.progress.ManpowerNameModel;
 import com.certiware.backend.model.progress.ProjectPartnerModel;
+import com.certiware.backend.model.progress.SelectManpowerMMHistoryReqModel;
+import com.certiware.backend.model.progress.SelectManpowerMMHistoryResModel;
 import com.certiware.backend.model.progress.SelectPartnerNameList;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
 import com.certiware.backend.model.progress.UpdateManpowerModel;
+import com.certiware.backend.model.progress.UpdateManpowerMmReqModel;
 
 public interface ProgressMapper {
 
@@ -165,6 +167,19 @@ public interface ProgressMapper {
 			)
 	public void mergeManpowerMm(ManpowerMmModel manpowerMmModel) throws Exception;
 	
+	/**
+	 * TB_MANPOWERMM 테이블 MM 정보 변경
+	 * @param manpowerMmModels
+	 * @throws Exception
+	 */
+	@Insert(  "UPDATE TB_MANPOWERMM"
+			+ "		SET MM = #{afterMM}"
+			+ "WHERE PROJECTID = #{projectId}"
+			+ "AND MANPOWERNAME = #{manpowerName}"
+			+ "AND MONTH = DATE_FORMAT(#{month}, '%Y-%m-01')"
+			)
+	public void updateManpowerMm(UpdateManpowerMmReqModel updateManpowerMmReqModel) throws Exception;
+	
 	
 	/**
 	 * TB_MANPOWERMM 테이블삭제
@@ -226,5 +241,37 @@ public interface ProgressMapper {
 			+ " ORDER BY A.PARTNERID                                                                                    "
 			)
 	public List<SelectPartnerNameList> selectOutsourcingByPartnerId(int partnerId) throws Exception;
+	
+	
+	/**
+	 * TB_MANPOWERMM 테이블의 M/M 변경 이력을 입력한다.
+	 * @param updateManpowerMmReqModel
+	 * @throws Exception
+	 */
+	@Insert(  "INSERT INTO TB_MANPOWERMMHISTORY VALUES ("
+			+ "		#{projectId},"
+			+ "		#{manpowerName},"
+			+ "		DATE_FORMAT(#{month}, '%Y-%m-01'),"
+			+ "		#{beforeMM},"
+			+ "		#{afterMM},"
+			+ "		#{userId},"
+			+ "		#{userName},"
+			+ "		NULL" //MODIFYDATE는 DB에서 자동생성
+			+ ")"				
+			)
+	public void insertManpowerMMHistory(UpdateManpowerMmReqModel updateManpowerMmReqModel) throws Exception;
+	
+	/**
+	 * TB_MANPOWERMMHISTORY 테이블 조회
+	 * @throws Exception
+	 */
+	@Insert(  "SELECT * "
+			+ "FROM TB_MANPOWERMMHISTORY "
+			+ "WHERE PROJECTID = #{projectId} "
+			+ "AND MANPOWERNAME = #{manpowerName}"
+			)
+	public List<SelectManpowerMMHistoryResModel> selectManpowerMMHistory(SelectManpowerMMHistoryReqModel selectManpowerMMHistoryReqModel) throws Exception;
+	
+	
 
 }

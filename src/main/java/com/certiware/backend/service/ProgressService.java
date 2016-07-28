@@ -20,9 +20,12 @@ import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.QueryModel;
 import com.certiware.backend.model.progress.ProjectPartnerModel;
 import com.certiware.backend.model.progress.SelectManpowerListModel;
+import com.certiware.backend.model.progress.SelectManpowerMMHistoryReqModel;
+import com.certiware.backend.model.progress.SelectManpowerMMHistoryResModel;
 import com.certiware.backend.model.progress.SelectPartnerNameList;
 import com.certiware.backend.model.progress.SelectProgressListReqModel;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
+import com.certiware.backend.model.progress.UpdateManpowerMmReqModel;
 import com.certiware.backend.model.progress.UpdateManpowerModel;
 
 @Service
@@ -134,7 +137,7 @@ public class ProgressService {
 	}
 	
 	/**
-	 * TB_MANPOWERMM 테이블 MERGE, DELETE
+	 * TB_MANPOWERMM 테이블 MERGE
 	 * @param modifyManpowerMmModel
 	 * @return
 	 * @throws Exception
@@ -147,6 +150,24 @@ public class ProgressService {
 			progressMapper.mergeManpowerMm(manpowerMmModel);
 		}
 		
+		return true;
+	}
+	
+	/**
+	 * TB_MANPOWERMM 테이블을 엽데이트하며, 이력을 저장한다.
+	 * @param updateManpowerMmReqModel
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean updateManpowerMm(UpdateManpowerMmReqModel updateManpowerMmReqModel) throws Exception{
+		
+		// update
+		progressMapper.updateManpowerMm(updateManpowerMmReqModel);
+		
+		// 이력저장
+		progressMapper.insertManpowerMMHistory(updateManpowerMmReqModel);
+		
+		// error 발생 시 exception을 던지며 controller에서 false 처리
 		return true;
 	}
 	
@@ -230,6 +251,18 @@ public class ProgressService {
 	 */
 	public List<ProjectPartnerModel> selectOutsourcingList(int projectId) throws Exception{
 		return progressMapper.selectOutsourcingByProjectId(projectId);
+	}
+	
+	/**
+	 * TB_MANPOWERMM 테이블의 수정이력을 가져온다.
+	 * @param selectManpowerMMHistoryReqModel
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SelectManpowerMMHistoryResModel> selectManpowerMMHistory(SelectManpowerMMHistoryReqModel selectManpowerMMHistoryReqModel) throws Exception{
+	
+		// DB 조회 및 리턴
+		return progressMapper.selectManpowerMMHistory(selectManpowerMMHistoryReqModel);
 	}
 
 	

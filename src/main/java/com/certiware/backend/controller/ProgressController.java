@@ -20,9 +20,12 @@ import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.ResultModel;
 import com.certiware.backend.model.progress.ProjectPartnerModel;
 import com.certiware.backend.model.progress.SelectManpowerListModel;
+import com.certiware.backend.model.progress.SelectManpowerMMHistoryReqModel;
+import com.certiware.backend.model.progress.SelectManpowerMMHistoryResModel;
 import com.certiware.backend.model.progress.SelectPartnerNameList;
 import com.certiware.backend.model.progress.SelectProgressListReqModel;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
+import com.certiware.backend.model.progress.UpdateManpowerMmReqModel;
 import com.certiware.backend.model.progress.UpdateManpowerModel;
 import com.certiware.backend.service.ProgressService;
 
@@ -104,6 +107,7 @@ public class ProgressController {
 		ResultModel resultModel = new ResultModel();
 				
 		try{
+			// 서비스호출
 			resultModel.setResult(progressService.updateManpower(updateManpowerModel));
 			
 			
@@ -188,14 +192,14 @@ public class ProgressController {
 	 * @return
 	 * @throws ServletException
 	 */
-	@RequestMapping("/modifyManpowerMm")
-	public ResultModel modifyManpowerMm(@RequestBody List<ManpowerMmModel> manpowerMmModels) throws ServletException{
-		System.out.println("modifyManpowerMm() start...");
+	@RequestMapping("/updateManpowerMm")
+	public ResultModel updateManpowerMm(@RequestBody UpdateManpowerMmReqModel updateManpowerMmReqModel) throws ServletException{
+		System.out.println("updateManpowerMm() start...");
 		ResultModel resultModel = new ResultModel();		
 				
 		try{
-			
-			resultModel.setResult(progressService.modifyManpowerMm(manpowerMmModels));
+			// 서비스 호출
+			resultModel.setResult(progressService.updateManpowerMm(updateManpowerMmReqModel)); 
 			
 		}catch(Exception e)
 		{
@@ -204,7 +208,7 @@ public class ProgressController {
 			//throw new ServletException(e.toString());
 		}
 		
-		System.out.println("modifyManpowerMm() end...");
+		System.out.println("updateManpowerMm() end...");
 		
 		return resultModel;
 	}// end insertUser
@@ -339,8 +343,38 @@ public class ProgressController {
 		
 		System.out.println("selectOutsourcingList() start...");
 		
-		return projectPartnerModels;
-				
+		return projectPartnerModels;				
 		
 	}//end selectOutsourcingList
+	
+	
+	/**
+	 * M/M 수정이력을 가져온다.
+	 * @param selectManpowerMMHistoryReqModel
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/selectManpowerMMHistory")
+	public List<SelectManpowerMMHistoryResModel> selectManpowerMMHistory(SelectManpowerMMHistoryReqModel selectManpowerMMHistoryReqModel) throws Exception{
+		
+		System.out.println("selectManpowerMMHistory() start...");
+		
+		List<SelectManpowerMMHistoryResModel> selectManpowerMMHistoryResModels = new ArrayList<>();
+		
+		try{
+			
+			// 서비스 호출
+			selectManpowerMMHistoryResModels = progressService.selectManpowerMMHistory(selectManpowerMMHistoryReqModel);
+			
+		}catch(Exception e)
+		{
+			System.out.println("error : " + e.toString());
+			throw new ServletException(e.toString());
+		}
+		
+		System.out.println("selectManpowerMMHistory() start...");
+		
+		return selectManpowerMMHistoryResModels;	
+	
+	}
 }
