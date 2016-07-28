@@ -118,8 +118,8 @@ public interface PartnerMapper {
 			+ "         SUM(A.OUTSOURCINGAMOUNT) AS OUTSOURCINGAMOUNT,                                                "
 			+ "         CASE WHEN B.PROJECTNAME IS NOT NULL THEN A.RATINGCODE ELSE '' END AS RATINGCODE,              "
 			+ "         CASE WHEN B.PROJECTNAME IS NOT NULL THEN A.OUTSOURCINGCODE ELSE '' END AS OUTSOURCINGCODE,    "
-			+ "         CASE WHEN B.PROJECTNAME IS NOT NULL THEN A.STARTDATE ELSE '' END AS STARTDATE,                "
-			+ "         CASE WHEN B.PROJECTNAME IS NOT NULL THEN A.ENDDATE ELSE '' END AS ENDDATE                     "
+			+ "         CASE WHEN B.PROJECTNAME IS NOT NULL THEN A.STARTDATE ELSE NULL END AS STARTDATE,                "
+			+ "         CASE WHEN B.PROJECTNAME IS NOT NULL THEN A.ENDDATE ELSE NULL END AS ENDDATE                     "
 			+ " FROM TB_OUTSOURCING A, TB_PROJECT B                                                                   "
 			+ " WHERE A.PARTNERID = #{partnerId}                                                                      "
 			
@@ -133,7 +133,7 @@ public interface PartnerMapper {
 			+ " GROUP BY B.PROJECTNAME, A.OUTSOURCINGCODE WITH ROLLUP                                                 "
 			+ " ) A                                                                                                   "
 			+ " WHERE OUTSOURCINGCODE IS NOT NULL                                                                     "
-			+ " ORDER BY CASE WHEN STARTDATE = '' THEN 9999-12-31 ELSE STARTDATE END, ENDDATE                         "
+			+ " ORDER BY CASE WHEN STARTDATE IS NULL THEN 9999-12-31 ELSE STARTDATE END, ENDDATE                         "
 			+ "</script>"
 			)
 	public List<PartnerWorkListResModel> selectPartnerWorkList(PartnerWorkListReqModel partnerWorkListReqModel) throws Exception;
