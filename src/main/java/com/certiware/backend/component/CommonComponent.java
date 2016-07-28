@@ -32,9 +32,8 @@ public class CommonComponent {
 				break;
 				
 			case("end") :
-				result = df.parse(cal.get(cal.YEAR)+"-"
-						+ (Integer.parseInt(String.valueOf(cal.get(cal.MONTH))) + 1 < 10 ? "0" + (Integer.parseInt(String.valueOf(cal.get(cal.MONTH))) + 1)  : Integer.parseInt(String.valueOf(cal.get(cal.MONTH))) + 1 ) 
-						+"-"+ String.valueOf(cal.getActualMaximum(cal.DAY_OF_MONTH)));
+				result = df.parse(cal.get(cal.YEAR)+"-12-31");;
+						
 				break;			
 		}
 		

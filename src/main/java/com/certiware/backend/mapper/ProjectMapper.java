@@ -21,6 +21,7 @@ public interface ProjectMapper {
 	/**
 	 * TB_PROJECT 테이블조회
 	 * 해당부서가 담당하고 있는 프로젝트 리스틀 조회한다.
+	 * 부등호사용시에는 <![CDATA[ ]]> 로 묶어줘야한다 xml 충돌방지
 	 * @param deptCode
 	 * @return
 	 * @throws Exception
@@ -28,7 +29,7 @@ public interface ProjectMapper {
 	@Select(  "<script>"
 			+ "SELECT PROJECTID, PROJECTNAME "
 			+ "FROM TB_PROJECT "
-//			+ " WHERE STARTDATE <= #{endDate} AND ENDDATE >= #{startDate} "			
+			+ " WHERE STARTDATE <![CDATA[<=]]> #{endDate} AND ENDDATE <![CDATA[>=]]> #{startDate} "			
 			+ "<if test=\"deptCode != null and deptCode != '' \"> "
 			+ "AND DEPTCODE = #{deptCode}"
 			+ "</if>"
@@ -46,7 +47,7 @@ public interface ProjectMapper {
 			+ " SELECT A.PROJECTID, A.PROJECTNAME, A.DEPTCODE, B.PARTNERID, B.PARTNERNAME, A.CONTRACTAMOUNT, A.OUTSOURCINGAMOUNT, A.NETAMOUNT, A.STARTDATE, A.ENDDATE "
 			+ " FROM TB_PROJECT A, TB_PARTNER B  "
 			+ " WHERE A.PARTNERID = B.PARTNERID "
-			+ " AND A.STARTDATE <= #{endDate} AND A.ENDDATE >= #{startDate} "
+			+ " AND A.STARTDATE <![CDATA[<=]]> #{endDate} AND A.ENDDATE <![CDATA[>=]]> #{startDate} "
 			// projectName
 			+ "<if test=\"projectName != null and projectName != '' \"> "
 			+ " AND A.PROJECTNAME LIKE CONCAT('%',#{projectName}, '%') "
@@ -71,7 +72,8 @@ public interface ProjectMapper {
 	 */
 	@Select(  "SELECT * "
 			+ "FROM TB_PROJECT "
-			+ "WHERE PROJECTID = #{param1}")
+			+ "WHERE PROJECTID = #{param1}"
+			)
 	public ProjectModel selectProjectByPK(int projectId) throws Exception;
 	
 	/**
@@ -84,7 +86,8 @@ public interface ProjectMapper {
 	@Select(  " SELECT A.*, B.PARTNERNAME, B.PARTNERCODE  "
 			+ " FROM TB_OUTSOURCING A, TB_PARTNER B  "
 			+ " WHERE A.PARTNERID = B.PARTNERID   "
-			+ " AND A.PROJECTID = #{param1}")
+			+ " AND A.PROJECTID = #{param1}"
+			)
 	public List<SelectOutsourcingResModel> selectOutsourcingByProjectId(int projectId) throws Exception;
 	
 	/**
@@ -131,7 +134,6 @@ public interface ProjectMapper {
 			+ "		NETAMOUNT=#{netAmount},"
 			+ "		REMARKS=#{remarks} "
 			+ " WHERE PROJECTID = #{projectId} "
-
 			)
 	public int updateProjectByProjectId(ProjectModel projectModel) throws Exception;
 	
@@ -142,7 +144,8 @@ public interface ProjectMapper {
 	 * @throws Exception
 	 */
 	@Delete(  "DELETE FROM TB_PROJECT "
-			+ "WHERE PROJECTID = #{param1}")
+			+ "WHERE PROJECTID = #{param1}"
+			)
 	public int deleteProjectByProjectId(int projectId) throws Exception;
 		
 	/**
@@ -220,7 +223,8 @@ public interface ProjectMapper {
 	@Delete(  "DELETE FROM TB_OUTSOURCING "
 			+ "WHERE PROJECTID =#{projectId} "
 			+ "AND PARTNERID = #{partnerId} "
-			+ "AND OUTSOURCINGCODE = #{outsourcingCode}")
+			+ "AND OUTSOURCINGCODE = #{outsourcingCode}"
+			)
 	public int deleteOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception;
 
 }
