@@ -176,6 +176,8 @@ public class ProjectService {
 			updateManpowerModel.setStartDate(modifyOutsourcingModel.getStartDate());
 			updateManpowerModel.setEndDate(modifyOutsourcingModel.getEndDate());
 			updateManpowerModel.setRemarks(modifyOutsourcingModel.getRemarks());
+			updateManpowerModel.setPk1(modifyOutsourcingModel.getProjectId());
+			updateManpowerModel.setPk2(modifyOutsourcingModel.getPartnerName());
 			
 			progressService.updateManpower(updateManpowerModel);
 		}		

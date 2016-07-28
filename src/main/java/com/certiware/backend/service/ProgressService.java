@@ -98,8 +98,7 @@ public class ProgressService {
 		this.deleteManpowerMmByPeriod(manpowerModel);
 		
 		// 투입기간 변경에 따라 MM을 자동계산하여 보낸다.
-		this.mergeManpowerMM(manpowerModel);
-		
+		this.mergeManpowerMM(manpowerModel);		
 		
 		return true;
 	}

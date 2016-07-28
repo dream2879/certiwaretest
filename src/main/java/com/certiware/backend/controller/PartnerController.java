@@ -1,5 +1,6 @@
 package com.certiware.backend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.ResultModel;
-import com.certiware.backend.model.partner.SelectDetailModel;
+import com.certiware.backend.model.partner.PartnerWorkListReqModel;
+import com.certiware.backend.model.partner.PartnerWorkListResModel;
 import com.certiware.backend.model.partner.SelectListModel;
 import com.certiware.backend.service.PartnerService;
 
@@ -175,7 +177,37 @@ public class PartnerController {
 		
 	}// end
 
-
+	
+	/**
+	 * 외주업체의 계약 내용을 가져온다.
+	 * @param partnerWorkListReqModel
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/selectPartnerWorkList")
+	public List<PartnerWorkListResModel> selectPartnerWorkList(@RequestBody PartnerWorkListReqModel partnerWorkListReqModel) throws Exception{
+		
+		System.out.println("selectPartnerWorkList() start...");
+		
+		List<PartnerWorkListResModel> partnerWorkListResModels = new ArrayList<>();		
+		
+		try{			
+			
+			// 서비스 호출
+			partnerWorkListResModels = partnerService.selectPartnerWorkList(partnerWorkListReqModel);			
+			
+		}catch(Exception e)
+		{
+			
+			System.out.println("error : " + e.toString());
+			throw new ServletException(e.toString());
+		}		
+		
+		System.out.println("selectPartnerWorkList() end...");
+		
+		return partnerWorkListResModels;
+		
+	}// end selectPartnerWorkList
 
 
 
