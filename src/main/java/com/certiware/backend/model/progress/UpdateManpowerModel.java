@@ -9,11 +9,12 @@ public class UpdateManpowerModel {
 	private String manpowerName;
 	private int partnerId;
 	private String RatingCode;
-	private int sellingAmount;
-	private int outsourcingAmount;
+	private long sellingAmount;
+	private long outsourcingAmount;
 	private Date startDate;
 	private Date endDate;
 	private String remarks;
+	
 	public int getPk1() {
 		return pk1;
 	}
@@ -50,16 +51,16 @@ public class UpdateManpowerModel {
 	public void setRatingCode(String ratingCode) {
 		RatingCode = ratingCode;
 	}
-	public int getSellingAmount() {
+	public long getSellingAmount() {
 		return sellingAmount;
 	}
-	public void setSellingAmount(int sellingAmount) {
+	public void setSellingAmount(long sellingAmount) {
 		this.sellingAmount = sellingAmount;
 	}
-	public int getOutsourcingAmount() {
+	public long getOutsourcingAmount() {
 		return outsourcingAmount;
 	}
-	public void setOutsourcingAmount(int outsourcingAmount) {
+	public void setOutsourcingAmount(long outsourcingAmount) {
 		this.outsourcingAmount = outsourcingAmount;
 	}
 	public Date getStartDate() {
@@ -80,7 +81,4 @@ public class UpdateManpowerModel {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	
-	
-
 }

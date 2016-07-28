@@ -1,9 +1,9 @@
 package com.certiware.backend.model.project;
 
-public class SelectProjectListModel {
+public class SelectProjectListResModel {
 	
-	private int projectId;
-	private String projectName;
+	private int projectId;		// 프로젝트 아이디
+	private String projectName;	// 프로젝트 이름
 	
 	public int getProjectId() {
 		return projectId;

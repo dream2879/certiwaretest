@@ -8,17 +8,17 @@ import com.certiware.backend.model.common.ProjectModel;
 public class SelectDetailModel {
 	
 	private ProjectModel projectModel;
-	private List<SelectOutsourcingModel> SelectOutsourcingModel;
+	private List<SelectOutsourcingResModel> SelectOutsourcingModel;
 	public ProjectModel getProjectModel() {
 		return projectModel;
 	}
 	public void setProjectModel(ProjectModel projectModel) {
 		this.projectModel = projectModel;
 	}
-	public List<SelectOutsourcingModel> getSelectOutsourcingModel() {
+	public List<SelectOutsourcingResModel> getSelectOutsourcingModel() {
 		return SelectOutsourcingModel;
 	}
-	public void setSelectOutsourcingModel(List<SelectOutsourcingModel> selectOutsourcingModel) {
+	public void setSelectOutsourcingModel(List<SelectOutsourcingResModel> selectOutsourcingModel) {
 		SelectOutsourcingModel = selectOutsourcingModel;
 	}
 

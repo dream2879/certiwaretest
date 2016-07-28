@@ -1,20 +1,21 @@
 package com.certiware.backend.model.project;
 
-import java.sql.Date;
+import java.util.Date;
 
-public class SelectListModel {
+public class SelectListResModel {
 	
-	private int projectId; 
-	private String projectName;
-	private int partnerId;	
-	private String partnerName; 
-	private long contractAmount; 
-	private long outsourcingAmount; 
-	private long netAmount; 
-	private Date startDate; 
-	private Date endDate; 
-	private String deptCode;
-	private String remarks;
+	private int projectId; 			// 프로젝트아이디
+	private String projectName;		// 프로젝트이름
+	private int partnerId;			// 거래처아이디
+	private String partnerName; 	// 거래처이름 
+	private long contractAmount; 	// 계약단가
+	private long outsourcingAmount; // 외주단가
+	private long netAmount; 		// 순매출
+	private Date startDate; 		// 시작일
+	private Date endDate; 			// 종료일
+	private String deptCode;		// 부서코드
+	private String remarks;			// 비고
+	
 	public int getProjectId() {
 		return projectId;
 	}

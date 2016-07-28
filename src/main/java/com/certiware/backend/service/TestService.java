@@ -21,7 +21,7 @@ import com.certiware.backend.model.common.UserModel;
 import com.certiware.backend.model.partner.SelectListModel;
 import com.certiware.backend.model.progress.SelectProgressListReqModel;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
-import com.certiware.backend.model.project.SelectProjectListModel;
+import com.certiware.backend.model.project.SelectProjectListResModel;
 
 @Service
 public class TestService {

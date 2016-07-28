@@ -2,7 +2,7 @@ package com.certiware.backend.model.project;
 
 import java.sql.Date;
 
-public class SelectOutsourcingModel {
+public class SelectOutsourcingResModel {
 	
 	private int projectId;
 	private int partnerId;

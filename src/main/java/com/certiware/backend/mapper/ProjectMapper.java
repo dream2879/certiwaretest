@@ -5,17 +5,16 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.certiware.backend.model.common.OutsourcingModel;
-import com.certiware.backend.model.common.PartnerModel;
 import com.certiware.backend.model.common.ProjectModel;
-import com.certiware.backend.model.project.SelectProjectListModel;
-import com.certiware.backend.model.project.InsertOutsourcingModel;
-import com.certiware.backend.model.project.SelectListModel;
-import com.certiware.backend.model.project.SelectOutsourcingModel;
+import com.certiware.backend.model.project.ModifyOutsourcingModel;
+import com.certiware.backend.model.project.SelectListReqModel;
+import com.certiware.backend.model.project.SelectListResModel;
+import com.certiware.backend.model.project.SelectOutsourcingResModel;
+import com.certiware.backend.model.project.SelectProjectListReqModel;
+import com.certiware.backend.model.project.SelectProjectListResModel;
 
 public interface ProjectMapper {
 	
@@ -29,12 +28,13 @@ public interface ProjectMapper {
 	@Select(  "<script>"
 			+ "SELECT PROJECTID, PROJECTNAME "
 			+ "FROM TB_PROJECT "
+//			+ " WHERE STARTDATE <= #{endDate} AND ENDDATE >= #{startDate} "			
 			+ "<if test=\"deptCode != null and deptCode != '' \"> "
-			+ "WHERE DEPTCODE = #{param1}"
+			+ "AND DEPTCODE = #{deptCode}"
 			+ "</if>"
 			+ "</script>"
 			)
-	public List<SelectProjectListModel> selectProjectByDeptCode(@Param("deptCode") String deptCode) throws Exception;	
+	public List<SelectProjectListResModel> selectProjectByDeptCode(SelectProjectListReqModel selectProjectListReqModel) throws Exception;	
 
 	/**
 	 * TB_PROJECT 테이블조회
@@ -46,6 +46,7 @@ public interface ProjectMapper {
 			+ " SELECT A.PROJECTID, A.PROJECTNAME, A.DEPTCODE, B.PARTNERID, B.PARTNERNAME, A.CONTRACTAMOUNT, A.OUTSOURCINGAMOUNT, A.NETAMOUNT, A.STARTDATE, A.ENDDATE "
 			+ " FROM TB_PROJECT A, TB_PARTNER B  "
 			+ " WHERE A.PARTNERID = B.PARTNERID "
+			+ " AND A.STARTDATE <= #{endDate} AND A.ENDDATE >= #{startDate} "
 			// projectName
 			+ "<if test=\"projectName != null and projectName != '' \"> "
 			+ " AND A.PROJECTNAME LIKE CONCAT('%',#{projectName}, '%') "
@@ -60,7 +61,7 @@ public interface ProjectMapper {
 			+ "</if>"			
 			+ "</script>"
 			)
-	public List<SelectListModel> selectList(SelectListModel selectListModel) throws Exception;
+	public List<SelectListResModel> selectList(SelectListReqModel selectListReqModel) throws Exception;
 
 	/**
 	 * TB_PROJECT 테이블조회.
@@ -84,7 +85,7 @@ public interface ProjectMapper {
 			+ " FROM TB_OUTSOURCING A, TB_PARTNER B  "
 			+ " WHERE A.PARTNERID = B.PARTNERID   "
 			+ " AND A.PROJECTID = #{param1}")
-	public List<SelectOutsourcingModel> selectOutsourcingByProjectId(int projectId) throws Exception;
+	public List<SelectOutsourcingResModel> selectOutsourcingByProjectId(int projectId) throws Exception;
 	
 	/**
 	 * TB_PROJECT 테이블 입력
@@ -169,7 +170,7 @@ public interface ProjectMapper {
 			+ "		ENDDATE=#{endDate}     "						
 			+ "</script>"
 			)	
-	public int mergeOutsourcing(SelectOutsourcingModel outsourcingModel) throws Exception;
+	public int mergeOutsourcing(SelectOutsourcingResModel outsourcingModel) throws Exception;
 	
 	
 	/**
@@ -190,7 +191,7 @@ public interface ProjectMapper {
 			+ "		#{endDate}"
 			+ " )"
 			)
-	public void inertOutsourcing(InsertOutsourcingModel insertOutsourcingModel) throws Exception;
+	public void inertOutsourcing(ModifyOutsourcingModel insertOutsourcingModel) throws Exception;
 	
 	
 	/**
@@ -206,7 +207,7 @@ public interface ProjectMapper {
 			+ "     ENDDATE=#{endDate}                                                                               "
 			+ " WHERE PROJECTID = #{projectId} AND PARTNERID = #{partnerId} AND OUTSOURCINGCODE = #{outsourcingCode} "
 			)
-	public void updateOutsourcing(OutsourcingModel outsourcingModel) throws Exception;
+	public void updateOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception;
 	
 	
 	
@@ -220,6 +221,6 @@ public interface ProjectMapper {
 			+ "WHERE PROJECTID =#{projectId} "
 			+ "AND PARTNERID = #{partnerId} "
 			+ "AND OUTSOURCINGCODE = #{outsourcingCode}")
-	public int deleteOutsourcing(OutsourcingModel outsourcingModel) throws Exception;
+	public int deleteOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception;
 
 }

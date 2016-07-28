@@ -1,10 +1,6 @@
 package com.certiware.backend;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,12 +9,9 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.certiware.backend.model.common.OutsourcingModel;
 import com.certiware.backend.model.common.ProjectModel;
-import com.certiware.backend.model.project.ModifyOutsourcingModel;
-import com.certiware.backend.model.project.SelectDetailModel;
-import com.certiware.backend.model.project.SelectListModel;
-import com.certiware.backend.model.project.SelectProjectListModel;
+import com.certiware.backend.model.project.SelectListResModel;
+import com.certiware.backend.model.project.SelectProjectListResModel;
 import com.certiware.backend.service.ProjectService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,40 +24,40 @@ public class ProjectTest {
 	@Autowired
 	ProjectService projectService;
 	
-	@Test
-	public void test() throws Exception {
-		//selectProjectList
-		projectService.selectProjectList("");
-	}// end
-	
-	// @RequestMapping(value="/selectList")
-	@Test
-	public void selectList() throws Exception {
-		
-		// 변수 선언
-		List<SelectListModel> selectListModels = null;
-		SelectListModel selectListModel = new SelectListModel();
-		
-		// 데이타 설정		
-		selectListModel.setProjectName("인터넷");
-		selectListModel.setPartnerName("K");
-		selectListModel.setDeptCode("5");
-		
-		// 서비스 호출
-		selectListModels = projectService.selectList(selectListModel);		
-		
-		// 로그
-		System.out.println("selectList() logging Start.." );
-		
-		for (int i = 0; i < selectListModels.size(); i++) {		
-			
-			System.out.println("class index("+ i +")");
-			Log.setLog(selectListModels.get(i), "    ");
-			
-		}
-		
-		System.out.println("selectList() logging end.." );
-	}// end
+//	@Test
+//	public void test() throws Exception {
+//		//selectProjectList
+//		projectService.selectProjectList("");
+//	}// end
+//	
+//	// @RequestMapping(value="/selectList")
+//	@Test
+//	public void selectList() throws Exception {
+//		
+//		// 변수 선언
+//		List<SelectListResModel> selectListModels = null;
+//		SelectListResModel selectListModel = new SelectListResModel();
+//		
+//		// 데이타 설정		
+//		selectListModel.setProjectName("인터넷");
+//		selectListModel.setPartnerName("K");
+//		selectListModel.setDeptCode("5");
+//		
+//		// 서비스 호출
+//		selectListModels = projectService.selectList(selectListModel);		
+//		
+//		// 로그
+//		System.out.println("selectList() logging Start.." );
+//		
+//		for (int i = 0; i < selectListModels.size(); i++) {		
+//			
+//			System.out.println("class index("+ i +")");
+//			Log.setLog(selectListModels.get(i), "    ");
+//			
+//		}
+//		
+//		System.out.println("selectList() logging end.." );
+//	}// end
 	/*
 	// @RequestMapping(value="/selectDetail", method=RequestMethod.POST)
 	@Test
@@ -248,32 +241,32 @@ public class ProjectTest {
 	*/
 	
 	
-	// @RequestMapping("/selectProjectList")
-	@Test
-	public void selectProjectList() throws Exception {	
-		
-		// 변수 선언
-		String req;
-		List<SelectProjectListModel> res = null;
-		
-		// 데이타 설정		
-		req = "1";
-		
-		// 서비스 호출
-		res = projectService.selectProjectList(req);
-		
-		// 로그
-		System.out.println("selectDetail() logging Start.." );
-		
-		for (int i = 0; i < res.size(); i++) {		
-			
-			System.out.println("class index("+ i +")");
-			Log.setLog(res.get(i), "    ");
-			
-		}
-		
-		System.out.println("selectProjectList() logging end.." );
-	}// end
+//	// @RequestMapping("/selectProjectList")
+//	@Test
+//	public void selectProjectList() throws Exception {	
+//		
+//		// 변수 선언
+//		String req;
+//		List<SelectProjectListResModel> res = null;
+//		
+//		// 데이타 설정		
+//		req = "1";
+//		
+//		// 서비스 호출
+//		res = projectService.selectProjectList(req);
+//		
+//		// 로그
+//		System.out.println("selectDetail() logging Start.." );
+//		
+//		for (int i = 0; i < res.size(); i++) {		
+//			
+//			System.out.println("class index("+ i +")");
+//			Log.setLog(res.get(i), "    ");
+//			
+//		}
+//		
+//		System.out.println("selectProjectList() logging end.." );
+//	}// end
 	/*
 	// @RequestMapping("selectCustomerPatner")
 	@Test

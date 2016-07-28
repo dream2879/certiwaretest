@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.certiware.backend.model.common.OutsourcingModel;
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.common.ResultModel;
-import com.certiware.backend.model.project.InsertOutsourcingModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectDetailModel;
-import com.certiware.backend.model.project.SelectListModel;
-import com.certiware.backend.model.project.SelectOutsourcingModel;
-import com.certiware.backend.model.project.SelectProjectListModel;
+import com.certiware.backend.model.project.SelectListReqModel;
+import com.certiware.backend.model.project.SelectListResModel;
+import com.certiware.backend.model.project.SelectOutsourcingResModel;
+import com.certiware.backend.model.project.SelectProjectListReqModel;
+import com.certiware.backend.model.project.SelectProjectListResModel;
 import com.certiware.backend.service.ProjectService;
 
 @RestController
@@ -37,15 +37,15 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/selectList")
-	public List<SelectListModel> selectList(@RequestBody SelectListModel selectListModel) throws ServletException{
+	public List<SelectListResModel> selectList(@RequestBody SelectListReqModel selectListReqModel) throws ServletException{
 		
 		System.out.println("selectList() start...");
 		
-		List<SelectListModel> selectListModels = null;
+		List<SelectListResModel> selectListModels = null;
 		
 		try{
 			
-			selectListModels  = projectService.selectList(selectListModel);
+			selectListModels  = projectService.selectList(selectListReqModel);
 			
 		}catch(Exception e)
 		{
@@ -100,11 +100,11 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/selectOutsourcingList")
-	public List<SelectOutsourcingModel> selectOutsourcingList(@RequestBody Map<String, String> json) throws ServletException{
+	public List<SelectOutsourcingResModel> selectOutsourcingList(@RequestBody Map<String, String> json) throws ServletException{
 		System.out.println("selectOutsourcingList() start...");		
 		
 		int projectId;
-		List<SelectOutsourcingModel> selectOutsourcingModels = new ArrayList<>();
+		List<SelectOutsourcingResModel> selectOutsourcingModels = new ArrayList<>();
 		
 		try{
 			
@@ -223,7 +223,7 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/insertOutsourcing")
-	public ResultModel insertOutsourcing(@RequestBody InsertOutsourcingModel insertOutsourcingModel) throws ServletException{
+	public ResultModel insertOutsourcing(@RequestBody ModifyOutsourcingModel insertOutsourcingModel) throws ServletException{
 		System.out.println("insertOutsourcing() start... ");		
 		ResultModel resultModel = new ResultModel();
 		
@@ -251,13 +251,13 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/updateOutsourcing")
-	public ResultModel updateOutsourcing(@RequestBody OutsourcingModel outsourcingModel) throws ServletException{
+	public ResultModel updateOutsourcing(@RequestBody ModifyOutsourcingModel modifyOutsourcingModel) throws ServletException{
 		System.out.println("updateOutsourcing() start... ");		
 		ResultModel resultModel = new ResultModel();
 		
 		try{
 			
-			resultModel.setResult(projectService.updateOutsourcing(outsourcingModel));
+			resultModel.setResult(projectService.updateOutsourcing(modifyOutsourcingModel));
 			
 		}
 		catch(Exception e)
@@ -280,13 +280,13 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/deleteOutsourcing")
-	public ResultModel deleteOutsourcing(@RequestBody OutsourcingModel outsourcingModel) throws ServletException{
+	public ResultModel deleteOutsourcing(@RequestBody ModifyOutsourcingModel modifyOutsourcingModel) throws ServletException{
 		System.out.println("deleteOutsourcing() start... ");		
 		ResultModel resultModel = new ResultModel();
 		
 		try{
 			
-			resultModel.setResult(projectService.deleteOutsourcing(outsourcingModel));
+			resultModel.setResult(projectService.deleteOutsourcing(modifyOutsourcingModel));
 			
 		}
 		catch(Exception e)
@@ -309,15 +309,14 @@ public class ProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping("/selectProjectList")
-	public List<SelectProjectListModel> selectProjectList(@RequestBody Map<String, String> json) throws ServletException{
+	public List<SelectProjectListResModel> selectProjectList(@RequestBody SelectProjectListReqModel projectListReqModel) throws ServletException{
 		System.out.println("selectProjectList() start... ");
-		List<SelectProjectListModel> selectProjectListModels = null; 
-		String deptCode;
-		try{
+		List<SelectProjectListResModel> selectProjectListModels = null; 
+		
+		try{		
 			
-			deptCode = json.get("deptCode");
-			
-			selectProjectListModels=projectService.selectProjectList(deptCode);
+			// 서비스 호출
+			selectProjectListModels=projectService.selectProjectList(projectListReqModel);
 			
 		}
 		catch(Exception e)
