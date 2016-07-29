@@ -163,11 +163,13 @@ public interface ProjectMapper {
 			+ "		#{outsourcingAmount}, "
 			+ "		#{ratingCode}, "
 			+ "		#{product}, "
+			+ "		#{locale}, "
 			+ "		#{startDate}, "
 			+ "		#{endDate}"
 			+ " )"
 			)
 	public void inertOutsourcing(ModifyOutsourcingModel insertOutsourcingModel) throws Exception;
+	
 	
 	
 	/**
@@ -179,6 +181,7 @@ public interface ProjectMapper {
 			+ "     OUTSOURCINGAMOUNT=#{outsourcingAmount},                                                          "
 			+ "     RATINGCODE=#{ratingCode},                                                                        "
 			+ "     PRODUCT=#{product},                                                                              "
+			+ "     LOCALE=#{locale},																			"
 			+ "     STARTDATE=#{startDate},                                                                          "
 			+ "     ENDDATE=#{endDate}                                                                               "
 			+ " WHERE PROJECTID = #{projectId} AND PARTNERID = #{partnerId} AND OUTSOURCINGCODE = #{outsourcingCode} "

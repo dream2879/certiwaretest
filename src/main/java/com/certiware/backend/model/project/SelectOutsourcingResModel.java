@@ -11,11 +11,18 @@ public class SelectOutsourcingResModel {
 	private String outsourcingCode;
 	private int outsourcingAmount;
 	private String ratingCode;
-	private String product;
+	private String product;			// 상품/업무 내용
+	private String locale;			// 납품/이행 장소
 	private Date startDate;
 	private String endDate;
 	
 	
+	public String getLocale() {
+		return locale;
+	}
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
 	public String getPartnerCode() {
 		return partnerCode;
 	}

@@ -355,7 +355,7 @@ public class ProgressController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/selectManpowerMMHistory")
-	public List<SelectManpowerMMHistoryResModel> selectManpowerMMHistory(SelectManpowerMMHistoryReqModel selectManpowerMMHistoryReqModel) throws Exception{
+	public List<SelectManpowerMMHistoryResModel> selectManpowerMMHistory(@RequestBody SelectManpowerMMHistoryReqModel selectManpowerMMHistoryReqModel) throws Exception{
 		
 		System.out.println("selectManpowerMMHistory() start...");
 		

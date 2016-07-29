@@ -12,11 +12,19 @@ public class ModifyPreOutsourcingModel {
 	private long sellingAmount;		// 매출단가
 	private long outsourcingAmount;	// 외주계약단가
 	private String ratingCode;		// 등급코드
-	private String product;			// 상품명
+	private String product;			// 상품/업무 내용
+	private String locale;			// 납품/이행 장소
 	private Date startDate;			// 시작일
 	private Date endDate;			// 종료일
 	private String remarks;			// 비고	
 	
+	
+	public String getLocale() {
+		return locale;
+	}
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
 	public String getRemarks() {
 		return remarks;
 	}

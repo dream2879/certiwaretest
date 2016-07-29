@@ -70,7 +70,7 @@ public class JwtFilter extends GenericFilterBean {
 			System.out.println("HTTP METHOD 'OPTIONS' SKIP");
 		}
 		// token 체크 스킵할 URL 설정
-		else if(request.getRequestURI().equals("/main/login") || request.getRequestURI().equals("/progress/excelDownload") || request.getRequestURI().equals("/favicon.ico"))		
+		else if(request.getRequestURI().equals("/main/login") || request.getRequestURI().equals("/test/excelDownload") || request.getRequestURI().equals("/favicon.ico"))		
 		{						
 			chain.doFilter(req, res);
 			System.out.println("권한체크제외 URL : "+request.getRequestURI());

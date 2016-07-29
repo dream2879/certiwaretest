@@ -3,7 +3,7 @@ package com.certiware.backend.model.progress;
 public class SelectManpowerMMHistoryReqModel {
 	
 	private int projectId;			// 프로젝트아이디
-	private String manpowerNmae;	// 투입인력 이름
+	private String manpowerName;	// 투입인력 이름
 	
 	public int getProjectId() {
 		return projectId;
@@ -11,10 +11,12 @@ public class SelectManpowerMMHistoryReqModel {
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
 	}
-	public String getManpowerNmae() {
-		return manpowerNmae;
+	public String getManpowerName() {
+		return manpowerName;
 	}
-	public void setManpowerNmae(String manpowerNmae) {
-		this.manpowerNmae = manpowerNmae;
+	public void setManpowerName(String manpowerName) {
+		this.manpowerName = manpowerName;
 	}
+	
+	
 }

@@ -338,6 +338,7 @@ public class PreProjectController {
 	 * @return
 	 * @throws Exception
 	 */
+	@RequestMapping("/movePreProject")
 	public ResultModel movePreProject(@RequestBody MovePreProjectReqModel movePreProjectReqModel) throws Exception{
 		
 		System.out.println("movePreProject() start...");

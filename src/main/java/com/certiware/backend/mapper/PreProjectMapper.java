@@ -171,6 +171,7 @@ public interface PreProjectMapper {
 			+ "		#{outsourcingAmount}, "
 			+ "		#{ratingCode}, "
 			+ "		#{product}, "
+			+ "		#{locale}, "
 			+ "		#{startDate}, "
 			+ "		#{endDate}"
 			+ " )"
@@ -187,6 +188,7 @@ public interface PreProjectMapper {
 			+ "     OUTSOURCINGAMOUNT=#{outsourcingAmount},                                                          "
 			+ "     RATINGCODE=#{ratingCode},                                                                        "
 			+ "     PRODUCT=#{product},                                                                              "
+			+ "     LOCALE=#{locale},																			"
 			+ "     STARTDATE=#{startDate},                                                                          "
 			+ "     ENDDATE=#{endDate}                                                                               "
 			+ " WHERE PROJECTID = #{projectId} AND PARTNERID = #{partnerId} AND OUTSOURCINGCODE = #{outsourcingCode} "
@@ -230,7 +232,7 @@ public interface PreProjectMapper {
 	 * @throws Exception
 	 */
 	@Insert(  "INSERT INTO TB_OUTSOURCING "
-			+ "SELECT #{projectId}, PARTNERID, OUTSOURCINGCODE, OUTSOURCINGAMOUNT, RATINGCODE, PRODUCT, STARTDATE, ENDDATE "
+			+ "SELECT #{projectId}, PARTNERID, OUTSOURCINGCODE, OUTSOURCINGAMOUNT, RATINGCODE, PRODUCT, LOCALE, STARTDATE, ENDDATE "
 			+ "FROM TB_PREOUTSOURCING ")
 	public void insertOutsourcingPreOutsourcing(@Param("projectId") int projectId) throws Exception;
 

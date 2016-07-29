@@ -265,7 +265,7 @@ public interface ProgressMapper {
 	 * TB_MANPOWERMMHISTORY 테이블 조회
 	 * @throws Exception
 	 */
-	@Insert(  "SELECT * "
+	@Select(  "SELECT * "
 			+ "FROM TB_MANPOWERMMHISTORY "
 			+ "WHERE PROJECTID = #{projectId} "
 			+ "AND MANPOWERNAME = #{manpowerName}"
