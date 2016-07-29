@@ -172,11 +172,11 @@ public interface ProgressMapper {
 	 * @param manpowerMmModels
 	 * @throws Exception
 	 */
-	@Insert(  "UPDATE TB_MANPOWERMM"
-			+ "		SET MM = #{afterMM}"
-			+ "WHERE PROJECTID = #{projectId}"
-			+ "AND MANPOWERNAME = #{manpowerName}"
-			+ "AND MONTH = DATE_FORMAT(#{month}, '%Y-%m-01')"
+	@Insert(  "UPDATE TB_MANPOWERMM "
+			+ "		SET MM = #{afterMM} "
+			+ "WHERE PROJECTID = #{projectId} "
+			+ "AND MANPOWERNAME = #{manpowerName} "
+			+ "AND MONTH = DATE_FORMAT(#{month}, '%Y-%m-01') "
 			)
 	public void updateManpowerMm(UpdateManpowerMmReqModel updateManpowerMmReqModel) throws Exception;
 	
@@ -256,7 +256,7 @@ public interface ProgressMapper {
 			+ "		#{afterMM},"
 			+ "		#{userId},"
 			+ "		#{userName},"
-			+ "		NULL" //MODIFYDATE는 DB에서 자동생성
+			+ "		NULL" 				//MODIFYDATE는 DB에서 자동생성
 			+ ")"				
 			)
 	public void insertManpowerMMHistory(UpdateManpowerMmReqModel updateManpowerMmReqModel) throws Exception;

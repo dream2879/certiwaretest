@@ -1,11 +1,16 @@
 package com.certiware.backend.controller;
 
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.common.ResultModel;
+import com.certiware.backend.model.preproject.MakeContractReqModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectDetailModel;
 import com.certiware.backend.model.project.SelectListReqModel;
@@ -329,6 +335,65 @@ public class ProjectController {
 		return selectProjectListModels;
 		
 	}// end selectProjectList
+	
+	
+	@RequestMapping(value = "/makeContract" , method = RequestMethod.POST)
+	public void makeContract(@RequestBody MakeContractReqModel makeContractReqModel, HttpServletResponse response) throws Exception{
+		
+		System.out.println("excelDownload() start..");
+		
+		XWPFDocument doc = null;
+		
+		FileOutputStream fileOut = null;
+		String fileDirectory = null;
+		String fileName = null;	
+		
+		
+		try {
+////			MakeContractReqModel makeContractReqModel = new MakeContractReqModel();
+//			makeContractReqModel.setPartnerCode("4");
+//			makeContractReqModel.setOutsourcingCode("1");
+//			makeContractReqModel.setPartnerId(1);
+//			makeContractReqModel.setProjectId(1);
+			
+			doc = projectService.makeContract(makeContractReqModel);
+			
+			
+			String mimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=charset=utf-8";			
+			response.setContentType(mimeType);		
+			response.setHeader( "Content-disposition", "attachment; filename=myfile.xlsx" );
+			
+			// clinet로 파일 전달.
+			doc.write(response.getOutputStream());
+			
+			// 버퍼를 닫는다
+			response.flushBuffer();	
+			
+			
 
+	         
+//	        // 파일 내보낸다.
+//			String nowTime = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+//			fileDirectory = "E:\\word\\";
+//			fileName = "CPMS_사업자 현황_"+nowTime+".docx";
+//			fileOut = new FileOutputStream(fileDirectory+fileName); 	
+//			
+//			
+//			System.out.println("docx 파일생성 완료("+fileDirectory+fileName+")");
+//			doc.write(fileOut); // 파일생성
+//			fileOut.close(); // 닫기
+//			System.out.println("excelDownload() end..");
+
+			
+			
+		}catch(Exception e){
+			StackTraceElement[] ste = e.getStackTrace();
+			System.out.println("error !!!! " + ste[0].getLineNumber() +"/"+e.toString());
+			throw new ServletException(e.toString());
+		}
+		
+		
+		
+	}
 	
 }//end class

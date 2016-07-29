@@ -5,21 +5,35 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.poi.xwpf.usermodel.XWPFStyles;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.neo4j.cypher.internal.compiler.v2_0.functions.Substring;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTFonts;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTP;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.TestExcelModel;
+import com.certiware.backend.model.preproject.MakeContractReqModel;
+import com.certiware.backend.service.ProjectService;
 import com.certiware.backend.service.TestService;
 
 @RestController
@@ -28,19 +42,13 @@ public class TestController {
 	
 	@Autowired
 	TestService testService;
+	@Autowired
+	ProjectService projectService;
 	
 	private XWPFDocument doc = null;
 	private File docFile = null;
 	
-	private static final int SHEET_NUM = 0;
-    private static final int ROW_NUM = 0;
-    private static final int CELL_NUM = 0;
-    private static final double NEW_VALUE = 100.98D;
-    private static final String BINARY_EXTENSION = "xls";
-    private static final String OPENXML_EXTENSION = "xlsx";
-
 	
-	@SuppressWarnings("deprecation")
 	@RequestMapping(value="/excelDownload" )
 	public List<TestExcelModel> excelDownload(HttpServletResponse response) throws ServletException{
 		
@@ -53,43 +61,17 @@ public class TestController {
 		String fileName = null;				
 		
 		try {
+			MakeContractReqModel makeContractReqModel = new MakeContractReqModel();
+			makeContractReqModel.setPartnerCode("4");
+			makeContractReqModel.setOutsourcingCode("1");
+			makeContractReqModel.setPartnerId(1);
+			makeContractReqModel.setProjectId(1);
+			
+			this.doc = projectService.makeContract(makeContractReqModel);
 			
 			
-			// local에 있는 템플릿 파일을 가져온다.
-			this.docFile = new File("E:\\word\\template\\company.docx");
-	        FileInputStream fis = null;
-	        if (!this.docFile.exists()) {
-	            throw new FileNotFoundException("The Word dcoument does not exist.");
-	        }
-	        try {
 
-	            // Open the Word document file and instantiate the XWPFDocument
-	            // class.
-	            fis = new FileInputStream(this.docFile);
-	            this.doc = new XWPFDocument(fis);
-	        } finally {
-	            if (fis != null) {
-	                try {
-	                    fis.close();
-	                    fis = null;
-	                } catch (IOException ioEx) {
-	                    System.out.println("IOException caught trying to close " +
-	                            "FileInputStream in the constructor of " +
-	                            "UpdateEmbeddedDoc.");
-	                }
-	            }
-	        }
-	        
-	        /*****************************************************************************************************************************/
-			
-	        List<XWPFTable> tables = this.doc.getTables();
-			
-	        System.out.println(tables.size());
-	        
-	        XWPFTable table1 = tables.get(0); // 용역계약서테이블
-	        
-	        table1.getRow(1).getCell(1).setText("테스트입니다"); // 계약명
-	        
+	         
 	        // 파일 내보낸다.
 			String nowTime = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
 			fileDirectory = "E:\\word\\";
@@ -101,6 +83,7 @@ public class TestController {
 			doc.write(fileOut); // 파일생성
 			fileOut.close(); // 닫기
 			System.out.println("excelDownload() end..");
+
 			
 			
 		}catch(Exception e){
@@ -136,5 +119,88 @@ public class TestController {
 		
 		return result.toString();
 	}
+	
+	private void clearCell(XWPFTableRow row){
+		
+		CTTc[] cells = row.getCtRow().getTcList().toArray(new CTTc[0]);
+        for (int c = 0; c < cells.length; c++) {
+         CTTc cTTc = cells[c];
+         //clear only the paragraphs in the cell, keep cell styles
+         cTTc.setPArray(new CTP[] {CTP.Factory.newInstance()});
+         cells[c] = cTTc;
+        }
+        System.out.println(row.getCell(1).getText());
+		
+	}
+	
+	private String makeName(String name){
+		String result = "";
+		
+		for(int i=0;i<name.length();i++){
+			
+			result += name.charAt(i) + " ";
+		}		
+		result = result.substring(0, result.length() -1);
+		
+		
+		return result;
+	}
+	
+	private String makeDate(Date startDate, Date endDate, String type) throws ParseException{
+		
+		String result = "";
+		
+		DateFormat df= new SimpleDateFormat("yy.MM.dd");		
+		
+		Calendar cal1 = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();		
+		
+		
+		switch(type){
+		case("A") :
+			
+			cal1.setTime(startDate);
+			cal2.setTime(endDate);
+			
+			// 시작일 세팅
+			result += cal1.get(cal1.YEAR) + "년 ";
+			result += (Integer.parseInt(String.valueOf(cal1.get(cal1.MONTH))) + 1 < 10 ? "0" + (Integer.parseInt(String.valueOf(cal1.get(cal1.MONTH))) + 1)  : Integer.parseInt(String.valueOf(cal1.get(cal1.MONTH))) + 1 )  + "월 ";
+			result += (Integer.parseInt(String.valueOf(cal1.get(cal1.DAY_OF_MONTH))) + 1 < 10 ? "0" + (Integer.parseInt(String.valueOf(cal1.get(cal1.DAY_OF_MONTH))) + 1)  : Integer.parseInt(String.valueOf(cal1.get(cal1.DAY_OF_MONTH))) + 1 )  + "일 ";		
+			
+			result += "~ ";
+			
+			// 종료일 세팅
+			result += cal2.get(cal2.YEAR) + "년 ";
+			result += (Integer.parseInt(String.valueOf(cal2.get(cal2.MONTH))) + 1 < 10 ? "0" + (Integer.parseInt(String.valueOf(cal2.get(cal2.MONTH))) + 1)  : Integer.parseInt(String.valueOf(cal2.get(cal2.MONTH))) + 1 )  + "월 ";
+			result += (Integer.parseInt(String.valueOf(cal2.get(cal2.DAY_OF_MONTH))) + 1 < 10 ? "0" + (Integer.parseInt(String.valueOf(cal2.get(cal2.DAY_OF_MONTH))) + 1)  : Integer.parseInt(String.valueOf(cal2.get(cal2.DAY_OF_MONTH))) + 1 )  + "일 ";
+			
+			break;
+			
+		case("B") :
+			
+			cal1.setTime(startDate);
+			
+			// 시작일 세팅
+		result += cal1.get(cal1.YEAR) + "년 ";
+		result += (Integer.parseInt(String.valueOf(cal1.get(cal1.MONTH))) + 1 < 10 ? "0" + (Integer.parseInt(String.valueOf(cal1.get(cal1.MONTH))) + 1)  : Integer.parseInt(String.valueOf(cal1.get(cal1.MONTH))) + 1 )  + "월 ";
+		result += (Integer.parseInt(String.valueOf(cal1.get(cal1.DAY_OF_MONTH))) + 1 < 10 ? "0" + (Integer.parseInt(String.valueOf(cal1.get(cal1.DAY_OF_MONTH))) + 1)  : Integer.parseInt(String.valueOf(cal1.get(cal1.DAY_OF_MONTH))) + 1 )  + "일 ";
+			
+			break;
+		case("C") :
+			
+			cal1.setTime(startDate);
+			cal2.setTime(endDate);			
+			
+			result += df.format(startDate) + " ~ " + df.format(endDate);
+			
+			break;	
+		}
+		
+		return result;
+	}
+	
+	
 
 }
+
+

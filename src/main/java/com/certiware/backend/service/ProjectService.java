@@ -4,14 +4,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.certiware.backend.component.CommonComponent;
+import com.certiware.backend.component.WordComponent;
 import com.certiware.backend.mapper.ProjectMapper;
 import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.ProjectModel;
+import com.certiware.backend.model.preproject.MakeContractReqModel;
 import com.certiware.backend.model.progress.UpdateManpowerModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectDetailModel;
@@ -32,6 +35,8 @@ public class ProjectService {
 	ProgressService progressService;
 	@Autowired
 	CommonComponent commonComponent;
+	@Autowired
+	WordComponent wordComponent;
 	
 	/**
 	 * TB_PROJECT 조회
@@ -226,6 +231,20 @@ public class ProjectService {
 	}
 	
 	
-	
+	/**
+	 * 계약서를 생성한다.
+	 * @param makeContractReqModel
+	 * @return
+	 * @throws Exception
+	 */
+	public XWPFDocument makeContract(MakeContractReqModel makeContractReqModel) throws Exception{
+		
+		
+		// DB에서 정보 조회 후 서비스 호출하여 리턴
+		return wordComponent.makeContract(projectMapper.selectProjectPartner(makeContractReqModel)
+				, projectMapper.selectManpowerMM(makeContractReqModel)
+				, Integer.parseInt(makeContractReqModel.getPartnerCode()));
+		
+	}	
 	
 }

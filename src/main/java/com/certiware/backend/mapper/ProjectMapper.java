@@ -9,6 +9,9 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.certiware.backend.model.common.ProjectModel;
+import com.certiware.backend.model.preproject.SelectManpowerMMModel;
+import com.certiware.backend.model.preproject.SelectProjectPartnerModel;
+import com.certiware.backend.model.preproject.MakeContractReqModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectListReqModel;
 import com.certiware.backend.model.project.SelectListResModel;
@@ -202,5 +205,63 @@ public interface ProjectMapper {
 			+ "AND OUTSOURCINGCODE = #{outsourcingCode}"
 			)
 	public int deleteOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception;
+	
+	
+	/**
+	 * 프로젝트에 속해있는 거래처의 정보를 가져온다.
+	 * 계약서 만들때 필요한 정보들 조회
+	 * @param makeContractReqModel
+	 * @return
+	 * @throws Exception
+	 */
+	@Select(  " SELECT  B.PROJECTNAME,  			  "
+			+ "         A.STARTDATE,                         "
+			+ "         A.ENDDATE,                           "
+			+ "         A.PRODUCT,                        "
+			+ "         A.LOCALE,                  "
+			+ "         C.PARTNERNAME,                       "
+			+ "         C.BUSINESSNUMBER,                      "
+			+ "         C.CEONAME,                         "
+			+ "         C.ADDRESS,                         "
+			+ "         A.REMARKS                              "
+			+ " FROM TB_OUTSOURCING A, TB_PROJECT B, TB_PARTNER C     "
+			+ " WHERE A.PARTNERID = #{partnerId}                "
+			+ " AND A.OUTSOURCINGCODE = #{outsourcingCode}            "
+			+ " AND B.PROJECTID = #{projectId}                "
+			+ " AND A.PROJECTID = B.PROJECTID                         "
+			+ " AND A.PARTNERID = C.PARTNERID                         ")
+	public SelectProjectPartnerModel selectProjectPartner(MakeContractReqModel makeContractReqModel) throws Exception;
+	
+	/**
+	 * 프로젝트 아이디를가지고 TB_MANPOWERMM 테이블을 조회한다.
+	 * 워드문서를 만들때 사용한다.
+	 * @return
+	 * @throws Exception
+	 */
+	@Select(  " SELECT MANPOWERNAME,                                      												"
+			+ "        DESCRIPTION,                                                               "
+			+ "        STARTDATE,                                                                 "
+			+ "        ENDDATE,                                                                   "
+			+ "        SUM(MM) AS MM,                                                             "
+			+ "        SUM(OUTSOURCINGAMOUNT) AS OUTSOURCINGAMOUNT,                               "
+			+ "        TRUNCATE(SUM(TOT), 0) AS TOT                                               "
+			+ "   FROM (SELECT A.MANPOWERNAME,                                                    "
+			+ "                C.DESCRIPTION,                                                     "
+			+ "                B.STARTDATE,                                                       "
+			+ "                B.ENDDATE,                                                         "
+			+ "                A.MM,                                                              "
+			+ "                B.OUTSOURCINGAMOUNT,                                               "
+			+ "                A.MM * B.OUTSOURCINGAMOUNT AS TOT                                  "
+			+ "           FROM (SELECT PROJECTID, MANPOWERNAME, TRUNCATE(SUM(MM), 4) AS MM        "
+			+ "                   FROM TB_MANPOWERMM                                              "			
+			+ "                  WHERE PROJECTID = #{projectId}                                            "
+			+ "                 GROUP BY PROJECTID, MANPOWERNAME) A,                              "
+			+ "                TB_MANPOWER B,                                                     "
+			+ "                TB_RATINGCODE C                                                    "
+			+ "          WHERE     A.PROJECTID = B.PROJECTID                                      "
+			+ "                AND A.MANPOWERNAME = B.MANPOWERNAME                                "
+			+ "                AND B.RATINGCODE = C.RATINGCODE) A                                 "
+			+ " GROUP BY MANPOWERNAME WITH ROLLUP                                                 ")
+	public List<SelectManpowerMMModel> selectManpowerMM(MakeContractReqModel makeContractReqModel) throws Exception;
 
 }

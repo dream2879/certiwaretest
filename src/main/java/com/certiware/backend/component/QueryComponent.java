@@ -58,7 +58,7 @@ public class QueryComponent {
 			
 			dQuery2 += "SUM(A.M"+index+") + ";
 			
-			dQuery3 += "CASE WHEN MONTH = '" + df.format((cal.getTime()))  + "' THEN ROUND(MM, 4) ELSE 0 END AS M"+ index +"," + System.getProperty("line.separator");
+			dQuery3 += "CASE WHEN MONTH = '" + df.format((cal.getTime()))  + "' THEN TRUNCATE(MM, 4) ELSE 0 END AS M"+ index +"," + System.getProperty("line.separator");
 			
 			dQuery4 += "CASE WHEN B.AMOUNT = 0 THEN 0 ELSE SUM(A.M"+ index +") END AS M"+ index +"," + System.getProperty("line.separator");
 			
@@ -136,8 +136,8 @@ public class QueryComponent {
 		query += "                                     MANPOWERNAME,                                                                                  " + System.getProperty("line.separator") ;
 		query += "                                     -- 반복문 수행 시작                                                                            " + System.getProperty("line.separator") ;
 		
-//		query += "                                     CASE WHEN MONTH = '2016-01-01 오전 12:00:00' THEN ROUND(MM, 4) ELSE 0 END AS M1,               " + System.getProperty("line.separator") ;
-//		query += "                                     CASE WHEN MONTH = '2016-02-02 오전 12:00:00' THEN ROUND(MM, 4) ELSE 0 END AS M2                " + System.getProperty("line.separator") ;
+//		query += "                                     CASE WHEN MONTH = '2016-01-01 오전 12:00:00' THEN TRUNCATE(MM, 4) ELSE 0 END AS M1,               " + System.getProperty("line.separator") ;
+//		query += "                                     CASE WHEN MONTH = '2016-02-02 오전 12:00:00' THEN TRUNCATE(MM, 4) ELSE 0 END AS M2                " + System.getProperty("line.separator") ;
 		query += dQuery3;
 		
 		query += "                                		-- 반복문 수행 끝                                                                               " + System.getProperty("line.separator") ;		
@@ -204,8 +204,8 @@ public class QueryComponent {
 		query += "                        FROM (SELECT A.PROJECTID,                                                                                     " + System.getProperty("line.separator") ;
 		query += "                                     MANPOWERNAME,                                                                                  " + System.getProperty("line.separator") ;
 		query += "                                     -- 반복문 수행 시작                                                                            " + System.getProperty("line.separator") ;
-//		query += "                                     CASE WHEN MONTH = '2016-01-01 오전 12:00:00' THEN ROUND(MM, 4) ELSE 0 END AS M1,               " + System.getProperty("line.separator") ;
-//		query += "                                     CASE WHEN MONTH = '2016-02-02 오전 12:00:00' THEN ROUND(MM, 4) ELSE 0 END AS M2                " + System.getProperty("line.separator") ;
+//		query += "                                     CASE WHEN MONTH = '2016-01-01 오전 12:00:00' THEN TRUNCATE(MM, 4) ELSE 0 END AS M1,               " + System.getProperty("line.separator") ;
+//		query += "                                     CASE WHEN MONTH = '2016-02-02 오전 12:00:00' THEN TRUNCATE(MM, 4) ELSE 0 END AS M2                " + System.getProperty("line.separator") ;
 		query += dQuery3;
 		query += "                                		-- 반복문 수행 끝                                                                               " + System.getProperty("line.separator") ;
 		query += "                                FROM TB_MANPOWERMM A, TB_PROJECT B                                                                               " + System.getProperty("line.separator") ;
