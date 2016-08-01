@@ -20,6 +20,8 @@ import com.certiware.backend.model.preproject.SelectPreOutsourcingResModel;
 import com.certiware.backend.model.preproject.SelectPreProjectListReqModel;
 import com.certiware.backend.model.preproject.SelectPreProjectListResModel;
 import com.certiware.backend.model.preproject.UpdatePreManpowerModel;
+import com.certiware.backend.model.progress.ManpowerNameModel;
+import com.certiware.backend.model.progress.SelectManpowerListReqModel;
 
 public interface PreProjectMapper {
 	
@@ -219,7 +221,7 @@ public interface PreProjectMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Insert(  " INSERT INTO TB_MPREANPOWER VALUES " // insert
+	@Insert(  " INSERT INTO TB_PREMANPOWER VALUES " // insert
 			+ "("
 			+ "		#{projectId}, "
 			+ "		#{manpowerName}, "
@@ -253,6 +255,22 @@ public interface PreProjectMapper {
 			+ " AND MANPOWERNAME = #{pk2} "
 			)
 	public void updatePreManpower(UpdatePreManpowerModel updateManpowerModel) throws Exception;	
+	
+	@Select(  "<script>"
+			+ " SELECT  A.PROJECTID, A.MANPOWERNAME, A.PARTNERID,																									"
+			+ "         CASE WHEN B.PARTNERCODE >= 3 THEN 'A' ELSE A.PARTNERID END AS PARTNERGUBUN,      "
+			+ "			A.RATINGCODE, A.SELLINGAMOUNT, A.OUTSOURCINGAMOUNT, A.STARTDATE, A.ENDDATE, A.REMARKS "
+			+ " FROM TB_PREMANPOWER A, TB_PARTNER B                                                    "
+			+ " WHERE A.PARTNERID = B.PARTNERID                                                     "
+			+ " AND A.PROJECTID = #{projectId}                                                               "
+			
+			+ "<if test=\"manpowerName != null and manpowerName != '' \"> "
+			+ " AND A.MANPOWERNAME = #{manpowerName}"
+			+ "</if>"
+			
+			+ "</script>"
+			)
+	public List<ManpowerNameModel> selectManpowerByProjectId(SelectManpowerListReqModel selectManpowerListReqModel) throws Exception;
 	
 	
 	/**

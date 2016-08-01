@@ -20,6 +20,7 @@ import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.QueryModel;
 import com.certiware.backend.model.progress.ProjectPartnerModel;
 import com.certiware.backend.model.progress.SelectManpowerListModel;
+import com.certiware.backend.model.progress.SelectManpowerListReqModel;
 import com.certiware.backend.model.progress.SelectManpowerMMHistoryReqModel;
 import com.certiware.backend.model.progress.SelectManpowerMMHistoryResModel;
 import com.certiware.backend.model.progress.SelectPartnerNameList;
@@ -47,13 +48,13 @@ public class ProgressService {
 	 * @return
 	 * @throws Exception
 	 */
-	public SelectManpowerListModel selectManpowerList(SelectManpowerListModel selectManpowerListModel, int projectId) throws Exception{
+	public SelectManpowerListModel selectManpowerList(SelectManpowerListModel selectManpowerListModel, SelectManpowerListReqModel selectManpowerListReqModel) throws Exception{
 		
 		// 외주업체리스트를 가져온다(개인사업자/프리랜서 제외)
-		selectManpowerListModel.setProjectPartnerModels(progressMapper.selectOutsourcingByProjectId(projectId));
+		selectManpowerListModel.setProjectPartnerModels(progressMapper.selectOutsourcingByProjectId(selectManpowerListReqModel.getProjectId()));
 		
 		// 투입인력 이름목록을 가져온다.
-		selectManpowerListModel.setManpowerNameModels(progressMapper.selectManpowerByProjectId(projectId));		
+		selectManpowerListModel.setManpowerNameModels(progressMapper.selectManpowerByProjectId(selectManpowerListReqModel));		
 		
 		return selectManpowerListModel;
 	}

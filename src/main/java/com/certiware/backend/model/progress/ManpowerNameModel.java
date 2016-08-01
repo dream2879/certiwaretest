@@ -13,6 +13,14 @@ public class ManpowerNameModel {
 	private long outsourcingAmount;	// 외주단가
 	private Date startDate;			// 시작일
 	private Date endDate;			// 종료일
+	private String remarks;			// 비고
+	
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	public String getProjectId() {
 		return projectId;
 	}

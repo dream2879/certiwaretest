@@ -22,6 +22,9 @@ import com.certiware.backend.model.preproject.SelectPreOutsourcingResModel;
 import com.certiware.backend.model.preproject.SelectPreProjectListReqModel;
 import com.certiware.backend.model.preproject.SelectPreProjectListResModel;
 import com.certiware.backend.model.preproject.UpdatePreManpowerModel;
+import com.certiware.backend.model.progress.ManpowerNameModel;
+import com.certiware.backend.model.progress.SelectManpowerListModel;
+import com.certiware.backend.model.progress.SelectManpowerListReqModel;
 import com.certiware.backend.model.progress.UpdateManpowerModel;
 
 @Service
@@ -34,6 +37,8 @@ public class PreProjectService {
 	PreProjectMapper preProjectMapper;	
 	@Autowired
 	CommonComponent commonComponent;
+	@Autowired
+	ProgressService progressService;
 	
 	/**
 	 * TB_PROJECT 조회
@@ -265,18 +270,63 @@ public class PreProjectService {
 	
 	
 	/**
+	 * TB_MANPOWER 테이블조회
+	 * @param projectId:프로젝트아이디
+	 * @return
+	 * @throws Exception
+	 */
+	public SelectManpowerListModel selectManpowerList(SelectManpowerListModel selectManpowerListModel, SelectManpowerListReqModel selectManpowerListReqModel) throws Exception{
+			
+		// 투입인력 이름목록을 가져온다.
+		selectManpowerListModel.setManpowerNameModels(preProjectMapper.selectManpowerByProjectId(selectManpowerListReqModel));		
+		
+		return selectManpowerListModel;
+	}
+	
+	
+	/**
 	 * 사전등록 프로젝트 정보를 진행 프로젝트 정보로 옮긴다.
 	 * @param movePreProjectReqModel
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean movePreProject(MovePreProjectReqModel movePreProjectReqModel) throws Exception{		
+	@Transactional
+	public boolean movePreProject(MovePreProjectReqModel movePreProjectReqModel) throws Exception{
+		
+		// 사전등록된 프로젝트 아이디
+		int projectId = movePreProjectReqModel.getProjectId();
 		
 		// INSERT TB_PREPROJECT > TB_PROJECT
 		preProjectMapper.insertProjectPreProject(movePreProjectReqModel);
 		
 		// INSERT TB_PREOUTSOURCING > TB_OUTSOURCING
-		preProjectMapper.insertOutsourcingPreOutsourcing(movePreProjectReqModel.getGeneratedProjectId());		
+		preProjectMapper.insertOutsourcingPreOutsourcing(movePreProjectReqModel.getGeneratedProjectId());
+		
+	
+		// 사전 등록된 TB_PREMANPOWER 정보를 가져온다.
+		SelectManpowerListReqModel selectManpowerListReqModel = new SelectManpowerListReqModel();
+		selectManpowerListReqModel.setProjectId(projectId);
+		List<ManpowerNameModel> manpowerNameModels = preProjectMapper.selectManpowerByProjectId(selectManpowerListReqModel);
+		
+		// 사전등록 된 MANPOWER정보를 입력한다.
+		for (ManpowerNameModel manpowerNameModel : manpowerNameModels) {
+			
+			ManpowerModel manpowerModel = new ManpowerModel();
+			manpowerModel.setProjectId(projectId);
+			manpowerModel.setManpowerName(manpowerNameModel.getManpowerName());
+			manpowerModel.setPartnerId(manpowerNameModel.getPartnerId());
+			manpowerModel.setRatingCode(manpowerNameModel.getRatingCode());
+			manpowerModel.setSellingAmount(manpowerNameModel.getSellingAmount());
+			manpowerModel.setOutsourcingAmount(manpowerNameModel.getOutsourcingAmount());
+			manpowerModel.setStartDate(manpowerNameModel.getStartDate());
+			manpowerModel.setEndDate(manpowerNameModel.getEndDate());
+			manpowerModel.setRemarks(manpowerNameModel.getRemarks());	
+			
+			progressService.insertManpower(manpowerModel);
+			
+		}
+		
+		
 	
 		// DELETE TB_PREPROJECT (TB_PREOUTSOURCING 정보는 자동 삭제)
 		this.deletePreProject(movePreProjectReqModel.getProjectId());

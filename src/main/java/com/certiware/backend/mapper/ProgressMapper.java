@@ -17,6 +17,7 @@ import com.certiware.backend.model.progress.SelectManpowerMMHistoryResModel;
 import com.certiware.backend.model.progress.SelectPartnerNameList;
 import com.certiware.backend.model.progress.SelectProgressListResModel;
 import com.certiware.backend.model.progress.UpdateManpowerModel;
+import com.certiware.backend.model.progress.SelectManpowerListReqModel;
 import com.certiware.backend.model.progress.UpdateManpowerMmReqModel;
 
 public interface ProgressMapper {
@@ -39,14 +40,21 @@ public interface ProgressMapper {
 			)
 	public List<ProjectPartnerModel> selectOutsourcingByProjectId(int projectId) throws Exception;
 	
-	@Select(  " SELECT  A.PROJECTID, A.MANPOWERNAME, A.PARTNERID,																									"
+	@Select(  "<script>"
+			+ " SELECT  A.PROJECTID, A.MANPOWERNAME, A.PARTNERID,																									"
 			+ "         CASE WHEN B.PARTNERCODE >= 3 THEN 'A' ELSE A.PARTNERID END AS PARTNERGUBUN,      "
-			+ "			A.RATINGCODE, A.SELLINGAMOUNT, A.OUTSOURCINGAMOUNT, A.STARTDATE, A.ENDDATE "
+			+ "			A.RATINGCODE, A.SELLINGAMOUNT, A.OUTSOURCINGAMOUNT, A.STARTDATE, A.ENDDATE, A.REMARKS "
 			+ " FROM TB_MANPOWER A, TB_PARTNER B                                                    "
 			+ " WHERE A.PARTNERID = B.PARTNERID                                                     "
-			+ " AND A.PROJECTID = #{param1}                                                               "
+			+ " AND A.PROJECTID = #{projectId}                                                               "
+			
+			+ "<if test=\"manpowerName != null and manpowerName != '' \"> "
+			+ " AND A.MANPOWERNAME = #{manpowerName}"
+			+ "</if>"
+			
+			+ "</script>"
 			)
-	public List<ManpowerNameModel> selectManpowerByProjectId(int projectId) throws Exception;
+	public List<ManpowerNameModel> selectManpowerByProjectId(SelectManpowerListReqModel selectManpowerListReqModel) throws Exception;
 	
 	/**
 	 * TB_MANPOWER 테이블조회

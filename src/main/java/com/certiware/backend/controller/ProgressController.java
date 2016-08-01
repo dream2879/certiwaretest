@@ -20,6 +20,7 @@ import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.ResultModel;
 import com.certiware.backend.model.progress.ProjectPartnerModel;
 import com.certiware.backend.model.progress.SelectManpowerListModel;
+import com.certiware.backend.model.progress.SelectManpowerListReqModel;
 import com.certiware.backend.model.progress.SelectManpowerMMHistoryReqModel;
 import com.certiware.backend.model.progress.SelectManpowerMMHistoryResModel;
 import com.certiware.backend.model.progress.SelectPartnerNameList;
@@ -43,17 +44,21 @@ public class ProgressController {
 	 * @throws ServletException
 	 */
 	@RequestMapping("/selectManpowerList")
-	public SelectManpowerListModel selectManpowerList(@RequestBody Map<String, String> json) throws ServletException{
+	public SelectManpowerListModel selectManpowerList(@RequestBody SelectManpowerListReqModel selectManpowerListReqModel) throws ServletException{
 		System.out.println("selectManpowerList() start...");
-		int projectId;
+		
 		SelectManpowerListModel selectManpowerListModel = new SelectManpowerListModel();
 				
 		try{
-			// 값 추출
-			projectId = Integer.parseInt(json.get("projectId"));
+			
+			// 필수값 체크
+			if(selectManpowerListReqModel.getProjectId() == 0){
+				
+				throw new ServletException("필수값 없음");				
+			}
 			
 			// 서비스 호출
-			selectManpowerListModel = progressService.selectManpowerList(selectManpowerListModel, projectId);			
+			selectManpowerListModel = progressService.selectManpowerList(selectManpowerListModel, selectManpowerListReqModel);			
 			
 		}catch(Exception e)
 		{
