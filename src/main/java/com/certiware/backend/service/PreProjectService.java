@@ -10,15 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.certiware.backend.component.CommonComponent;
 import com.certiware.backend.mapper.PreProjectMapper;
+import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.preproject.ModifyPreOutsourcingModel;
 import com.certiware.backend.model.preproject.MovePreProjectReqModel;
+import com.certiware.backend.model.preproject.PreManpowerModel;
 import com.certiware.backend.model.preproject.SelectDetailModel;
 import com.certiware.backend.model.preproject.SelectListReqModel;
 import com.certiware.backend.model.preproject.SelectListResModel;
 import com.certiware.backend.model.preproject.SelectPreOutsourcingResModel;
 import com.certiware.backend.model.preproject.SelectPreProjectListReqModel;
 import com.certiware.backend.model.preproject.SelectPreProjectListResModel;
+import com.certiware.backend.model.preproject.UpdatePreManpowerModel;
+import com.certiware.backend.model.progress.UpdateManpowerModel;
 
 @Service
 public class PreProjectService {
@@ -85,6 +89,10 @@ public class PreProjectService {
 	 */
 	public boolean insertPreProject(ProjectModel projectModel) throws Exception{
 		preProjectMapper.insertPreProject(projectModel);
+		
+		
+		
+		
 		return true;
 	}
 	
@@ -126,6 +134,24 @@ public class PreProjectService {
 		// 외주업체 등록
 		preProjectMapper.inertPreOutsourcing(modifyOutsourcingModel);
 		
+		// partnerCode가 3보다크면 개인사입자/프리랜서 임으로 TB_Manpower테이블에 등록해준다.
+		if(Integer.parseInt(modifyOutsourcingModel.getPartnerCode()) >= 3){
+			
+			// 객체생성
+			PreManpowerModel manpowerModel = new PreManpowerModel();			
+			manpowerModel.setProjectId(modifyOutsourcingModel.getProjectId());
+			manpowerModel.setPartnerId(modifyOutsourcingModel.getPartnerId());
+			manpowerModel.setManpowerName(modifyOutsourcingModel.getPartnerName());
+			manpowerModel.setRatingCode(modifyOutsourcingModel.getRatingCode());
+			manpowerModel.setSellingAmount(modifyOutsourcingModel.getSellingAmount());			
+			manpowerModel.setOutsourcingAmount(modifyOutsourcingModel.getOutsourcingAmount());
+			manpowerModel.setStartDate(modifyOutsourcingModel.getStartDate());
+			manpowerModel.setEndDate(modifyOutsourcingModel.getEndDate());
+			manpowerModel.setRemarks(modifyOutsourcingModel.getRemarks());
+			
+			this.insertManpower(manpowerModel);
+		}
+		
 		
 		
 		return true;		
@@ -142,7 +168,27 @@ public class PreProjectService {
 		
 		
 		// 외주업체 변경
-		preProjectMapper.updatePreOutsourcing(modifyOutsourcingModel);			
+		preProjectMapper.updatePreOutsourcing(modifyOutsourcingModel);
+		
+		// partnerCode가 3보다크면 개인사입자/프리랜서 임으로 TB_Manpower테이블에 변경해준다.
+		if(Integer.parseInt(modifyOutsourcingModel.getPartnerCode()) >= 3){
+			
+			// 객체생성
+			UpdatePreManpowerModel updateManpowerModel = new UpdatePreManpowerModel();			
+			updateManpowerModel.setProjectId(modifyOutsourcingModel.getProjectId());
+			updateManpowerModel.setPartnerId(modifyOutsourcingModel.getPartnerId());
+			updateManpowerModel.setManpowerName(modifyOutsourcingModel.getPartnerName());
+			updateManpowerModel.setRatingCode(modifyOutsourcingModel.getRatingCode());
+			updateManpowerModel.setSellingAmount(modifyOutsourcingModel.getSellingAmount());			
+			updateManpowerModel.setOutsourcingAmount(modifyOutsourcingModel.getOutsourcingAmount());
+			updateManpowerModel.setStartDate(modifyOutsourcingModel.getStartDate());
+			updateManpowerModel.setEndDate(modifyOutsourcingModel.getEndDate());
+			updateManpowerModel.setRemarks(modifyOutsourcingModel.getRemarks());
+			updateManpowerModel.setPk1(modifyOutsourcingModel.getProjectId());
+			updateManpowerModel.setPk2(modifyOutsourcingModel.getPartnerName());
+			
+			this.updateManpower(updateManpowerModel);
+		}
 		
 		return true;
 		
@@ -185,6 +231,36 @@ public class PreProjectService {
 		System.out.println(projectListReqModel.getEndDate());
 		
 		return preProjectMapper.selectPreProjectByDeptCode(projectListReqModel);	
+	}
+	
+	/**
+	 * TB_MANPOWER 테이블 INSERT
+	 * @param manpowerModel
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	public boolean insertManpower(PreManpowerModel preManpowerModel) throws Exception{	
+	
+			// TB_MANPWER 테이블에 정보를 입력한다.
+		preProjectMapper.insertePreManpower(preManpowerModel);
+		
+		return true;
+	}
+	
+	/**
+	 * TB_MANPOWER 테이블 UPDATE
+	 * @param modifyManpowerModel
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	public boolean updateManpower(UpdatePreManpowerModel updateManpowerModel) throws Exception{
+						
+		// TB_MANPWER 테이블에 정보를 변경한다.
+		preProjectMapper.updatePreManpower(updateManpowerModel);
+		
+		return true;
 	}
 	
 	

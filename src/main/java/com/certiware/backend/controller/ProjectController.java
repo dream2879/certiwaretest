@@ -1,9 +1,7 @@
 package com.certiware.backend.controller;
 
 import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -344,21 +342,12 @@ public class ProjectController {
 		
 		XWPFDocument doc = null;
 		
-		FileOutputStream fileOut = null;
-		String fileDirectory = null;
-		String fileName = null;	
-		
-		
 		try {
-////			MakeContractReqModel makeContractReqModel = new MakeContractReqModel();
-//			makeContractReqModel.setPartnerCode("4");
-//			makeContractReqModel.setOutsourcingCode("1");
-//			makeContractReqModel.setPartnerId(1);
-//			makeContractReqModel.setProjectId(1);
 			
+			// 서비스 호출
 			doc = projectService.makeContract(makeContractReqModel);
 			
-			
+			// 헤더 설정
 			String mimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=charset=utf-8";			
 			response.setContentType(mimeType);		
 			response.setHeader( "Content-disposition", "attachment; filename=myfile.xlsx" );
@@ -367,23 +356,7 @@ public class ProjectController {
 			doc.write(response.getOutputStream());
 			
 			// 버퍼를 닫는다
-			response.flushBuffer();	
-			
-			
-
-	         
-//	        // 파일 내보낸다.
-//			String nowTime = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
-//			fileDirectory = "E:\\word\\";
-//			fileName = "CPMS_사업자 현황_"+nowTime+".docx";
-//			fileOut = new FileOutputStream(fileDirectory+fileName); 	
-//			
-//			
-//			System.out.println("docx 파일생성 완료("+fileDirectory+fileName+")");
-//			doc.write(fileOut); // 파일생성
-//			fileOut.close(); // 닫기
-//			System.out.println("excelDownload() end..");
-
+			response.flushBuffer();
 			
 			
 		}catch(Exception e){
@@ -391,8 +364,6 @@ public class ProjectController {
 			System.out.println("error !!!! " + ste[0].getLineNumber() +"/"+e.toString());
 			throw new ServletException(e.toString());
 		}
-		
-		
 		
 	}
 	

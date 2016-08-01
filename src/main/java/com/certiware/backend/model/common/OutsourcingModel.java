@@ -13,7 +13,14 @@ public class OutsourcingModel {
 	private String locale;			// 장소
 	private Date startDate;			// 시작일
 	private Date endDate;			// 종료일
+	private String remarks;			// 종료일
 	
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	public String getLocale() {
 		return locale;
 	}

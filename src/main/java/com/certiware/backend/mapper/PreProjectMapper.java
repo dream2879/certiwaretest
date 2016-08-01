@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
@@ -14,11 +13,13 @@ import org.apache.ibatis.annotations.Update;
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.preproject.ModifyPreOutsourcingModel;
 import com.certiware.backend.model.preproject.MovePreProjectReqModel;
+import com.certiware.backend.model.preproject.PreManpowerModel;
 import com.certiware.backend.model.preproject.SelectListReqModel;
 import com.certiware.backend.model.preproject.SelectListResModel;
 import com.certiware.backend.model.preproject.SelectPreOutsourcingResModel;
 import com.certiware.backend.model.preproject.SelectPreProjectListReqModel;
 import com.certiware.backend.model.preproject.SelectPreProjectListResModel;
+import com.certiware.backend.model.preproject.UpdatePreManpowerModel;
 
 public interface PreProjectMapper {
 	
@@ -173,7 +174,8 @@ public interface PreProjectMapper {
 			+ "		#{product}, "
 			+ "		#{locale}, "
 			+ "		#{startDate}, "
-			+ "		#{endDate}"
+			+ "		#{endDate},"
+			+ "		#{remarks} "
 			+ " )"
 			)
 	public void inertPreOutsourcing(ModifyPreOutsourcingModel insertOutsourcingModel) throws Exception;
@@ -191,6 +193,7 @@ public interface PreProjectMapper {
 			+ "     LOCALE=#{locale},																			"
 			+ "     STARTDATE=#{startDate},                                                                          "
 			+ "     ENDDATE=#{endDate}                                                                               "
+			+ "     REMARKS=#{remarks},                                                                          "
 			+ " WHERE PROJECTID = #{projectId} AND PARTNERID = #{partnerId} AND OUTSOURCINGCODE = #{outsourcingCode} "
 			)
 	public void updatePreOutsourcing(ModifyPreOutsourcingModel modifyOutsourcingModel) throws Exception;
@@ -209,6 +212,48 @@ public interface PreProjectMapper {
 			+ "AND OUTSOURCINGCODE = #{outsourcingCode}"
 			)
 	public void deletePreOutsourcing(ModifyPreOutsourcingModel modifyOutsourcingModel) throws Exception;
+	
+	/**
+	 * TB_PREMANPOWER 테이블 insert
+	 * @param manpowerModels
+	 * @return
+	 * @throws Exception
+	 */
+	@Insert(  " INSERT INTO TB_MPREANPOWER VALUES " // insert
+			+ "("
+			+ "		#{projectId}, "
+			+ "		#{manpowerName}, "
+			+ "		#{partnerId}, "
+			+ "		#{ratingCode}, "
+			+ "		#{sellingAmount}, "
+			+ "		#{outsourcingAmount}, "
+			+ "		#{startDate}, "
+			+ "		#{endDate}, "
+			+ "		#{remarks}"
+			+ ") "   
+			)
+	public void insertePreManpower(PreManpowerModel manpowerModel) throws Exception;
+	
+	
+	/**
+	 * TB_PREMANPOWER 테이블 변경
+	 * @param updateManpowerModel
+	 * @throws Exception
+	 */
+	@Update(  " UPDATE TB_PREMANPOWER SET      "
+			+ "   MANPOWERNAME = #{manpowerName},        "
+			+ "   PARTNERID = #{partnerId},            "
+			+ "   RATINGCODE = #{ratingCode},          "
+			+ "   SELLINGAMOUNT = #{sellingAmount},        "
+			+ "   OUTSOURCINGAMOUNT = #{outsourcingAmount},    "
+			+ "   STARTDATE = #{startDate},           "
+			+ "   ENDDATE = #{endDate},             "
+			+ "   REMARKS = #{remarks}              "
+			+ " WHERE PROJECTID = #{pk1}     "
+			+ " AND MANPOWERNAME = #{pk2} "
+			)
+	public void updatePreManpower(UpdatePreManpowerModel updateManpowerModel) throws Exception;	
+	
 	
 	/**
 	 * TB_PREPROJECT 정보를 TB_PROJECT 테이블로 옮긴다.
@@ -232,7 +277,7 @@ public interface PreProjectMapper {
 	 * @throws Exception
 	 */
 	@Insert(  "INSERT INTO TB_OUTSOURCING "
-			+ "SELECT #{projectId}, PARTNERID, OUTSOURCINGCODE, OUTSOURCINGAMOUNT, RATINGCODE, PRODUCT, LOCALE, STARTDATE, ENDDATE "
+			+ "SELECT #{projectId}, PARTNERID, OUTSOURCINGCODE, OUTSOURCINGAMOUNT, RATINGCODE, PRODUCT, LOCALE, STARTDATE, ENDDATE, REMARKS "
 			+ "FROM TB_PREOUTSOURCING ")
 	public void insertOutsourcingPreOutsourcing(@Param("projectId") int projectId) throws Exception;
 

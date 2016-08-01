@@ -93,13 +93,6 @@ public interface ProgressMapper {
 			+ "		#{endDate}, "
 			+ "		#{remarks}"
 			+ ") "   
-//			+ " ON DUPLICATE KEY UPDATE "	// update
-//			+ "		PARTNERID =#{partnerId},"
-//			+ "		RATINGCODE=#{RatingCode},"
-//			+ "		SELLINGAMOUNT=#{sellingAmount},"
-//			+ "		OUTSOURCINGAMOUNT=#{outsourcingAmount},"
-//			+ "		STARTDATE=#{startDate},ENDDATE=#{endDate},"
-//			+ "		REMARKS=#{remarks} "
 			)
 	public void inserteManpower(ManpowerModel manpowerModel) throws Exception;
 	
@@ -119,7 +112,7 @@ public interface ProgressMapper {
 			+ "   REMARKS = #{remarks}              "
 			+ " WHERE PROJECTID = #{pk1}     "
 			+ " AND MANPOWERNAME = #{pk2} "
-)
+			)
 	public void updateManpower(UpdateManpowerModel updateManpowerModel) throws Exception;
 	
 	

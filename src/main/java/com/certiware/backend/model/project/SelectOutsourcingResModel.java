@@ -15,8 +15,15 @@ public class SelectOutsourcingResModel {
 	private String locale;			// 납품/이행 장소
 	private Date startDate;
 	private String endDate;
+	private String remarks;
 	
 	
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	public String getLocale() {
 		return locale;
 	}

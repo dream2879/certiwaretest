@@ -168,7 +168,8 @@ public interface ProjectMapper {
 			+ "		#{product}, "
 			+ "		#{locale}, "
 			+ "		#{startDate}, "
-			+ "		#{endDate}"
+			+ "		#{endDate},"
+			+ "		#{remarks}"
 			+ " )"
 			)
 	public void inertOutsourcing(ModifyOutsourcingModel insertOutsourcingModel) throws Exception;
@@ -186,7 +187,8 @@ public interface ProjectMapper {
 			+ "     PRODUCT=#{product},                                                                              "
 			+ "     LOCALE=#{locale},																			"
 			+ "     STARTDATE=#{startDate},                                                                          "
-			+ "     ENDDATE=#{endDate}                                                                               "
+			+ "     ENDDATE=#{endDate},                                                                               "
+			+ "     REMARKS=#{remarks}                                                                               "
 			+ " WHERE PROJECTID = #{projectId} AND PARTNERID = #{partnerId} AND OUTSOURCINGCODE = #{outsourcingCode} "
 			)
 	public void updateOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception;
@@ -265,3 +267,4 @@ public interface ProjectMapper {
 	public List<SelectManpowerMMModel> selectManpowerMM(MakeContractReqModel makeContractReqModel) throws Exception;
 
 }
+
