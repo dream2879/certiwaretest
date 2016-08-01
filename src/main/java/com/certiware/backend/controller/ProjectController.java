@@ -1,6 +1,5 @@
 package com.certiware.backend.controller;
 
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.common.ResultModel;
-import com.certiware.backend.model.preproject.MakeContractReqModel;
+import com.certiware.backend.model.project.MakeContractReqModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectDetailModel;
 import com.certiware.backend.model.project.SelectListReqModel;

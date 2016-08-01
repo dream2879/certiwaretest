@@ -1,4 +1,4 @@
-package com.certiware.backend.model.preproject;
+package com.certiware.backend.model.project;
 
 import java.util.Date;
 
@@ -6,11 +6,20 @@ public class SelectManpowerMMModel {
 	
 	private String manpowerName;	// 투입인원명
 	private String description;		// 등급
+	private String job;				// 역할
 	private Date startDate;			// 시작일
 	private Date endDate;			// 종료일
 	private double mm;				// MM
 	private long outsourcingAmount;	// 외주단가
 	private long tot;				// 총액
+	
+	
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
 	public String getManpowerName() {
 		return manpowerName;
 	}

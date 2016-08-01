@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.certiware.backend.model.common.ProjectModel;
 import com.certiware.backend.model.common.ResultModel;
-import com.certiware.backend.model.preproject.ModifyPreOutsourcingModel;
 import com.certiware.backend.model.preproject.MovePreProjectReqModel;
-import com.certiware.backend.model.preproject.SelectDetailModel;
-import com.certiware.backend.model.preproject.SelectListReqModel;
-import com.certiware.backend.model.preproject.SelectListResModel;
-import com.certiware.backend.model.preproject.SelectPreOutsourcingResModel;
-import com.certiware.backend.model.preproject.SelectPreProjectListReqModel;
-import com.certiware.backend.model.preproject.SelectPreProjectListResModel;
+import com.certiware.backend.model.project.ModifyOutsourcingModel;
+import com.certiware.backend.model.project.SelectDetailModel;
+import com.certiware.backend.model.project.SelectListReqModel;
+import com.certiware.backend.model.project.SelectListResModel;
+import com.certiware.backend.model.project.SelectOutsourcingResModel;
+import com.certiware.backend.model.project.SelectProjectListReqModel;
+import com.certiware.backend.model.project.SelectProjectListResModel;
 import com.certiware.backend.service.PreProjectService;
 
 @RestController
@@ -101,11 +101,11 @@ public class PreProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/selectPreOutsourcingList")
-	public List<SelectPreOutsourcingResModel> selectPreOutsourcingList(@RequestBody Map<String, String> json) throws ServletException{
+	public List<SelectOutsourcingResModel> selectPreOutsourcingList(@RequestBody Map<String, String> json) throws ServletException{
 		System.out.println("selectPreOutsourcingList() start...");		
 		
 		int projectId;
-		List<SelectPreOutsourcingResModel> selectOutsourcingModels = new ArrayList<>();
+		List<SelectOutsourcingResModel> selectOutsourcingModels = new ArrayList<>();
 		
 		try{
 			
@@ -224,7 +224,7 @@ public class PreProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/insertPreOutsourcing")
-	public ResultModel insertPreOutsourcing(@RequestBody ModifyPreOutsourcingModel insertOutsourcingModel) throws ServletException{
+	public ResultModel insertPreOutsourcing(@RequestBody ModifyOutsourcingModel insertOutsourcingModel) throws ServletException{
 		System.out.println("insertPreOutsourcing() start... ");		
 		ResultModel resultModel = new ResultModel();
 		
@@ -252,7 +252,7 @@ public class PreProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/updatePreOutsourcing")
-	public ResultModel updatePreOutsourcing(@RequestBody ModifyPreOutsourcingModel modifyOutsourcingModel) throws ServletException{
+	public ResultModel updatePreOutsourcing(@RequestBody ModifyOutsourcingModel modifyOutsourcingModel) throws ServletException{
 		System.out.println("updatePreOutsourcing() start... ");		
 		ResultModel resultModel = new ResultModel();
 		
@@ -281,7 +281,7 @@ public class PreProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping(value="/deletePreOutsourcing")
-	public ResultModel deletePreOutsourcing(@RequestBody ModifyPreOutsourcingModel modifyOutsourcingModel) throws ServletException{
+	public ResultModel deletePreOutsourcing(@RequestBody ModifyOutsourcingModel modifyOutsourcingModel) throws ServletException{
 		System.out.println("deletePreOutsourcing() start... ");		
 		ResultModel resultModel = new ResultModel();
 		
@@ -310,9 +310,9 @@ public class PreProjectController {
 	 * @throws ServletException
 	 */
 	@RequestMapping("/selectPreProjectList")
-	public List<SelectPreProjectListResModel> selectPreProjectList(@RequestBody SelectPreProjectListReqModel projectListReqModel) throws ServletException{
+	public List<SelectProjectListResModel> selectPreProjectList(@RequestBody SelectProjectListReqModel projectListReqModel) throws ServletException{
 		System.out.println("selectPreProjectList() start... ");
-		List<SelectPreProjectListResModel> selectProjectListModels = null; 
+		List<SelectProjectListResModel> selectProjectListModels = null; 
 		
 		try{		
 			

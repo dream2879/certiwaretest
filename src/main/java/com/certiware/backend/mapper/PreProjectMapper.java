@@ -10,18 +10,18 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
+import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.ProjectModel;
-import com.certiware.backend.model.preproject.ModifyPreOutsourcingModel;
 import com.certiware.backend.model.preproject.MovePreProjectReqModel;
-import com.certiware.backend.model.preproject.PreManpowerModel;
-import com.certiware.backend.model.preproject.SelectListReqModel;
-import com.certiware.backend.model.preproject.SelectListResModel;
-import com.certiware.backend.model.preproject.SelectPreOutsourcingResModel;
-import com.certiware.backend.model.preproject.SelectPreProjectListReqModel;
-import com.certiware.backend.model.preproject.SelectPreProjectListResModel;
-import com.certiware.backend.model.preproject.UpdatePreManpowerModel;
 import com.certiware.backend.model.progress.ManpowerNameModel;
 import com.certiware.backend.model.progress.SelectManpowerListReqModel;
+import com.certiware.backend.model.progress.UpdateManpowerModel;
+import com.certiware.backend.model.project.ModifyOutsourcingModel;
+import com.certiware.backend.model.project.SelectListReqModel;
+import com.certiware.backend.model.project.SelectListResModel;
+import com.certiware.backend.model.project.SelectOutsourcingResModel;
+import com.certiware.backend.model.project.SelectProjectListReqModel;
+import com.certiware.backend.model.project.SelectProjectListResModel;
 
 public interface PreProjectMapper {
 	
@@ -42,7 +42,7 @@ public interface PreProjectMapper {
 			+ "</if>"
 			+ "</script>"
 			)
-	public List<SelectPreProjectListResModel> selectPreProjectByDeptCode(SelectPreProjectListReqModel selectProjectListReqModel) throws Exception;	
+	public List<SelectProjectListResModel> selectPreProjectByDeptCode(SelectProjectListReqModel selectProjectListReqModel) throws Exception;	
 
 	/**
 	 * TB_PREPROJECT 테이블조회
@@ -157,7 +157,7 @@ public interface PreProjectMapper {
 			+ " WHERE A.PARTNERID = B.PARTNERID   "
 			+ " AND A.PROJECTID = #{param1}"
 			)
-	public List<SelectPreOutsourcingResModel> selectPreOutsourcingByProjectId(int projectId) throws Exception;
+	public List<SelectOutsourcingResModel> selectPreOutsourcingByProjectId(int projectId) throws Exception;
 	
 	
 	/**
@@ -180,7 +180,7 @@ public interface PreProjectMapper {
 			+ "		#{remarks} "
 			+ " )"
 			)
-	public void inertPreOutsourcing(ModifyPreOutsourcingModel insertOutsourcingModel) throws Exception;
+	public void inertPreOutsourcing(ModifyOutsourcingModel insertOutsourcingModel) throws Exception;
 	
 	
 	/**
@@ -198,7 +198,7 @@ public interface PreProjectMapper {
 			+ "     REMARKS=#{remarks},                                                                          "
 			+ " WHERE PROJECTID = #{projectId} AND PARTNERID = #{partnerId} AND OUTSOURCINGCODE = #{outsourcingCode} "
 			)
-	public void updatePreOutsourcing(ModifyPreOutsourcingModel modifyOutsourcingModel) throws Exception;
+	public void updatePreOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception;
 	
 	
 	
@@ -213,7 +213,7 @@ public interface PreProjectMapper {
 			+ "AND PARTNERID = #{partnerId} "
 			+ "AND OUTSOURCINGCODE = #{outsourcingCode}"
 			)
-	public void deletePreOutsourcing(ModifyPreOutsourcingModel modifyOutsourcingModel) throws Exception;
+	public void deletePreOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception;
 	
 	/**
 	 * TB_PREMANPOWER 테이블 insert
@@ -227,6 +227,7 @@ public interface PreProjectMapper {
 			+ "		#{manpowerName}, "
 			+ "		#{partnerId}, "
 			+ "		#{ratingCode}, "
+			+ "		#{job}, "
 			+ "		#{sellingAmount}, "
 			+ "		#{outsourcingAmount}, "
 			+ "		#{startDate}, "
@@ -234,7 +235,7 @@ public interface PreProjectMapper {
 			+ "		#{remarks}"
 			+ ") "   
 			)
-	public void insertePreManpower(PreManpowerModel manpowerModel) throws Exception;
+	public void insertePreManpower(ManpowerModel manpowerModel) throws Exception;
 	
 	
 	/**
@@ -254,7 +255,7 @@ public interface PreProjectMapper {
 			+ " WHERE PROJECTID = #{pk1}     "
 			+ " AND MANPOWERNAME = #{pk2} "
 			)
-	public void updatePreManpower(UpdatePreManpowerModel updateManpowerModel) throws Exception;	
+	public void updatePreManpower(UpdateManpowerModel updateManpowerModel) throws Exception;	
 	
 	@Select(  "<script>"
 			+ " SELECT  A.PROJECTID, A.MANPOWERNAME, A.PARTNERID,																									"

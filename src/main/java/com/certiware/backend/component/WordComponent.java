@@ -27,8 +27,8 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTP;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTc;
 import org.springframework.stereotype.Component;
 
-import com.certiware.backend.model.preproject.SelectManpowerMMModel;
-import com.certiware.backend.model.preproject.SelectProjectPartnerModel;
+import com.certiware.backend.model.project.SelectManpowerMMModel;
+import com.certiware.backend.model.project.SelectProjectPartnerModel;
 
 @Component
 public class WordComponent {
@@ -85,7 +85,7 @@ public class WordComponent {
 	        XWPFTable table1 = tables.get(0);
 	        
 	        // 프로젝트 이름        
-	        XWPFTableCell c1 = table1.getRow(2).getCell(1);
+	        XWPFTableCell c1 = table1.getRow(1).getCell(1);
 	        c1.removeParagraph(0);
 	        XWPFRun r1 = c1.addParagraph().createRun();	        
 	        r1.setBold(true);
@@ -93,7 +93,7 @@ public class WordComponent {
 	        r1.setText(selectProjectPartnerModel.getProjectName());       
 	        
 	        // 계약금액	  
-	        XWPFTableCell c2 = table1.getRow(1).getCell(1);
+	        XWPFTableCell c2 = table1.getRow(2).getCell(1);
 	        c2.removeParagraph(0);
 	        XWPFRun r2 = c2.addParagraph().createRun();	        
 	        r2.setBold(true);
@@ -174,25 +174,48 @@ public class WordComponent {
 	        
 	        
 	        // 이행(납품) 장소
-//	        XWPFParagraph p10 = doc.createParagraph();
-//	        XWPFRun r10 = p10.createRun();
 	        XWPFTableCell c10 = table1.getRow(7).getCell(1);
 	        c10.removeParagraph(0);
-	        XWPFRun r10 = c10.addParagraph().createRun();	 
-	        //r10.setBold(true);
+	        XWPFRun r10 = c10.addParagraph().createRun();
 	        r10.setFontFamily("굴림체");
 	        r10.setText(selectProjectPartnerModel.getLocale());
-//	        table1.getRow(7).getCell(1).setParagraph(p10);
+	        
+	        // 계약이행보증
+	        XWPFTableCell c101 = table1.getRow(8).getCell(1);
+	        c101.removeParagraph(0);
+	        XWPFRun r101 = c101.addParagraph().createRun();
+	        r101.setFontFamily("굴림체");
+	        r101.setText(this.checkString(selectProjectPartnerModel.getContractWarranty()));
+	        
+	        // 지체상금
+	        XWPFTableCell c102 = table1.getRow(9).getCell(1);
+	        c102.removeParagraph(0);
+	        XWPFRun r102 = c102.addParagraph().createRun();
+	        r102.setFontFamily("굴림체");
+	        r102.setText(this.checkString(selectProjectPartnerModel.getDefectWarranty()));
+	        
+	        // 하자이행보증
+	        XWPFTableCell c103 = table1.getRow(10).getCell(1);
+	        c103.removeParagraph(0);
+	        XWPFRun r103 = c103.addParagraph().createRun();
+	        r103.setFontFamily("굴림체");
+	        r103.setText(this.checkString(selectProjectPartnerModel.getDefectWarranty()));
+	        
+	        // 대급지급조건
+	        XWPFTableCell c104 = table1.getRow(11).getCell(1);
+	        c104.removeParagraph(0);
+	        XWPFRun r104 = c104.addParagraph().createRun();
+	        r104.setFontFamily("굴림체");
+	        r104.setText(this.checkString(selectProjectPartnerModel.getPaymentsTerm()));
+
 	        
 	        // 특기사항
-//	        XWPFParagraph p11 = doc.createParagraph();
-//	        XWPFRun r11 = p11.createRun();
 	        XWPFTableCell c11 = table1.getRow(12).getCell(1);
 	        c11.removeParagraph(0);
 	        XWPFRun r11 = c11.addParagraph().createRun();	 
 	        //r10.setBold(true);
 	        r11.setFontFamily("굴림체");
-	        r11.setText(selectProjectPartnerModel.getRemarks());
+	        r11.setText(this.checkString(selectProjectPartnerModel.getRemarks()));
 //	        table1.getRow(12).getCell(1).setParagraph(p11);
 	        
 	        // 계약 내용
@@ -335,7 +358,7 @@ public class WordComponent {
 		        cc3.getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
 		        rr3.setFontFamily("굴림체");
 		        rr3.setFontSize(10);
-		        rr3.setText("");	        
+		        rr3.setText(selectManpowerMMModels.get(i).getJob());	        
 //		        row.getCell(3).setParagraph(pp3);
 		        
 		        // 투입기간(M/M)
@@ -464,17 +487,9 @@ public class WordComponent {
 	         cells[c] = cTTc;
 	        }
 	        System.out.println(row.getCell(1).getText());
-			
 		}
 		
-		private void clearCell(XWPFTableCell cell){	
-			
-			CTTc cTTc = cell.getCTTc();
-	         //clear only the paragraphs in the cell, keep cell styles
-	         cTTc.setPArray(new CTP[] {CTP.Factory.newInstance()});
-	         //CTTc[] cell = cTTc;
-			
-		}
+
 		
 		/**
 		 * 이름 사이사이 공백추가(ex "고 병 도")
@@ -574,6 +589,15 @@ public class WordComponent {
 				return number.substring(0,6) + "-" + number.substring(6);
 				
 			}		
+		}
+		
+		private String checkString(String string){
+			if(string == null || string == ""){
+				return "해당사항 없음";
+				
+			}else{
+				return string;			
+			}
 		}
 
 

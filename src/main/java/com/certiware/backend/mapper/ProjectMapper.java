@@ -9,15 +9,15 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.certiware.backend.model.common.ProjectModel;
-import com.certiware.backend.model.preproject.SelectManpowerMMModel;
-import com.certiware.backend.model.preproject.SelectProjectPartnerModel;
-import com.certiware.backend.model.preproject.MakeContractReqModel;
+import com.certiware.backend.model.project.MakeContractReqModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectListReqModel;
 import com.certiware.backend.model.project.SelectListResModel;
+import com.certiware.backend.model.project.SelectManpowerMMModel;
 import com.certiware.backend.model.project.SelectOutsourcingResModel;
 import com.certiware.backend.model.project.SelectProjectListReqModel;
 import com.certiware.backend.model.project.SelectProjectListResModel;
+import com.certiware.backend.model.project.SelectProjectPartnerModel;
 
 public interface ProjectMapper {
 	
@@ -167,6 +167,10 @@ public interface ProjectMapper {
 			+ "		#{ratingCode}, "
 			+ "		#{product}, "
 			+ "		#{locale}, "
+			+ "		#{contractWarranty}, "
+			+ "		#{delayWarranty}, "
+			+ "		#{defectWarranty}, "
+			+ "		#{paymentsTerm}, "
 			+ "		#{startDate}, "
 			+ "		#{endDate},"
 			+ "		#{remarks}"
@@ -186,6 +190,10 @@ public interface ProjectMapper {
 			+ "     RATINGCODE=#{ratingCode},                                                                        "
 			+ "     PRODUCT=#{product},                                                                              "
 			+ "     LOCALE=#{locale},																			"
+			+ "     CONTRACTWARRANTY=#{contractWarranty},				"
+			+ "     DELAYWARRANTY=#{delayWarranty},				"
+			+ "     DEFECTWARRANTY=#{defectWarranty},				"
+			+ "     PAYMENTSTERM=#{paymentsTerm},				"
 			+ "     STARTDATE=#{startDate},                                                                          "
 			+ "     ENDDATE=#{endDate},                                                                               "
 			+ "     REMARKS=#{remarks}                                                                               "
@@ -221,6 +229,10 @@ public interface ProjectMapper {
 			+ "         A.ENDDATE,                           "
 			+ "         A.PRODUCT,                        "
 			+ "         A.LOCALE,                  "
+			+ "         A.CONTRACTWARRANTY,                  "
+			+ "         A.DELAYWARRANTY,                  "
+			+ "         A.DEFECTWARRANTY,                  "
+			+ "         A.PAYMENTSTERM,                  "
 			+ "         C.PARTNERNAME,                       "
 			+ "         C.BUSINESSNUMBER,                      "
 			+ "         C.CEONAME,                         "
@@ -242,6 +254,7 @@ public interface ProjectMapper {
 	 */
 	@Select(  " SELECT MANPOWERNAME,                                      												"
 			+ "        DESCRIPTION,                                                               "
+			+ "        JOB,                                                               "
 			+ "        STARTDATE,                                                                 "
 			+ "        ENDDATE,                                                                   "
 			+ "        SUM(MM) AS MM,                                                             "
@@ -249,6 +262,7 @@ public interface ProjectMapper {
 			+ "        TRUNCATE(SUM(TOT), 0) AS TOT                                               "
 			+ "   FROM (SELECT A.MANPOWERNAME,                                                    "
 			+ "                C.DESCRIPTION,                                                     "
+			+ "                B.JOB,                                                     "
 			+ "                B.STARTDATE,                                                       "
 			+ "                B.ENDDATE,                                                         "
 			+ "                A.MM,                                                              "

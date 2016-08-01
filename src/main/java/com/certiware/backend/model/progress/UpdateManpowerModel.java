@@ -9,12 +9,20 @@ public class UpdateManpowerModel {
 	private String manpowerName;
 	private int partnerId;
 	private String RatingCode;
+	private String job;
 	private long sellingAmount;
 	private long outsourcingAmount;
 	private Date startDate;
 	private Date endDate;
 	private String remarks;
 	
+	
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
 	public int getPk1() {
 		return pk1;
 	}

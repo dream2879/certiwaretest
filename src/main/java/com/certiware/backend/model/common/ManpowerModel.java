@@ -8,12 +8,19 @@ public class ManpowerModel {
 	private String manpowerName;	// 투입인력이름
 	private int partnerId;			// 소속 아이디
 	private String ratingCode;		// 등급
+	private String job;				// 역할
 	private long sellingAmount;		// 매출단가
 	private long outsourcingAmount;	// 외주단가
 	private Date startDate;			// 시작일
 	private Date endDate;			// 종료일
-	private String remarks;	
-	// 비고
+	private String remarks;			// 비고
+	
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
 	public int getProjectId() {
 		return projectId;
 	}

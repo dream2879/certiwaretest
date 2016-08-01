@@ -14,8 +14,8 @@ import com.certiware.backend.component.WordComponent;
 import com.certiware.backend.mapper.ProjectMapper;
 import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.ProjectModel;
-import com.certiware.backend.model.preproject.MakeContractReqModel;
 import com.certiware.backend.model.progress.UpdateManpowerModel;
+import com.certiware.backend.model.project.MakeContractReqModel;
 import com.certiware.backend.model.project.ModifyOutsourcingModel;
 import com.certiware.backend.model.project.SelectDetailModel;
 import com.certiware.backend.model.project.SelectListReqModel;
@@ -142,6 +142,7 @@ public class ProjectService {
 			manpowerModel.setPartnerId(modifyOutsourcingModel.getPartnerId());
 			manpowerModel.setManpowerName(modifyOutsourcingModel.getPartnerName());
 			manpowerModel.setRatingCode(modifyOutsourcingModel.getRatingCode());
+			manpowerModel.setJob(modifyOutsourcingModel.getJob());
 			manpowerModel.setSellingAmount(modifyOutsourcingModel.getSellingAmount());			
 			manpowerModel.setOutsourcingAmount(modifyOutsourcingModel.getOutsourcingAmount());
 			manpowerModel.setStartDate(modifyOutsourcingModel.getStartDate());
@@ -176,6 +177,7 @@ public class ProjectService {
 			updateManpowerModel.setPartnerId(modifyOutsourcingModel.getPartnerId());
 			updateManpowerModel.setManpowerName(modifyOutsourcingModel.getPartnerName());
 			updateManpowerModel.setRatingCode(modifyOutsourcingModel.getRatingCode());
+			updateManpowerModel.setJob(modifyOutsourcingModel.getJob());
 			updateManpowerModel.setSellingAmount(modifyOutsourcingModel.getSellingAmount());			
 			updateManpowerModel.setOutsourcingAmount(modifyOutsourcingModel.getOutsourcingAmount());
 			updateManpowerModel.setStartDate(modifyOutsourcingModel.getStartDate());

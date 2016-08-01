@@ -1,4 +1,4 @@
-package com.certiware.backend.model.preproject;
+package com.certiware.backend.model.project;
 
 public class MakeContractReqModel {
 	
@@ -30,7 +30,6 @@ public class MakeContractReqModel {
 	public void setPartnerCode(String partnerCode) {
 		this.partnerCode = partnerCode;
 	}
-	
 	
 	
 

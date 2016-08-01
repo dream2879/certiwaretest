@@ -15,7 +15,7 @@ public class SelectManpowerListReqModel {
 		return manpowerName;
 	}
 	public void setManpowerName(String manpowerName) {
-		manpowerName = manpowerName;
+		this.manpowerName = manpowerName;
 	}
 	
 	

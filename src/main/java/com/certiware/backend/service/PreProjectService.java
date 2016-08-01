@@ -12,20 +12,18 @@ import com.certiware.backend.component.CommonComponent;
 import com.certiware.backend.mapper.PreProjectMapper;
 import com.certiware.backend.model.common.ManpowerModel;
 import com.certiware.backend.model.common.ProjectModel;
-import com.certiware.backend.model.preproject.ModifyPreOutsourcingModel;
 import com.certiware.backend.model.preproject.MovePreProjectReqModel;
-import com.certiware.backend.model.preproject.PreManpowerModel;
-import com.certiware.backend.model.preproject.SelectDetailModel;
-import com.certiware.backend.model.preproject.SelectListReqModel;
-import com.certiware.backend.model.preproject.SelectListResModel;
-import com.certiware.backend.model.preproject.SelectPreOutsourcingResModel;
-import com.certiware.backend.model.preproject.SelectPreProjectListReqModel;
-import com.certiware.backend.model.preproject.SelectPreProjectListResModel;
-import com.certiware.backend.model.preproject.UpdatePreManpowerModel;
 import com.certiware.backend.model.progress.ManpowerNameModel;
 import com.certiware.backend.model.progress.SelectManpowerListModel;
 import com.certiware.backend.model.progress.SelectManpowerListReqModel;
 import com.certiware.backend.model.progress.UpdateManpowerModel;
+import com.certiware.backend.model.project.ModifyOutsourcingModel;
+import com.certiware.backend.model.project.SelectDetailModel;
+import com.certiware.backend.model.project.SelectListReqModel;
+import com.certiware.backend.model.project.SelectListResModel;
+import com.certiware.backend.model.project.SelectOutsourcingResModel;
+import com.certiware.backend.model.project.SelectProjectListReqModel;
+import com.certiware.backend.model.project.SelectProjectListResModel;
 
 @Service
 public class PreProjectService {
@@ -82,7 +80,7 @@ public class PreProjectService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<SelectPreOutsourcingResModel> selectPreOutsourcingList(int projectId) throws Exception{
+	public List<SelectOutsourcingResModel> selectPreOutsourcingList(int projectId) throws Exception{
 		return preProjectMapper.selectPreOutsourcingByProjectId(projectId);
 	}
 	
@@ -134,7 +132,7 @@ public class PreProjectService {
 	 * @throws Exception
 	 */
 	@Transactional
-	public boolean insertPreOutsourcing(ModifyPreOutsourcingModel modifyOutsourcingModel) throws Exception{
+	public boolean insertPreOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception{
 		
 		// 외주업체 등록
 		preProjectMapper.inertPreOutsourcing(modifyOutsourcingModel);
@@ -143,11 +141,12 @@ public class PreProjectService {
 		if(Integer.parseInt(modifyOutsourcingModel.getPartnerCode()) >= 3){
 			
 			// 객체생성
-			PreManpowerModel manpowerModel = new PreManpowerModel();			
+			ManpowerModel manpowerModel = new ManpowerModel();			
 			manpowerModel.setProjectId(modifyOutsourcingModel.getProjectId());
 			manpowerModel.setPartnerId(modifyOutsourcingModel.getPartnerId());
 			manpowerModel.setManpowerName(modifyOutsourcingModel.getPartnerName());
 			manpowerModel.setRatingCode(modifyOutsourcingModel.getRatingCode());
+			manpowerModel.setJob(modifyOutsourcingModel.getJob());
 			manpowerModel.setSellingAmount(modifyOutsourcingModel.getSellingAmount());			
 			manpowerModel.setOutsourcingAmount(modifyOutsourcingModel.getOutsourcingAmount());
 			manpowerModel.setStartDate(modifyOutsourcingModel.getStartDate());
@@ -169,7 +168,7 @@ public class PreProjectService {
 	 * @throws Exception
 	 */
 	@Transactional
-	public boolean updatePreOutsourcing(ModifyPreOutsourcingModel modifyOutsourcingModel) throws Exception{
+	public boolean updatePreOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception{
 		
 		
 		// 외주업체 변경
@@ -179,11 +178,12 @@ public class PreProjectService {
 		if(Integer.parseInt(modifyOutsourcingModel.getPartnerCode()) >= 3){
 			
 			// 객체생성
-			UpdatePreManpowerModel updateManpowerModel = new UpdatePreManpowerModel();			
+			UpdateManpowerModel updateManpowerModel = new UpdateManpowerModel();			
 			updateManpowerModel.setProjectId(modifyOutsourcingModel.getProjectId());
 			updateManpowerModel.setPartnerId(modifyOutsourcingModel.getPartnerId());
 			updateManpowerModel.setManpowerName(modifyOutsourcingModel.getPartnerName());
 			updateManpowerModel.setRatingCode(modifyOutsourcingModel.getRatingCode());
+			updateManpowerModel.setJob(modifyOutsourcingModel.getJob());
 			updateManpowerModel.setSellingAmount(modifyOutsourcingModel.getSellingAmount());			
 			updateManpowerModel.setOutsourcingAmount(modifyOutsourcingModel.getOutsourcingAmount());
 			updateManpowerModel.setStartDate(modifyOutsourcingModel.getStartDate());
@@ -205,7 +205,7 @@ public class PreProjectService {
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean deletePreOutsourcing(ModifyPreOutsourcingModel modifyOutsourcingModel) throws Exception{
+	public boolean deletePreOutsourcing(ModifyOutsourcingModel modifyOutsourcingModel) throws Exception{
 		
 		// 아웃소싱 정보 삭제
 		preProjectMapper.deletePreOutsourcing(modifyOutsourcingModel);
@@ -222,7 +222,7 @@ public class PreProjectService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<SelectPreProjectListResModel> selectPreProjectList(SelectPreProjectListReqModel projectListReqModel) throws Exception{
+	public List<SelectProjectListResModel> selectPreProjectList(SelectProjectListReqModel projectListReqModel) throws Exception{
 		
 		System.out.println("호출");
 		
@@ -245,7 +245,7 @@ public class PreProjectService {
 	 * @throws Exception
 	 */
 	@Transactional
-	public boolean insertManpower(PreManpowerModel preManpowerModel) throws Exception{	
+	public boolean insertManpower(ManpowerModel preManpowerModel) throws Exception{	
 	
 			// TB_MANPWER 테이블에 정보를 입력한다.
 		preProjectMapper.insertePreManpower(preManpowerModel);
@@ -260,7 +260,7 @@ public class PreProjectService {
 	 * @throws Exception
 	 */
 	@Transactional
-	public boolean updateManpower(UpdatePreManpowerModel updateManpowerModel) throws Exception{
+	public boolean updateManpower(UpdateManpowerModel updateManpowerModel) throws Exception{
 						
 		// TB_MANPWER 테이블에 정보를 변경한다.
 		preProjectMapper.updatePreManpower(updateManpowerModel);
