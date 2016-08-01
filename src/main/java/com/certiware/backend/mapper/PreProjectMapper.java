@@ -296,7 +296,8 @@ public interface PreProjectMapper {
 	 */
 	@Insert(  "INSERT INTO TB_OUTSOURCING "
 			+ "SELECT #{projectId}, PARTNERID, OUTSOURCINGCODE, OUTSOURCINGAMOUNT, RATINGCODE, PRODUCT, LOCALE, STARTDATE, ENDDATE, REMARKS "
-			+ "FROM TB_PREOUTSOURCING ")
+			+ "FROM TB_PREOUTSOURCING "
+			+ "WHERE PROJECTID = #{projectId} ")
 	public void insertOutsourcingPreOutsourcing(@Param("projectId") int projectId) throws Exception;
 
 

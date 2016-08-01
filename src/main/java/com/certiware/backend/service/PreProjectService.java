@@ -300,8 +300,7 @@ public class PreProjectService {
 		preProjectMapper.insertProjectPreProject(movePreProjectReqModel);
 		
 		// INSERT TB_PREOUTSOURCING > TB_OUTSOURCING
-		preProjectMapper.insertOutsourcingPreOutsourcing(movePreProjectReqModel.getGeneratedProjectId());
-		
+		preProjectMapper.insertOutsourcingPreOutsourcing(movePreProjectReqModel.getGeneratedProjectId());		
 	
 		// 사전 등록된 TB_PREMANPOWER 정보를 가져온다.
 		SelectManpowerListReqModel selectManpowerListReqModel = new SelectManpowerListReqModel();

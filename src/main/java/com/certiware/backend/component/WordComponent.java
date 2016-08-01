@@ -20,6 +20,7 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFStyles;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTFonts;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTP;
@@ -83,66 +84,77 @@ public class WordComponent {
 	        // 용역계약서 테이블
 	        XWPFTable table1 = tables.get(0);
 	        
-	        // 프로젝트 이름
-	        XWPFParagraph p1 = doc.createParagraph();
-	        XWPFRun r1 = p1.createRun();
+	        // 프로젝트 이름        
+	        XWPFTableCell c1 = table1.getRow(2).getCell(1);
+	        c1.removeParagraph(0);
+	        XWPFRun r1 = c1.addParagraph().createRun();	        
 	        r1.setBold(true);
 	        r1.setFontFamily("굴림체");	        
-	        r1.setText(selectProjectPartnerModel.getProjectName());	        
-	        table1.getRow(1).getCell(1).setParagraph(p1);
+	        r1.setText(selectProjectPartnerModel.getProjectName());       
 	        
-	        // 계약금액	       	        
-	        XWPFParagraph p2 = doc.createParagraph();
-	        XWPFRun r2 = p2.createRun();
+	        // 계약금액	  
+	        XWPFTableCell c2 = table1.getRow(1).getCell(1);
+	        c2.removeParagraph(0);
+	        XWPFRun r2 = c2.addParagraph().createRun();	        
 	        r2.setBold(true);
-	        r2.setFontFamily("굴림체");
-	        
-	        
-	        r2.setText("계약 금액 : 일금 "+ this.convertHangul(String.valueOf(manpowerMMModel.getTot())) +"원정 (\\" + this.insertComma((double)manpowerMMModel.getTot()) +".-)");	        
-	        table1.getRow(2).getCell(1).setParagraph(p2);
-	        
+	        r2.setFontFamily("굴림체");	        
+	        r2.setText("계약 금액 : 일금 "+ this.convertHangul(String.valueOf(manpowerMMModel.getTot())) +"원정 (\\" + this.insertComma((double)manpowerMMModel.getTot()) +".-)");
+      
 	        // M/M
-	        XWPFParagraph p3 = doc.createParagraph();
-	        XWPFRun r3 = p3.createRun();
+	        XWPFTableCell c3 = table1.getRow(3).getCell(1);
+	        c3.removeParagraph(0);
+	        XWPFRun r3 = c3.addParagraph().createRun();	        
 	        r3.setBold(true);
-	        r3.setFontFamily("굴림체");
+	        r3.setFontFamily("굴림체");	        
 	        r3.setText("M/M 단가 : 일금"+ this.convertHangul("5500000") +"원정 (\\" + this.insertComma((double)5500000) +".-)");
 	        r3.addBreak();
-	        r3.setText("계약 M/M : " + manpowerMMModel.getMm() + " M/M");	        
-	        table1.getRow(3).getCell(1).setParagraph(p3);
+	        r3.setText("계약 M/M : " + manpowerMMModel.getMm() + " M/M"); 
+	   
 	        
 	        // 계약기간
-	        XWPFParagraph p4 = doc.createParagraph();
-	        XWPFRun r4 = p4.createRun();
+//	        XWPFParagraph p4 = doc.createParagraph();
+//	        XWPFRun r4 = p4.createRun();
+	        XWPFTableCell c4 = table1.getRow(4).getCell(1);
+	        c4.removeParagraph(0);
+	        XWPFRun r4 = c4.addParagraph().createRun();	        
 	        r4.setBold(true);
 	        r4.setFontFamily("굴림체");
 	        r4.setText(this.makeDate(selectProjectPartnerModel.getStartDate(), selectProjectPartnerModel.getEndDate(), "A"));
-	        table1.getRow(4).getCell(1).setParagraph(p4);
+	        
 	        
 	        // 용역업무
-	        XWPFParagraph p5 = doc.createParagraph();
-	        XWPFRun r5 = p5.createRun();
+//	        XWPFParagraph p5 = doc.createParagraph();
+//	        XWPFRun r5 = p5.createRun();
+	        XWPFTableCell c5 = table1.getRow(5).getCell(2);
+	        c5.removeParagraph(0);
+	        XWPFRun r5 = c5.addParagraph().createRun();	 
 	        r5.setBold(true);
 	        r5.setFontFamily("굴림체");
 	        r5.setText(selectProjectPartnerModel.getProduct());
-	        table1.getRow(5).getCell(2).setParagraph(p5);
+//	        table1.getRow(5).getCell(2).setParagraph(p5);
 	        
 	        
 	        // 투입인력1 - 기술등급 
-	        XWPFParagraph p6 = doc.createParagraph();
-	        XWPFRun r6 = p6.createRun();
+//	        XWPFParagraph p6 = doc.createParagraph();
+//	        XWPFRun r6 = p6.createRun();
+	        XWPFTableCell c6 = table1.getRow(6).getCell(2);
+	        c6.removeParagraph(0);
+	        XWPFRun r6 = c6.addParagraph().createRun();	 
 	        r6.setBold(true);
 	        r6.setFontFamily("굴림체");
 	        r6.setText(selectManpowerMMModels.get(0).getDescription());
-	        table1.getRow(6).getCell(2).setParagraph(p6);
+//	        table1.getRow(6).getCell(2).setParagraph(p6);
 	        
 	        // 투입인력1 - 수행자
-	        XWPFParagraph p7 = doc.createParagraph();
-	        XWPFRun r7 = p7.createRun();
+//	        XWPFParagraph p7 = doc.createParagraph();
+//	        XWPFRun r7 = p7.createRun();
+	        XWPFTableCell c7 = table1.getRow(6).getCell(4);
+	        c7.removeParagraph(0);
+	        XWPFRun r7 = c7.addParagraph().createRun();	 
 	        r7.setBold(true);
 	        r7.setFontFamily("굴림체");
 	        r7.setText(this.makeName(selectManpowerMMModels.get(0).getManpowerName()));
-	        table1.getRow(6).getCell(4).setParagraph(p7);
+//	        table1.getRow(6).getCell(4).setParagraph(p7);
 	        
 //	        // 투입인력2 - 기술등급 
 //	        XWPFParagraph p8 = doc.createParagraph();
@@ -162,24 +174,33 @@ public class WordComponent {
 	        
 	        
 	        // 이행(납품) 장소
-	        XWPFParagraph p10 = doc.createParagraph();
-	        XWPFRun r10 = p10.createRun();
+//	        XWPFParagraph p10 = doc.createParagraph();
+//	        XWPFRun r10 = p10.createRun();
+	        XWPFTableCell c10 = table1.getRow(7).getCell(1);
+	        c10.removeParagraph(0);
+	        XWPFRun r10 = c10.addParagraph().createRun();	 
 	        //r10.setBold(true);
 	        r10.setFontFamily("굴림체");
 	        r10.setText(selectProjectPartnerModel.getLocale());
-	        table1.getRow(7).getCell(1).setParagraph(p10);
+//	        table1.getRow(7).getCell(1).setParagraph(p10);
 	        
 	        // 특기사항
-	        XWPFParagraph p11 = doc.createParagraph();
-	        XWPFRun r11 = p11.createRun();
+//	        XWPFParagraph p11 = doc.createParagraph();
+//	        XWPFRun r11 = p11.createRun();
+	        XWPFTableCell c11 = table1.getRow(12).getCell(1);
+	        c11.removeParagraph(0);
+	        XWPFRun r11 = c11.addParagraph().createRun();	 
 	        //r10.setBold(true);
 	        r11.setFontFamily("굴림체");
 	        r11.setText(selectProjectPartnerModel.getRemarks());
-	        table1.getRow(12).getCell(1).setParagraph(p11);
+//	        table1.getRow(12).getCell(1).setParagraph(p11);
 	        
 	        // 계약 내용
-	        XWPFParagraph p12 = doc.createParagraph();
-	        XWPFRun r12 = p12.createRun();
+//	        XWPFParagraph p12 = doc.createParagraph();
+//	        XWPFRun r12 = p12.createRun();
+	        XWPFTableCell c12 = table1.getRow(13).getCell(0);
+	        c12.removeParagraph(0);
+	        XWPFRun r12 = c12.addParagraph().createRun();	
 	        r12.setBold(true);
 	        r12.setFontFamily("굴림체");
 	        r12.setFontSize(11);	        
@@ -187,25 +208,33 @@ public class WordComponent {
 	        r12.setText("   발주자인 (주)써티웨어(이하 \"갑\"이라 함)와 " + selectProjectPartnerModel.getPartnerName() +"(이하 \"을\"이라 함)는 ");
 	        r12.setText("상호 대등한 지위에서 합의에 이르러 본 계약을 체결하고, 그 증거로 계약서 2부를 작성하여 각각 1부씩 보관한다.");
 	        r12.addBreak();	 
-	        table1.getRow(13).getCell(0).setParagraph(p12);
+//	        table1.getRow(13).getCell(0).setParagraph(p12);
 	        
 	        
 	        // 일자
-	        XWPFParagraph p13 = doc.createParagraph();
-	        p13.setAlignment(ParagraphAlignment.CENTER);	        
-	        XWPFRun r13 = p13.createRun();
+//	        XWPFParagraph p13 = doc.createParagraph();
+//	        p13.setAlignment(ParagraphAlignment.CENTER);	        
+//	        XWPFRun r13 = p13.createRun();
+	        XWPFTableCell c13 = table1.getRow(14).getCell(0);
+	        c13.removeParagraph(0);
+	        XWPFRun r13 = c13.addParagraph().createRun();	
 	        r13.setBold(true);
 	        r13.setFontFamily("굴림체");
 	        r13.setFontSize(11);
 	        r13.setText(this.makeDate(Calendar.getInstance().getTime(), null, "B"));
 	        r13.addBreak();
-	        table1.getRow(14).getCell(0).setParagraph(p13);
+	        XWPFParagraph p13 = c13.getParagraphs().get(0);
+	        p13.setAlignment(ParagraphAlignment.CENTER);
+//	        table1.getRow(14).getCell(0).setParagraph(p13);
 	        
 	        // 계약대상자 "갑"(포멧을 맞춰주기 위해 입력한다.)
-	        XWPFParagraph p14 = doc.createParagraph();
-	        p14.setIndentationLeft(1);
-	        p14.setIndentationRight(1);
-	        XWPFRun r14 = p14.createRun();	        
+	        XWPFTableCell c14 = table1.getRow(16).getCell(0);
+	        c14.removeParagraph(0);
+	        XWPFRun r14 = c14.addParagraph().createRun();
+//	        XWPFParagraph p14 = doc.createParagraph();
+//	        p14.setIndentationLeft(1);
+//	        p14.setIndentationRight(1);
+//	        XWPFRun r14 = p14.createRun();	        
 	        r14.setFontFamily("굴림체");
 	        r14.setFontSize(11);
 	        r14.addBreak();
@@ -220,13 +249,19 @@ public class WordComponent {
 	        r14.addBreak();
 	        r14.setText("     대표이사 : " + "고 병 도" + "   (인)");
 	        r14.addBreak();
-	        table1.getRow(16).getCell(0).setParagraph(p14);	    
+//	        table1.getRow(16).getCell(0).setParagraph(p14);	    
+	        XWPFParagraph p14 = c14.getParagraphs().get(0);
+	        p14.setIndentationLeft(1);
+	        p14.setIndentationRight(1);
 	        
 	        // 계약대상자 "을"
-	        XWPFParagraph p15 = doc.createParagraph();
-	        p15.setIndentationLeft(1);
-	        p15.setIndentationRight(1);
-	        XWPFRun r15 = p15.createRun();	        
+//	        XWPFParagraph p15 = doc.createParagraph();
+//	        p15.setIndentationLeft(1);
+//	        p15.setIndentationRight(1);
+//	        XWPFRun r15 = p15.createRun();
+	        XWPFTableCell c15 = table1.getRow(16).getCell(1);
+	        c15.removeParagraph(0);
+	        XWPFRun r15 = c15.addParagraph().createRun();
 	        r15.setFontFamily("굴림체");
 	        r15.setFontSize(11);
 	        r15.addBreak();
@@ -243,7 +278,10 @@ public class WordComponent {
 	        r15.addBreak();
 	        r15.setText("     대표(성명) : " + this.makeName(selectProjectPartnerModel.getCeoName()) + "   (인)");
 	        r15.addBreak();
-	        table1.getRow(16).getCell(1).setParagraph(p15);
+//	        table1.getRow(16).getCell(1).setParagraph(p15);
+	        XWPFParagraph p15 = c15.getParagraphs().get(0);
+	        p15.setIndentationLeft(1);
+	        p15.setIndentationRight(1);
 	        
 	        
 	        // 자사/법인인 경우에만 투입인력을 가져온다.
@@ -257,62 +295,88 @@ public class WordComponent {
 		        XWPFTableRow row = table2.getRow(table2.getRows().size() - 2);       
 		        
 		        // cell을 청소한다.
-		        this.clearCell(row);
+		        //this.clearRow(row);
 		        
 		        // 성명
-		        XWPFParagraph pp1 = doc.createParagraph();
-		        pp1.setAlignment(ParagraphAlignment.CENTER);	        
-		        XWPFRun rr1 = pp1.createRun();	        
+//		        XWPFParagraph pp1 = doc.createParagraph();
+//		        pp1.setAlignment(ParagraphAlignment.CENTER);	        
+//		        XWPFRun rr1 = pp1.createRun();
+		        XWPFTableCell cc1 = row.getCell(1);		  
+		        cc1.removeParagraph(0);
+		        XWPFRun rr1 = cc1.addParagraph().createRun();
 		        rr1.setFontFamily("굴림체");
 		        rr1.setFontSize(10);
 		        rr1.setText(selectManpowerMMModels.get(i).getManpowerName());	        
-		        row.getCell(1).setParagraph(pp1);
+//		        row.getCell(1).setParagraph(pp1);
+		        cc1.getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
+		        
 		        
 		        // 등급
-		        XWPFParagraph pp2 = doc.createParagraph();
-		        pp2.setAlignment(ParagraphAlignment.CENTER);	        
-		        XWPFRun rr2 = pp2.createRun();	        
+//		        XWPFParagraph pp2 = doc.createParagraph();
+//		        pp2.setAlignment(ParagraphAlignment.CENTER);	        
+//		        XWPFRun rr2 = pp2.createRun();	   
+		        XWPFTableCell cc2 = row.getCell(2);
+		        cc2.removeParagraph(0);
+		        XWPFRun rr2 = cc2.addParagraph().createRun();
+		        cc2.getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
 		        rr2.setFontFamily("굴림체");
 		        rr2.setFontSize(10);
 		        rr2.setText(selectManpowerMMModels.get(i).getDescription());	        
-		        row.getCell(2).setParagraph(pp2);
+//		        row.getCell(2).setParagraph(pp2);
+		        
 		        
 		        // 업무
-		        XWPFParagraph pp3 = doc.createParagraph();
-		        pp3.setAlignment(ParagraphAlignment.CENTER);	        
-		        XWPFRun rr3 = pp2.createRun();	        
+//		        XWPFParagraph pp3 = doc.createParagraph();
+//		        pp3.setAlignment(ParagraphAlignment.CENTER);	        
+//		        XWPFRun rr3 = pp2.createRun();	     
+		        XWPFTableCell cc3 = row.getCell(3);	
+		        cc3.removeParagraph(0);
+		        XWPFRun rr3 = cc3.addParagraph().createRun();
+		        cc3.getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
 		        rr3.setFontFamily("굴림체");
 		        rr3.setFontSize(10);
 		        rr3.setText("");	        
-		        row.getCell(3).setParagraph(pp3);
+//		        row.getCell(3).setParagraph(pp3);
 		        
 		        // 투입기간(M/M)
-		        XWPFParagraph pp4 = doc.createParagraph();
-		        pp4.setAlignment(ParagraphAlignment.CENTER);	        
-		        XWPFRun rr4 = pp4.createRun();	        
+//		        XWPFParagraph pp4 = doc.createParagraph();
+//		        pp4.setAlignment(ParagraphAlignment.CENTER);	        
+//		        XWPFRun rr4 = pp4.createRun();	 
+		        XWPFTableCell cc4 = row.getCell(4);
+		        cc4.removeParagraph(0);
+		        XWPFRun rr4 = cc4.addParagraph().createRun();
+		        cc4.getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
 		        rr4.setFontFamily("굴림체");
 		        rr4.setFontSize(10);
 		        rr4.setText(this.makeDate(selectManpowerMMModels.get(i).getStartDate(), selectManpowerMMModels.get(i).getEndDate(), "C")
 		        		+ "(" + selectManpowerMMModels.get(i).getMm() + "MM)");	        
-		        row.getCell(4).setParagraph(pp4);	        
+//		        row.getCell(4).setParagraph(pp4);	        
 		        
 		        // 단가(원/월)
-		        XWPFParagraph pp5 = doc.createParagraph();
-		        pp5.setAlignment(ParagraphAlignment.CENTER);	        
-		        XWPFRun rr5 = pp5.createRun();	        
+//		        XWPFParagraph pp5 = doc.createParagraph();
+//		        pp5.setAlignment(ParagraphAlignment.CENTER);	        
+//		        XWPFRun rr5 = pp5.createRun();	       
+		        XWPFTableCell cc5 = row.getCell(5);		        
+		        cc5.removeParagraph(0);
+		        XWPFRun rr5 = cc5.addParagraph().createRun();
+		        cc5.getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
 		        rr5.setFontFamily("굴림체");
 		        rr5.setFontSize(10);
 		        rr5.setText(this.insertComma((double)selectManpowerMMModels.get(i).getOutsourcingAmount()));      
-		        row.getCell(5).setParagraph(pp5);	   
+//		        row.getCell(5).setParagraph(pp5);	   
 		        
 		        // 총금액(원)
-		        XWPFParagraph pp6 = doc.createParagraph();
-		        pp6.setAlignment(ParagraphAlignment.CENTER);	        
-		        XWPFRun rr6 = pp6.createRun();	        
+//		        XWPFParagraph pp6 = doc.createParagraph();
+//		        pp6.setAlignment(ParagraphAlignment.CENTER);	        
+//		        XWPFRun rr6 = pp6.createRun();	  
+		        XWPFTableCell cc6 = row.getCell(6);		 
+		        cc6.removeParagraph(0);
+		        XWPFRun rr6 = cc6.addParagraph().createRun();
+		        cc6.getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
 		        rr6.setFontFamily("굴림체");
 		        rr6.setFontSize(10);
 		        rr6.setText(this.insertComma((double)selectManpowerMMModels.get(i).getTot()));	        
-		        row.getCell(6).setParagraph(pp6);
+//		        row.getCell(6).setParagraph(pp6);
 		        
 		        }       
 		        
@@ -320,22 +384,30 @@ public class WordComponent {
 		        XWPFTableRow row = table2.getRow(table2.getRows().size() - 1);
 		        
 		        // 투입기간(M/M)
-		        XWPFParagraph pp7 = doc.createParagraph();
-		        pp7.setAlignment(ParagraphAlignment.CENTER);	        
-		        XWPFRun rr7 = pp7.createRun();	        
+//		        XWPFParagraph pp7 = doc.createParagraph();
+//		        pp7.setAlignment(ParagraphAlignment.CENTER);	        
+//		        XWPFRun rr7 = pp7.createRun();	        
+		        XWPFTableCell cc7 = row.getCell(2);		   
+		        cc7.removeParagraph(0);
+		        XWPFRun rr7 = cc7.addParagraph().createRun();
+		        cc7.getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
 		        rr7.setFontFamily("굴림체");
 		        rr7.setFontSize(10);
 		        rr7.setText(manpowerMMModel.getMm() + " M/M");	        
-		        row.getCell(2).setParagraph(pp7);
+//		        row.getCell(2).setParagraph(pp7);
 		        
 		        // 총금액(원)
-		        XWPFParagraph pp8 = doc.createParagraph();
-		        pp8.setAlignment(ParagraphAlignment.CENTER);	        
-		        XWPFRun rr8 = pp8.createRun();	        
+//		        XWPFParagraph pp8 = doc.createParagraph();
+//		        pp8.setAlignment(ParagraphAlignment.CENTER);	        
+//		        XWPFRun rr8 = pp8.createRun();	        
+		        XWPFTableCell cc8 = row.getCell(4);		
+		        cc8.removeParagraph(0);
+		        XWPFRun rr8 = cc8.addParagraph().createRun();
+		        cc8.getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
 		        rr8.setFontFamily("굴림체");
 		        rr8.setFontSize(10);
 		        rr8.setText(this.insertComma(manpowerMMModel.getTot()));        
-		        row.getCell(4).setParagraph(pp8);
+//		        row.getCell(4).setParagraph(pp8);
 		        
 		        // 공백 cell 제거
 		         table2.removeRow(1);
@@ -382,7 +454,7 @@ public class WordComponent {
 		 * cell의 내용을 초기화 시켜준다.
 		 * @param row
 		 */
-		private void clearCell(XWPFTableRow row){
+		private void clearRow(XWPFTableRow row){
 			
 			CTTc[] cells = row.getCtRow().getTcList().toArray(new CTTc[0]);
 	        for (int c = 0; c < cells.length; c++) {
@@ -392,6 +464,15 @@ public class WordComponent {
 	         cells[c] = cTTc;
 	        }
 	        System.out.println(row.getCell(1).getText());
+			
+		}
+		
+		private void clearCell(XWPFTableCell cell){	
+			
+			CTTc cTTc = cell.getCTTc();
+	         //clear only the paragraphs in the cell, keep cell styles
+	         cTTc.setPArray(new CTP[] {CTP.Factory.newInstance()});
+	         //CTTc[] cell = cTTc;
 			
 		}
 		
