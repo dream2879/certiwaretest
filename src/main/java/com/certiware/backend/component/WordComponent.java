@@ -37,7 +37,7 @@ public class WordComponent {
 		File docFile = null;		
 		SelectManpowerMMModel manpowerMMModel = selectManpowerMMModels.get(selectManpowerMMModels.size()-1);
 		
-try {
+		try {
 			
 			
 			// local에 있는 템플릿 파일을 가져온다.

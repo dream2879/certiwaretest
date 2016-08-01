@@ -12,7 +12,8 @@ public class ManpowerModel {
 	private long outsourcingAmount;	// 외주단가
 	private Date startDate;			// 시작일
 	private Date endDate;			// 종료일
-	private String remarks;			// 비고
+	private String remarks;	
+	// 비고
 	public int getProjectId() {
 		return projectId;
 	}

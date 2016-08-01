@@ -259,10 +259,13 @@ public interface ProjectMapper {
 			+ "                  WHERE PROJECTID = #{projectId}                                            "
 			+ "                 GROUP BY PROJECTID, MANPOWERNAME) A,                              "
 			+ "                TB_MANPOWER B,                                                     "
-			+ "                TB_RATINGCODE C                                                    "
+			+ "                TB_RATINGCODE C,                                                    "
+			+ "				   TB_PARTNER D	"
 			+ "          WHERE     A.PROJECTID = B.PROJECTID                                      "
 			+ "                AND A.MANPOWERNAME = B.MANPOWERNAME                                "
-			+ "                AND B.RATINGCODE = C.RATINGCODE) A                                 "
+			+ "                AND B.RATINGCODE = C.RATINGCODE	"
+			+ "				   AND B.PARTNERID = #{partnerId} "
+			+ "					) A                                 "
 			+ " GROUP BY MANPOWERNAME WITH ROLLUP                                                 ")
 	public List<SelectManpowerMMModel> selectManpowerMM(MakeContractReqModel makeContractReqModel) throws Exception;
 
