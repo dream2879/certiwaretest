@@ -142,7 +142,7 @@ public class ProjectService {
 			manpowerModel.setPartnerId(modifyOutsourcingModel.getPartnerId());
 			manpowerModel.setManpowerName(modifyOutsourcingModel.getPartnerName());
 			manpowerModel.setRatingCode(modifyOutsourcingModel.getRatingCode());
-			manpowerModel.setJob(modifyOutsourcingModel.getJob());
+			manpowerModel.setJob(modifyOutsourcingModel.getProduct());
 			manpowerModel.setSellingAmount(modifyOutsourcingModel.getSellingAmount());			
 			manpowerModel.setOutsourcingAmount(modifyOutsourcingModel.getOutsourcingAmount());
 			manpowerModel.setStartDate(modifyOutsourcingModel.getStartDate());

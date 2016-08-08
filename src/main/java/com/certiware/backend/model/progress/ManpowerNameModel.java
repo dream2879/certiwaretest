@@ -14,7 +14,16 @@ public class ManpowerNameModel {
 	private Date startDate;			// 시작일
 	private Date endDate;			// 종료일
 	private String remarks;			// 비고
+	private String job;
 	
+	
+	
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
 	public String getRemarks() {
 		return remarks;
 	}

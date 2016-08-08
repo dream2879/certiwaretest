@@ -31,19 +31,20 @@ public interface ProgressMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	@Select(  " SELECT B.PARTNERID, B.PARTNERNAME "
-			+ " FROM TB_OUTSOURCING A, TB_PARTNER B                                                               "
-			+ " WHERE A.PROJECTID = #{param1} "
-			+ " AND A.PARTNERID = B.PARTNERID "
-			+ " AND B.PARTNERCODE < 3  	          "
-			+ " ORDER BY B.PARTNERID "
+	@Select(  " SELECT B.PARTNERID, B.PARTNERNAME   "
+			+ " FROM TB_OUTSOURCING A, TB_PARTNER B "
+			+ " WHERE A.PROJECTID = #{param1}       "
+			+ " AND A.PARTNERID = B.PARTNERID       "
+			+ " AND B.PARTNERCODE < 3  	            "
+			+ " AND A.OUTSOURCINGCODE = 1           "
+			+ " ORDER BY B.PARTNERID                "
 			)
 	public List<ProjectPartnerModel> selectOutsourcingByProjectId(int projectId) throws Exception;
 	
 	@Select(  "<script>"
 			+ " SELECT  A.PROJECTID, A.MANPOWERNAME, A.PARTNERID,																									"
 			+ "         CASE WHEN B.PARTNERCODE >= 3 THEN 'A' ELSE A.PARTNERID END AS PARTNERGUBUN,      "
-			+ "			A.RATINGCODE, A.SELLINGAMOUNT, A.OUTSOURCINGAMOUNT, A.STARTDATE, A.ENDDATE, A.REMARKS "
+			+ "			A.RATINGCODE, A.SELLINGAMOUNT, A.OUTSOURCINGAMOUNT, A.STARTDATE, A.ENDDATE, A.REMARKS, A.JOB "
 			+ " FROM TB_MANPOWER A, TB_PARTNER B                                                    "
 			+ " WHERE A.PARTNERID = B.PARTNERID                                                     "
 			+ " AND A.PROJECTID = #{projectId}                                                               "
@@ -95,7 +96,7 @@ public interface ProgressMapper {
 			+ "		#{manpowerName}, "
 			+ "		#{partnerId}, "
 			+ "		#{ratingCode}, "
-			+ "		#{jbo}, "
+			+ "		#{job}, "
 			+ "		#{sellingAmount}, "
 			+ "		#{outsourcingAmount}, "
 			+ "		#{startDate}, "
@@ -114,7 +115,7 @@ public interface ProgressMapper {
 			+ "   MANPOWERNAME = #{manpowerName},        "
 			+ "   PARTNERID = #{partnerId},            "
 			+ "   RATINGCODE = #{ratingCode},          "
-			+ "   JBO = #{job},          "
+			+ "   JOB = #{job},          "
 			+ "   SELLINGAMOUNT = #{sellingAmount},        "
 			+ "   OUTSOURCINGAMOUNT = #{outsourcingAmount},    "
 			+ "   STARTDATE = #{startDate},           "

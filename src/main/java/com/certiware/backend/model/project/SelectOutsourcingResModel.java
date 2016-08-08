@@ -13,6 +13,10 @@ public class SelectOutsourcingResModel {
 	private String ratingCode;
 	private String product;			// 상품/업무 내용
 	private String locale;			// 납품/이행 장소
+	private String contractWarranty;	// 계약이행보증
+	private String delayWarranty;		// 지체상금
+	private String defectWarranty;		// 하자이행보증
+	private String paymentsTerm;		// 대금지급조건
 	private Date startDate;
 	private String endDate;
 	private String remarks;
@@ -89,6 +93,30 @@ public class SelectOutsourcingResModel {
 	}
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+	public String getContractWarranty() {
+		return contractWarranty;
+	}
+	public void setContractWarranty(String contractWarranty) {
+		this.contractWarranty = contractWarranty;
+	}
+	public String getDelayWarranty() {
+		return delayWarranty;
+	}
+	public void setDelayWarranty(String delayWarranty) {
+		this.delayWarranty = delayWarranty;
+	}
+	public String getDefectWarranty() {
+		return defectWarranty;
+	}
+	public void setDefectWarranty(String defectWarranty) {
+		this.defectWarranty = defectWarranty;
+	}
+	public String getPaymentsTerm() {
+		return paymentsTerm;
+	}
+	public void setPaymentsTerm(String paymentsTerm) {
+		this.paymentsTerm = paymentsTerm;
 	}
 	
 	

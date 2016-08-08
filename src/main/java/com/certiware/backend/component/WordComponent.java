@@ -42,7 +42,7 @@ public class WordComponent {
 			
 			
 			// local에 있는 템플릿 파일을 가져온다.
-			String file = partnerCode < 3 ? "E:\\word\\template\\company.docx" : "E:\\word\\template\\free.docx";
+			String file = partnerCode < 3 ? "C:\\word\\template\\company.docx" : "C:\\word\\template\\free.docx";
 			docFile = new File(file);
 	        FileInputStream fis = null;
 	        if (!docFile.exists()) {

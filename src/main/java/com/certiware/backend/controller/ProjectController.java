@@ -314,7 +314,7 @@ public class ProjectController {
 	@RequestMapping("/selectProjectList")
 	public List<SelectProjectListResModel> selectProjectList(@RequestBody SelectProjectListReqModel projectListReqModel) throws ServletException{
 		System.out.println("selectProjectList() start... ");
-		List<SelectProjectListResModel> selectProjectListModels = null; 
+		List<SelectProjectListResModel> selectProjectListModels = null;
 		
 		try{		
 			
