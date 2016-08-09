@@ -496,11 +496,20 @@ public class AdminService {
 		                                      
 		for (CodeModel codeModel : codeModels) {
 			
-			// update
+			//update - outSourcing
+			adminMapper.updateOutSourcingRatingCode(codeModel);
+			
+			//update - preOutSourcing
+			adminMapper.updatePreOutSourcingRatingCode(codeModel);
+			
+			// update - ratingCode
 			adminMapper.updateManpowerRatingCode(codeModel);
 			
+			//2016-08-09 단가정보 update시 개인키 중복오류로 주석(update -> delete)로 변경
 			// update
-			adminMapper.updateUnitPriceRatingCode(codeModel);
+			// adminMapper.updateUnitPriceRatingCode(codeModel);
+			
+			adminMapper.deleteUnitPriceRatingCode(codeModel);
 			
 			// delete
 			adminMapper.deleteRatingCode(codeModel);

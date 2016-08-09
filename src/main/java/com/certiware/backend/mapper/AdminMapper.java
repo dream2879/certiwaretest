@@ -456,5 +456,40 @@ public interface AdminMapper {
 			)
 	public void updateUnitPriceRatingCode(CodeModel codeModel) throws Exception;
 	
+	/**
+	 * TB_UNITPRICE 테이블 변경
+	 * TB_RATINGCODE 테이블의 코드 값이 삭제 됨에 따라 변경
+	 * @param codeModel
+	 * @throws Exception
+	 */
+	@Update(  " UPDATE tb_outsourcing SET                                                                     "
+			+ "   RATINGCODE = #{updateCode}                                                                "
+			+ " WHERE RATINGCODE = #{code}                                                                  "
+			)
+	public void updateOutSourcingRatingCode(CodeModel codeModel) throws Exception;
+	
+	/**
+	 * TB_UNITPRICE 테이블 변경
+	 * TB_RATINGCODE 테이블의 코드 값이 삭제 됨에 따라 변경
+	 * @param codeModel
+	 * @throws Exception
+	 */
+	@Update(  " UPDATE tb_preoutsourcing SET                                                                     "
+			+ "   RATINGCODE = #{updateCode}                                                                "
+			+ " WHERE RATINGCODE = #{code}                                                                  "
+			)
+	public void updatePreOutSourcingRatingCode(CodeModel codeModel) throws Exception;
+	
+	/**
+	 * TB_UNITPRICE 테이블 변경
+	 * TB_RATINGCODE 테이블의 코드 값이 삭제 됨에 따라 변경
+	 * @param codeModel
+	 * @throws Exception
+	 */
+	@Delete(  " DELETE FROM TB_UNITPRICE                                                              "
+			+ " WHERE RATINGCODE = #{code}                                                             "
+			)
+	public void deleteUnitPriceRatingCode(CodeModel codeModel) throws Exception;
+	
 	
 }
