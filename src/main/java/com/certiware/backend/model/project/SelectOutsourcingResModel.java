@@ -9,7 +9,7 @@ public class SelectOutsourcingResModel {
 	private String partnerName;
 	private String partnerCode;
 	private String outsourcingCode;
-	private int outsourcingAmount;
+	private long outsourcingAmount;
 	private String ratingCode;
 	private String product;			// 상품/업무 내용
 	private String locale;			// 납품/이행 장소
@@ -20,26 +20,6 @@ public class SelectOutsourcingResModel {
 	private Date startDate;
 	private String endDate;
 	private String remarks;
-	
-	
-	public String getRemarks() {
-		return remarks;
-	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-	public String getLocale() {
-		return locale;
-	}
-	public void setLocale(String locale) {
-		this.locale = locale;
-	}
-	public String getPartnerCode() {
-		return partnerCode;
-	}
-	public void setPartnerCode(String partnerCode) {
-		this.partnerCode = partnerCode;
-	}
 	public int getProjectId() {
 		return projectId;
 	}
@@ -58,16 +38,22 @@ public class SelectOutsourcingResModel {
 	public void setPartnerName(String partnerName) {
 		this.partnerName = partnerName;
 	}
+	public String getPartnerCode() {
+		return partnerCode;
+	}
+	public void setPartnerCode(String partnerCode) {
+		this.partnerCode = partnerCode;
+	}
 	public String getOutsourcingCode() {
 		return outsourcingCode;
 	}
 	public void setOutsourcingCode(String outsourcingCode) {
 		this.outsourcingCode = outsourcingCode;
 	}
-	public int getOutsourcingAmount() {
+	public long getOutsourcingAmount() {
 		return outsourcingAmount;
 	}
-	public void setOutsourcingAmount(int outsourcingAmount) {
+	public void setOutsourcingAmount(long outsourcingAmount) {
 		this.outsourcingAmount = outsourcingAmount;
 	}
 	public String getRatingCode() {
@@ -82,17 +68,11 @@ public class SelectOutsourcingResModel {
 	public void setProduct(String product) {
 		this.product = product;
 	}
-	public Date getStartDate() {
-		return startDate;
+	public String getLocale() {
+		return locale;
 	}
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 	public String getContractWarranty() {
 		return contractWarranty;
@@ -118,7 +98,24 @@ public class SelectOutsourcingResModel {
 	public void setPaymentsTerm(String paymentsTerm) {
 		this.paymentsTerm = paymentsTerm;
 	}
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	
 	
-
 }

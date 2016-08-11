@@ -142,7 +142,8 @@ public class QueryComponent {
 		
 		query += "                                		-- 반복문 수행 끝 " + System.getProperty("line.separator") ;		
 		query += "                                FROM TB_MANPOWERMM A, TB_PROJECT B " + System.getProperty("line.separator") ;
-		query += " 								  WHERE MONTH BETWEEN '" + df.format(startDate) + "' AND '" + df.format(endDate) +"' ";
+		query += " 								  WHERE A.PROJECTID = B.PROJECTID ";
+		query += " 								        AND MONTH BETWEEN '" + df.format(startDate) + "' AND '" + df.format(endDate) +"' ";
 		
 		if(selectProgressListReqModel.getDeptCode() != null && selectProgressListReqModel.getDeptCode() != ""){
 			
@@ -209,7 +210,8 @@ public class QueryComponent {
 		query += dQuery3;
 		query += "                                		-- 반복문 수행 끝 " + System.getProperty("line.separator") ;
 		query += "                                FROM TB_MANPOWERMM A, TB_PROJECT B " + System.getProperty("line.separator") ;
-		query += " 								  WHERE MONTH BETWEEN '" + df.format(startDate) + "' AND '" + df.format(endDate) +"' ";
+		query += " 								  WHERE A.PROJECTID = B.PROJECTID ";
+		query += " 								        AND MONTH BETWEEN '" + df.format(startDate) + "' AND '" + df.format(endDate) +"' ";
 		
 		if(selectProgressListReqModel.getDeptCode() != null && selectProgressListReqModel.getDeptCode() != ""){
 			

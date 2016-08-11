@@ -227,7 +227,7 @@ public interface PreProjectMapper {
 			+ "		#{manpowerName}, "
 			+ "		#{partnerId}, "
 			+ "		#{ratingCode}, "
-			+ "		#{job}, "
+//			+ "		#{job}, "
 			+ "		#{sellingAmount}, "
 			+ "		#{outsourcingAmount}, "
 			+ "		#{startDate}, "

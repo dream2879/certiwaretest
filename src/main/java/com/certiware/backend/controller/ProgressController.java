@@ -2,6 +2,7 @@ package com.certiware.backend.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -240,6 +241,11 @@ public class ProgressController {
 			throw new ServletException(e.toString());
 		}
 		
+		System.out.println("---------selectProgressListResModel toString----------------------------");
+		for (int i = 0; i < selectProgressListResModels.size(); i++) {			
+			System.out.println(selectProgressListResModels.get(i).toString());
+		}
+		System.out.println("------------------------------------------------------------------------");
 		System.out.println("selectProgressList() end...");
 		
 		return selectProgressListResModels;
@@ -271,7 +277,7 @@ public class ProgressController {
 			System.out.println("error : " + e.toString());
 			throw new ServletException(e.toString());
 		}
-		
+
 		System.out.println("selectManpowerMmList() end...");
 		
 		return selectPartnerNameLists;

@@ -29,6 +29,7 @@ public class SelectProgressListResModel {
 	private long tot;
 	private long net;
 	private String remarks;
+	
 	public int getProjectId() {
 		return projectId;
 	}
@@ -178,6 +179,15 @@ public class SelectProgressListResModel {
 	}
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+	@Override
+	public String toString() {
+		return "SelectProgressListResModel [projectId=" + projectId + ", projectName=" + projectName + ", manpowerName="
+				+ manpowerName + ", rating=" + rating + ", partner=" + partner + ", flag=" + flag + ", amount=" + amount
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", m1=" + m1 + ", m2=" + m2 + ", m3=" + m3
+				+ ", m4=" + m4 + ", m5=" + m5 + ", m6=" + m6 + ", m7=" + m7 + ", m8=" + m8 + ", m9=" + m9 + ", m10="
+				+ m10 + ", m11=" + m11 + ", m12=" + m12 + ", mSum=" + mSum + ", tot=" + tot + ", net=" + net
+				+ ", remarks=" + remarks + "]";
 	}
 	
 	
